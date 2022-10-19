@@ -375,13 +375,13 @@ def utils_get_prediction_odor(BASE_DIR, query_smile = "CC=O", predict = "odor"):
                               "-smile", query_smile,
                               "-label", str(BASE_DIR) + "/odor/utils/infos_models/label_odors_names.txt",
                               "-PATH_GCC", str(BASE_DIR) + "/odor/utils/Trained_models/GNN_CODB_ckpt",
-                              "-predict", "odor"], stdout=subprocess.PIPE) #, stderr=subprocess.PIPE)
+                              "-predict", "odor"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if predict == "or":
         p = subprocess.Popen([python_bin, script_file,
                               "-smile", query_smile,
                               "-label", str(BASE_DIR) + "/odor/utils/infos_models/label_or_names.txt",
                               "-PATH_GCC", str(BASE_DIR) + "/odor/utils/Trained_models/GNN_RCDB_HO_ckpt",
-                              "-predict", "or"], stdout=subprocess.PIPE) # , stderr=subprocess.PIPE)
+                              "-predict", "or"], stdout=subprocess.PIPE , stderr=subprocess.PIPE)
     out, err = p.communicate()
     print([out.decode("utf-8") ],"----------------")
     print(err)
