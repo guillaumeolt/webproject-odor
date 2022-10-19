@@ -383,7 +383,7 @@ def utils_get_prediction_odor(BASE_DIR, query_smile = "CC=O", predict = "odor"):
                               "-PATH_GCC", str(BASE_DIR) + "/odor/utils/Trained_models/GNN_RCDB_HO_ckpt",
                               "-predict", "or"], stdout=subprocess.PIPE) # , stderr=subprocess.PIPE)
     out, err = p.communicate()
-    #print([out.decode("utf-8") ],"----------------")
+    print([out.decode("utf-8") ],"----------------")
     #out = out.split("\n")
     """
     out = str(out)
@@ -393,10 +393,10 @@ def utils_get_prediction_odor(BASE_DIR, query_smile = "CC=O", predict = "odor"):
     """
     out = out.decode("utf-8")
     out = out.rstrip()
-    #print(out, type(out))
+    print(out, type(out))
     out = out.replace("\\n", "")
     out = out.replace("\'", "\"")
-    #print([out],"---------- - -")
+    print([out],"---------- - -")
     out = json.loads(out)
     #print(out)
     out = dict(sorted(out.items(), key=lambda x: x[1], reverse=True))
