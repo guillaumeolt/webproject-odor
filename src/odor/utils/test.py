@@ -384,6 +384,7 @@ def utils_get_prediction_odor(BASE_DIR, query_smile = "CC=O", predict = "odor"):
                               "-predict", "or"], stdout=subprocess.PIPE) # , stderr=subprocess.PIPE)
     out, err = p.communicate()
     print([out.decode("utf-8") ],"----------------")
+    print(err)
     #out = out.split("\n")
     """
     out = str(out)
