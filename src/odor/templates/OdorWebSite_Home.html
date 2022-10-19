@@ -1,0 +1,283 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+    <title>OdorFinder/OdorPred (to change)</title>
+	<link rel="stylesheet" href="{% static 'css/style_website.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_website_home.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+</head>
+<body class="home">
+    <!-- Fixed navbar -->
+	<div class="navbar" >
+		<div class="navbar-container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="{% url 'OdorWebSite_Home' %}"><img src="assets/images/logo.png" alt="OdorWebSiteLogo"></a>
+			</div>
+            <!-- Button for smallest screens -->
+            <a href="#" class="navbar-toggle">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+			<div class="navbar-collapse">
+				<ul class="navbar-items">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="{% url 'OdorWebSite_About' %}">About</a></li>
+                    <li><a href="{% url 'search_chem_or_odor' %}">Search</a></li>
+					<li><a href="{% url 'OdorWebSite_Search' %}">Structure Search</a></li>
+                    <li><a href="{% url 'OdorWebSite_Predict' %}">Predict</a></li>
+                    <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>
+					<li><a href="{% url 'OdorWebSite_Contact' %}">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+    <script>
+    const toggleButton = document.getElementsByClassName('navbar-toggle')[0];
+    const navbarLinks = document.getElementsByClassName('navbar-collapse')[0];
+    toggleButton.addEventListener('click', () => {
+        console.log("ok");
+      navbarLinks.classList.toggle('active');
+    });
+    </script>
+    <!-- /.navbar -->
+	<!-- Header -->
+	<!--<header id="head">
+		<div class="container">
+			<div class="header-title">
+				<h1 class="lead">Website for searching chemical odors and olfactory receptors and predict it</h1>
+                <p>Reference</p>
+			</div>
+		</div>
+	</header>
+	-->
+	<!-- /.Header -->
+    <!-- Main -->
+        <!--<div class="Search_filter">
+            <form method="post" action="{% url 'search_chem_or_odor' %}">
+            {% csrf_token %}
+                <input type="text" id="search_chemical" name="search_chemical" placeholder="Search chemical by name, cas, smile, PubChem CID"></input>
+                <button type="submit" id="btn_search_chem" name="btn_search_chemical">Launch chemical search</button>
+
+                <input type="text" id="search_or" name="search_or" placeholder="Search OR by name, Uniprot ID, Species"></input>
+                <button type="submit" id="btn_search_or" name="btn_search_OR">Launch OR search</button>
+
+                <input type="text" id="search_odor" name="search_odor" placeholder="Search odor"></input>
+                <button type="submit" id="btn_search_odor" name="btn_search_odor">Launch odor search</button>
+            </form>
+        </div>-->
+        <div class="Search_filter" style="background-image: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.2)), url('{% static 'media/img/home_background.png' %}');">
+        <h1> OdorWebSiteTitle </h1>
+        <h4> Explore odorant chemicals, olfactory receptors, odors </h4>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="chem-tab" data-toggle="tab" href="#chem" role="tab" aria-controls="chem" aria-selected="true">Chemicals</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="or-tab" data-toggle="tab" href="#or" role="tab" aria-controls="or" aria-selected="false">Olfactory Receptors</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="odor-tab" data-toggle="tab" href="#odor" role="tab" aria-controls="odor" aria-selected="false">Odors</a>
+          </li>
+        </ul>
+        <form method="post" action="{% url 'search_chem_or_odor' %}">
+        {% csrf_token %}
+            <div class="tab-content">
+              <div class="tab-pane active" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
+                  <input type="text" id="search_chemical" name="search_chemical" placeholder="Search Chemicals by name, cas, smile, PubChem CID"></input>
+                  <button type="submit" id="btn_search_chem" name="btn_search_chemical">Search</button>
+                  <script>
+                      var availableTags = [
+                                           {% for chem in chemicals_odors %}
+                                               "{{chem.CAS | safe}}", "{{chem.Name | addslashes}}",
+                                           {% endfor %}
+                                           ];
+
+                      var availableTags_dict_chem = {
+                          {% for chem in chemicals_odors %}
+                          "{{ chem.idChemicals }}": {CAS: "{{chem.CAS | safe}}",
+                                                     Name:"{{chem.Name | addslashes}}"},
+                          {% endfor %}
+                      };
+                  </script>
+              </div>
+              <div class="tab-pane" id="or-tab-pane" role="tabpanel" aria-labelledby="or-tab">
+                  <input type="text" id="search_or" name="search_or" placeholder="Search OR by name, Uniprot ID, Species"></input>
+                  <button type="submit" id="btn_search_or" name="btn_search_OR">Search</button>
+                  <script>
+                      var availableTags_dict_or = {
+                          {% for or in olfactory_receptors %}
+                          "{{ or.idOlfactoryReceptors }}": {GeneName: "{{or.GeneName}}",
+                                                            idUniprot: "{{or.idUniprot}}",
+                                                            Species:"{{or.Species}}"},
+                          {% endfor %}
+                      };
+                  </script>
+              </div>
+              <div class="tab-pane" id="odor-tab-pane" role="tabpanel" aria-labelledby="odor-tab">
+                  <input type="text" id="search_odor" name="search_odor" placeholder="Search Odors"></input>
+                  <button type="submit" id="btn_search_odor" name="btn_search_odor">Search</button>
+                  <script>
+                      var availableTags_dict_odor = {
+                          {% for odor in smell_percepts %}
+                          "{{ odor.idSmell_Percepts }}": {Odor: "{{odor.Odor}}"},
+                          {% endfor %}
+                      };
+                  </script>
+              </div>
+            </div>
+        </form>
+            <div class="relative">
+                <div class="autocomplete_container" id="autocomplete_container"></div>
+            </div>
+
+            <div class="ex_search active" id="ex_search_chem">Examples Chemicals :
+                <a class="ex_search_chem_1" href="#query=Acetaldehyde">Acetaldehyde</a>
+                <a class="ex_search_chem_2" href="#query=3-Pentanone">3-Pentanone</a>
+                <a class="ex_search_chem_3" href="#query=Thiophene">Thiophene</a>
+            </div>
+            <div class="ex_search" id="ex_search_or">Examples Olfactory Receptors :
+                <a class="ex_search_or_1" href="#query=or1D2">OR1D2</a>
+                <a class="ex_search_or_2" href="#query=Q499H5">Q499H5</a>
+                <a class="ex_search_or_3" href="#query=humain">humain</a>
+            </div>
+            <div class="ex_search" id="ex_search_odor">Examples Odors :
+                <a class="ex_search_odor_1" href="#query=coffee">coffee</a>
+                <a class="ex_search_odor_2" href="#query=sulfurous">sulfurous</a>
+                <a class="ex_search_odor_3" href="#query=floral">floral</a>
+            </div>
+    </div>
+            <script type="text/javascript" src="{% static 'js/code.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/code_suggestion.js' %}"></script>
+    <main>
+        <!-- Intro -->
+        <div class="container text-center">
+            <div class="overview_text">
+                <h3 class="thin">Overview</h3>
+                <p class="center-intro">
+                    Odor web site allow the user to have easily acces to informations on :
+                    - 5980 molecules with 5907 odorant molécules
+                    - 296 Olfactory receptors
+                    - 7544 smell taggs retrived from public sources
+                    - 38504 information de molecules odeur
+
+                    - site permet accès rapide aux information de molecules, recepteur olfactif, odeur et permet de faire
+                    le lien entre eux.
+
+                    - site met à disposition plusieurs outils :
+                    -- la possibilité de chercher les information d'un composé selon sa structure
+                    -- prédire le/les pouvoirs odorants d'une molécule
+                </p>
+            </div>
+            <div class="overview_image">
+                <img src="{% static 'media/img/home_overview.svg' %}" alt="Overview SVG">
+            </div>
+        </div>
+        <!-- /.Intro-->
+        <!-- Structure Search -->
+        <div class="container text-center">
+            <div class="overview_image">
+                <img src="{% static 'media/img/home_overview.svg' %}" alt="Overview SVG">
+            </div>
+            <div class="overview_text">
+                <h2 class="thin">Tools : Structural search</h2>
+                <p class="center-intro">
+                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour
+                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour introduire
+                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour introduire
+                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour introduire
+                </p>
+            </div>
+        </div>
+        <!-- /.Structure Search-->
+        <!-- Prediction -->
+        <div class="container text-center">
+            <div class="overview_text">
+                <h2 class="thin">Tools : Odor Prediction</h2>
+                <p class="center-intro">
+                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour
+                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour introduire
+                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour introduire
+                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour introduire
+                </p>
+            </div>
+            <div class="overview_image">
+                <img src="{% static 'media/img/home_overview.svg' %}" alt="Overview SVG">
+            </div>
+        </div>
+        <!-- /.Prediction-->
+        <!-- References/partenaires -->
+        <div class="container text-center-ref">
+            <h2 class="thin">References</h2>
+            <p class="center-intro">
+                Du texte pour References/partenaires le website.Du texte pour introduire le website.Du texte pour
+                Du texte pour References/partenaires le website.Du texte pour introduire le website.Du texte pour introduire
+                Du texte pour References/partenaires le website.Du texte pour introduire le website.Du texte pour introduire
+                Du texte pour References/partenaires le website.Du texte pour introduire le website.Du texte pour introduire
+            </p>
+        </div>
+        <!-- /.References/partenaires-->
+    </main>
+    <!-- /.Main -->
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container-footer">
+            <div class="row">
+                <div class="footer-content Contact">
+                    <h3 class="footer-title">Contact</h3>
+                    <div class="widget-body">
+                        <p>+3615odor<br>
+                        <a href="mailto:#">some.email@somewhere.com</a>
+                        <br>
+                            Université Paris Cité
+                        <br>
+                            Bâtiment Lamarck A
+                        <br>
+                            35 rue Hélène Brion, 75205, Paris Cedex 13
+                        </p>
+                    </div>
+                </div>
+
+                <div class="footer-content Follow">
+                    <h3 class="footer-title">Follow</h3>
+                    <div class="widget-body">
+                        <a href="https://www.inserm.fr/en/home/">
+                            <img src="{% static 'media/logos/inserm_logo2.png' %}">
+                        </a>
+                        <a href="https://u-paris.fr/en/">
+                            <img src="{% static 'media/logos/logo_paris.png' %}">
+                        </a>
+                        <a href="https://systox.u-paris-sciences.fr/">
+                            <img src="{% static 'media/logos/logo_systox.png' %}">
+                        </a>
+                        <a href="https://www2.dijon.inrae.fr/csga/index_eng.php">
+                            <img class="csga" src="{% static 'media/logos/logo-csga.png' %}">
+                        </a>
+                        <a href="http://bfa.univ-paris-diderot.fr/equipe-8/?lang=en">
+                            <img src="{% static 'media/logos/bfa-logo.png' %}">
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-content Funding">
+                    <h3 class="footer-title">Funding</h3>
+                    <div class="widget-body">
+                        This website was funded by Agence Nationale de la Recherche, ANR-18-CE21-0006-01 MULTIMIX.
+                        <a href="https://anr.fr/Projet-ANR-18-CE21-0006">
+                            <img src="{% static 'media/logos/ANR-logo-2021-sigle.svg' %}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                Copyright © 2022
+            </div>
+        </div>
+    </footer>
+    <!-- /Footer -->
+</body>
+</html>

@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+    <meta name="description" content="Ketcher is a web-based chemical structure editor"/>
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png"/>
+    <link rel="manifest" href="./manifest.json"/>
+    <title>Ketcher v2.3.3-297-ga6f91d0d</title>
+    <link href="{% static 'css/2.1a1d4f17.chunk.css' %}'" rel="stylesheet">
+    <link href="{% static 'css/main.4b33aa94.chunk.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="{% static 'css/sortable.min.css' %}" />
+	<script src="{% static 'js/sortable.min.js' %}"></script>-->
+    </head>
+<body>
+	<header>
+		<h1>Bonjour {{ prenom|upper }}, Bienvenue. Date : {{ date|date:"d F Y" }}</h1>
+	</header>
+	<div id="root"></div>
+	<script>!function(e){function r(r){for(var n,a,p=r[0],l=r[1],c=r[2],i=0,s=[];i<p.length;i++)a=p[i],Object.prototype.hasOwnProperty.call(o,a)&&o[a]&&s.push(o[a][0]),o[a]=0;for(n in l)Object.prototype.hasOwnProperty.call(l,n)&&(e[n]=l[n]);for(f&&f(r);s.length;)s.shift()();return u.push.apply(u,c||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,p=1;p<t.length;p++){var l=t[p];0!==o[l]&&(n=!1)}n&&(u.splice(r--,1),e=a(a.s=t[0]))}return e}var n={},o={1:0},u=[];function a(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,a),t.l=!0,t.exports}a.m=e,a.c=n,a.d=function(e,r,t){a.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},a.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,r){if(1&r&&(e=a(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(a.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)a.d(t,n,function(r){return e[r]}.bind(null,n));return t},a.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(r,"a",r),r},a.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},a.p="./";var p=this["webpackJsonpketcher-react-app"]=this["webpackJsonpketcher-react-app"]||[],l=p.push.bind(p);p.push=r,p=p.slice();for(var c=0;c<p.length;c++)r(p[c]);var f=l;t()}([])</script>
+	<script src="{% static 'js/2.43f6f78e.chunk.js' %}"></script>
+	<script src="{% static 'js/main.730396f6.chunk.js' %}"></script>
+	<main>
+		<div>
+			<form method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<input type="file" name="document"></input>
+				<button type="submit">Upload file</button>
+				<button type="reset">Reset</button>
+			</form>
+		</div>
+		<a href="{% url 'ketcher' %}">ketcher</a>
+		<div class="submit_k" style="background-color: blue">
+			Get Ketcher smile
+			<form method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<input type="text" id="smile" name="smilefield"> Smile</input>
+				<input type="submit" onclick="get_smile_file()"> send Convertir</input> <!--onclick="get_smile_file()-->
+			</form>
+		</div>
+		<div id="result">
+			<script type="text/javascript" src="{% static 'js/code.js' %}"></script>
+		</div>
+		<div>
+			<img src= "{{ image }}" alt="didn't find image">
+			<!--<iframe data-v-22790046="" src="{% url 'ketcher' %}" frameborder="0"></iframe>-->
+		</div>
+
+		<div>
+		<input type="text" id="myInput1" onkeyup="myFunction()" placeholder="Search for names..">
+		<table id="myTable1" class="table_db_odor">
+			<thead>
+			  <tr class="header">
+				  {% for key, value in db.0.items %}
+				  	<th>{{ key }}</th>
+				  {% endfor %}
+			  </tr>
+			</thead>
+			<tbody>
+			{% for db_infos in db %}
+				<tr>
+				{% for key, value in db_infos.items %}
+					{% if key == "Pubchem_CID" %}
+						<td class="col2"><a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{value}}" target="_blank">{{value}}</a></td>
+					{% else %}
+						<!--<p>{{ key }} {{ value }}</p>-->
+						<td class="col2">{{value}}</td>
+					{% endif %}
+				{% endfor %}
+				</tr>
+			{% endfor %}
+			</tbody>
+
+		</table>
+
+		</div>
+
+<div class="container">
+      <div class="header_wrap">
+        <div class="num_rows">
+
+				<div class="form-group"> 	<!--		Show Numbers Of Rows 		-->
+			 		<select class  ="form-control" name="state" id="maxRows">
+
+
+						 <option value="10">10</option>
+						 <option value="15">15</option>
+						 <option value="20">20</option>
+						 <option value="50">50</option>
+						 <option value="70">70</option>
+						 <option value="100">100</option>
+						<option value="200">200</option>
+						<option value="400">400</option>
+            <option value="5000">Show ALL Rows</option>
+						</select>
+
+			  	</div>
+        </div>
+        <div class="tb_search">
+			<input type="text" id="search_input_all" onkeyup="FilterkeyWord_all_table()" placeholder="Search.." class="form-control">
+        </div>
+      </div>
+			<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+			<table id="myTable" class="sortable">
+				<thead>
+			  <tr class="header">
+				<th style="width:20%;">Chemical ID</th>
+				<th style="width:20%;">CAS</th>
+				<th style="width:20%;">Pubchem_CID</th>
+				<th style="width:20%;">Name</th>
+				<th style="width:20%;">SMILE</th>
+			  </tr>
+				</thead>
+				<tbody>
+			{% for chem in chemicals_odors %}
+			  <tr>
+				<td>{{chem.idChemicals}}</td>
+				<td>{{chem.CAS}}</td>
+				<td><a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{chem.Pubchem_CID}}" target="_blank">{{chem.Pubchem_CID}}</a></td>
+				<td>{{chem.Name}}</td>
+				<td>{{chem.SMILE}}</td>
+			  </tr>
+			  {% endfor %}
+				</tbody>
+		</table>
+			<script>
+			var show_id = "{{ show_id }}";
+			var dict_sim_macc = {{ dict_sim_macc|safe }};
+			</script>
+			<!-- <script type="text/javascript" src="{% static 'js/code.js' %}"></script> -->
+			<!--		Start Pagination -->
+			<div class='pagination-container'>
+				<nav>
+				  <ul class="pagination">
+					  <li data-page="prev" >
+								     <span> < <span class="sr-only">(current)</span></span>
+					  </li>
+				   <!--	Here the JS Function Will Add the Rows -->
+					  <!-- <script type="text/javascript" src="{% static 'js/code_table.js' %}"></script> -->
+					  <li data-page="next" id="prev">
+								       <span> > <span class="sr-only">(current)</span></span>
+								    </li>
+				  </ul>
+				</nav>
+			</div>
+      <div class="rows_count">Showing 1 to 50 of 4999 entries</div>
+	</div>
+		<div id="result_bis">
+			<!--<script type="text/javascript" src="transfert.js"></script>-->
+		</div>
+	</main>
+</body>
+</html>

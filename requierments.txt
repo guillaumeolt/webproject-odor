@@ -1,0 +1,9 @@
+bokeh
+deepchem
+django-plotly-dash
+mordred
+numpy
+pandas
+plotly
+PubChemPy
+requests

@@ -1,0 +1,194 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+    <meta name="description" content="Ketcher is a web-based chemical structure editor"/>
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png"/>
+    <link rel="manifest" href="./manifest.json"/>
+    <title>Ketcher v2.3.3-297-ga6f91d0d</title>
+    <link href="{% static 'css/2.1a1d4f17.chunk.css' %}'" rel="stylesheet">
+    <link href="{% static 'css/main.4b33aa94.chunk.css' %}" rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'css/sortable.min.css' %}" />
+	<script src="{% static 'js/sortable.min.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+    <title>OdorFinder/OdorPred (to change)</title>
+
+	<link rel="stylesheet" href="{% static 'css/style_website.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_website_search.css' %}">
+</head>
+<body class="home">
+    <!-- Fixed navbar -->
+	<div class="navbar" >
+		<div class="navbar-container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+                </button>
+				<a class="navbar-brand" href="{% url 'OdorWebSite_Home' %}"><img src="assets/images/logo.png" alt="OdorWebSite logo"></a>
+			</div>
+			<div class="navbar-collapse">
+				<ul class="navbar-items">
+					<li><a href="{% url 'OdorWebSite_Home' %}">Home</a></li>
+					<li><a href="{% url 'OdorWebSite_About' %}">About</a></li>
+                    <li class="active"><a href="#">Search</a></li>
+					<li><a href="{% url 'OdorWebSite_Search' %}">Structure Search</a></li>
+                    <li><a href="{% url 'OdorWebSite_Predict' %}">Predict</a></li>
+                    <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>
+					<li><a href="{% url 'OdorWebSite_Contact' %}">Contact</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+    <!-- /.navbar -->
+    <main>
+    <!-- Search content -->
+    <div>
+        <h1>Search By {{ search_type }} - Value : {{ search_value }} </h1>
+    </div>
+
+        <div class="Search_filter">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="chem-tab" data-toggle="tab" href="#chem" role="tab" aria-controls="chem" aria-selected="true">Chemicals</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="or-tab" data-toggle="tab" href="#or" role="tab" aria-controls="or" aria-selected="false">Olfactory Receptors</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="odor-tab" data-toggle="tab" href="#odor" role="tab" aria-controls="odor" aria-selected="false">Odors</a>
+          </li>
+        </ul>
+        <form method="post" action="{% url 'search_chem_or_odor' %}">
+        {% csrf_token %}
+            <div class="tab-content">
+              <div class="tab-pane active" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
+                  <input type="text" id="search_chemical" name="search_chemical" placeholder="Search Chemicals by name, cas, smile, PubChem CID"></input>
+                  <button type="submit" id="btn_search_chem" name="btn_search_chemical">Search</button>
+              </div>
+              <div class="tab-pane" id="or-tab-pane" role="tabpanel" aria-labelledby="or-tab">
+                  <input type="text" id="search_or" name="search_or" placeholder="Search OR by name, Uniprot ID, Species"></input>
+                  <button type="submit" id="btn_search_or" name="btn_search_OR">Search</button>
+              </div>
+              <div class="tab-pane" id="odor-tab-pane" role="tabpanel" aria-labelledby="odor-tab">
+                  <input type="text" id="search_odor" name="search_odor" placeholder="Search Odors"></input>
+                  <button type="submit" id="btn_search_odor" name="btn_search_odor">Search</button>
+              </div>
+            </div>
+        </form>
+            <div class="ex_search active" id="ex_search_chem">Examples Chemicals :
+                <a class="ex_search_chem_1" href="#query=Acetaldehyde">Acetaldehyde</a>
+                <a class="ex_search_chem_2" href="#query=3-Pentanone">3-Pentanone</a>
+                <a class="ex_search_chem_3" href="#query=Thiophene">Thiophene</a>
+            </div>
+            <div class="ex_search" id="ex_search_or">Examples Olfactory Receptors :
+                <a class="ex_search_or_1" href="#query=or1D2">OR1D2</a>
+                <a class="ex_search_or_2" href="#query=Q499H5">Q499H5</a>
+                <a class="ex_search_or_3" href="#query=humain">humain</a>
+            </div>
+            <div class="ex_search" id="ex_search_odor">Examples Odors :
+                <a class="ex_search_odor_1" href="#query=coffee">coffee</a>
+                <a class="ex_search_odor_2" href="#query=sulfurous">sulfurous</a>
+                <a class="ex_search_odor_3" href="#query=floral">floral</a>
+            </div>
+    </div>
+            <script type="text/javascript" src="{% static 'js/code.js' %}"></script>
+
+
+<div class="container">
+		<table id="myTable" class="table_db_odor"> <!-- class="table_db_odor" -->
+			<thead>
+			  <tr class="header">
+				  	<th>GeneName</th>
+                    <th>idUniprot</th>
+                    <th>Synonym</th>
+                    <th>Species</th>
+			  </tr>
+			</thead>
+			<tbody>
+			{% for db_infos in db_dict %}
+				<tr >
+                    <td class="col2">
+                        <a href="{% url 'OdorWebSite_OR' GeneName=db_infos.GeneName %}" target="_blank">
+                            {{db_infos.GeneName|highlight_search:search_value}}
+                        </a>
+                    </td>
+                    <td class="col2">{{db_infos.idUniprot|highlight_search:search_value}}</td>
+                    <td class="col2">{{db_infos.Synonym|highlight_search:search_value}}</td>
+                    <td class="col2">{{db_infos.Species|highlight_search:search_value}}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+</div>
+    <!-- ./Search content -->
+    </main>
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container-footer">
+            <div class="row">
+                <div class="footer-content Contact">
+                    <h3 class="footer-title">Contact</h3>
+                    <div class="widget-body">
+                        <p>+3615odor<br>
+                        <a href="mailto:#">some.email@somewhere.com</a>
+                        <br>
+                            Université Paris Cité
+                        <br>
+                            Bâtiment Lamarck A
+                        <br>
+                            35 rue Hélène Brion, 75205, Paris Cedex 13
+                        </p>
+                    </div>
+                </div>
+
+                <div class="footer-content Follow">
+                    <h3 class="footer-title">Follow</h3>
+                    <div class="widget-body">
+                        <a href="https://www.inserm.fr/en/home/">
+                            <img src="{% static 'media/logos/inserm_logo2.png' %}">
+                        </a>
+                        <a href="https://u-paris.fr/en/">
+                            <img src="{% static 'media/logos/logo_paris.png' %}">
+                        </a>
+                        <a href="https://systox.u-paris-sciences.fr/">
+                            <img src="{% static 'media/logos/logo_systox.png' %}">
+                        </a>
+                        <a href="https://www2.dijon.inrae.fr/csga/index_eng.php">
+                            <img class="csga" src="{% static 'media/logos/logo-csga.png' %}">
+                        </a>
+                        <a href="http://bfa.univ-paris-diderot.fr/equipe-8/?lang=en">
+                            <img src="{% static 'media/logos/bfa-logo.png' %}">
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-content Funding">
+                    <h3 class="footer-title">Funding</h3>
+                    <div class="widget-body">
+                        This website was funded by Agence Nationale de la Recherche, ANR-18-CE21-0006-01 MULTIMIX.
+                        <a href="https://anr.fr/Projet-ANR-18-CE21-0006">
+                            <img src="{% static 'media/logos/ANR-logo-2021-sigle.svg' %}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                Copyright © 2022
+            </div>
+        </div>
+    </footer>
+    <!-- /Footer -->
+</body>
+</html>

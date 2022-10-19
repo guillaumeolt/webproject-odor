@@ -1,0 +1,284 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+	<meta name="description" content="Ketcher is a web-based chemical structure editor"/>
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png"/>
+    <link rel="manifest" href="./manifest.json"/>
+    <title>Ketcher v2.3.3-297-ga6f91d0d</title>
+    <link href="{% static 'css/2.1a1d4f17.chunk.css' %}'" type="text/css">
+    <link href="{% static 'css/main.4b33aa94.chunk.css' %}" rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'css/sortable.min.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>OdorFinder/OdorPred (to change)</title>
+
+	<link rel="stylesheet" href="{% static 'css/style_website.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style_website_search-structure.css' %}">
+
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+
+</head>
+<body class="home">
+    <!-- Fixed navbar -->
+	<div class="navbar" >
+		<div class="navbar-container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+                </button>
+				<a class="navbar-brand" href="{% url 'OdorWebSite_Home' %}"><img src="assets/images/logo.png" alt="OdorWebSite logo"></a>
+			</div>
+			<div class="navbar-collapse">
+				<ul class="navbar-items">
+					<li><a href="{% url 'OdorWebSite_Home' %}">Home</a></li>
+					<li><a href="{% url 'OdorWebSite_About' %}">About</a></li>
+                    <li><a href="{% url 'search_chem_or_odor' %}">Search</a></li>
+					<li class="active"><a href="#">Structure Search</a></li>
+                    <li><a href="{% url 'OdorWebSite_Predict' %}">Predict</a></li>
+                    <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>
+					<li><a href="{% url 'OdorWebSite_Contact' %}">Contact</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+    <!-- /.navbar -->
+	<main>
+    <!-- Search content -->
+	<div id="form_search">
+		<div id = "container_sketcher">
+		<div id="root" class="root-ketcher"></div>
+					<script>!function(e){function r(r){for(var n,a,p=r[0],l=r[1],c=r[2],i=0,s=[];i<p.length;i++)a=p[i],Object.prototype.hasOwnProperty.call(o,a)&&o[a]&&s.push(o[a][0]),o[a]=0;for(n in l)Object.prototype.hasOwnProperty.call(l,n)&&(e[n]=l[n]);for(f&&f(r);s.length;)s.shift()();return u.push.apply(u,c||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,p=1;p<t.length;p++){var l=t[p];0!==o[l]&&(n=!1)}n&&(u.splice(r--,1),e=a(a.s=t[0]))}return e}var n={},o={1:0},u=[];function a(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,a),t.l=!0,t.exports}a.m=e,a.c=n,a.d=function(e,r,t){a.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},a.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,r){if(1&r&&(e=a(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(a.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)a.d(t,n,function(r){return e[r]}.bind(null,n));return t},a.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(r,"a",r),r},a.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},a.p="./";var p=this["webpackJsonpketcher-react-app"]=this["webpackJsonpketcher-react-app"]||[],l=p.push.bind(p);p.push=r,p=p.slice();for(var c=0;c<p.length;c++)r(p[c]);var f=l;t()}([])</script>
+					<script src="{% static 'js/2.43f6f78e.chunk.js' %}"></script>
+					<script src="{% static 'js/main.730396f6.chunk.js' %}"></script>
+		</div>
+		<form id = "container_search" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div id="form_load">
+				<p>Search by sdf file:</p>
+				  <label for="file-input">
+					<img src="{% static 'media/logos/logo_download.png' %}"/>
+				  </label>
+				<input id="file-input" class="file-load" type="file" name="document"></input>
+				<p>Search by pubchem name:</p>
+				<input type="text" id="pubchem_name" name="pubchem_name" placeholder="PubChem name"></input>
+					<!--<label for="document">Select file</label>-->
+
+				<!--<button type="reset">Reset</button>-->
+				<p>Search by smile:</p>
+				<input type="text" id="smile" name="smilefield" placeholder="Smile, Smart, Inchi, InchiKey"></input>
+			</div>
+			<div id="form_launch">
+				<button type="submit" id="btn_search" name="btn_search" onclick="get_smile_file()">Launch similarity search</button>
+				<button type="submit" id="btn_search" name="btn_match" onclick="get_smile_file()">Launch substructure search</button>
+			</div>
+		</form>
+	</div>
+		<div id="result">
+			<script type="text/javascript" src="{% static 'js/code.js' %}"></script>
+		</div>
+
+		{% if error_message != None %}
+		<div class="error_input"><p>{{ error_message }}</p></div>
+		{% elif compound == None and smart != None %}
+		<div class="query_compound">
+			<p>Query SMART pattern : {{ smart }}</p>
+		</div>
+		{% elif  compound != None %}
+		<div class="query_compound">
+			<p>Query Compound :</p>
+			<div class="container_query_compound">
+				<div class="query_compound-img">
+					    {% block content %}
+					        {% autoescape off %}
+					        {{ image }}
+					        {% endautoescape %}
+					    {% endblock content%}
+					<!--<img src= "{{ image }}" alt="No image">-->
+				</div>
+				<div class="query_compound-infos">
+					<div class="query_compound-name">
+						<p>{% for value in compound.synonyms %}
+							 {{ value }};
+							{% endfor %}
+						</p>
+					</div>
+					<div class="query_compound-data">
+						<p><strong>Molecular Formula: </strong>{{ compound.molecular_formula }}</p>
+						<p><strong>Molecular Weight: </strong>{{ compound.molecular_weight }} g/mol</p>
+						<p><strong>IUPAC Name: </strong>{{ compound.iupac_name }}</p>
+						<p><strong>CAS: </strong>{{ compound.synonyms | get_cas}}</p>
+						{% if compound.cid != None %}
+						<p><strong>PubChem CID: </strong><a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{ compound.cid }}" target="_blank">{{ compound.cid }}</a></p>
+						{% else %}
+						<p><strong>PubChem CID: </strong>{{ compound.cid }}</p>
+						{% endif %}
+						<p><strong>Canonical SMILES: </strong>{{ compound.canonical_smiles }}</p>
+						<p><strong>Isomeric SMILES: </strong>{{ compound.isomeric_smiles }}</p>
+						<p><strong>InChIKey: </strong>{{ compound.inchikey }}</p>
+						<p><strong>InChI: </strong>{{ compound.inchi }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+
+
+	<!--
+		<div>
+		<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+		<input type="text" id="myInput_smell" onkeyup="myFunction_smell()" placeholder="Search for smells..">
+		</div>
+	-->
+		{% if compound != None or smart != None%}
+		<div class="container">
+	  <!--
+      <div class="header_wrap">
+		<div class="tb_search">
+		<input type="text" id="search_input_all" onkeyup="FilterkeyWord_all_table()" placeholder="Search.." class="form-control">
+        </div>
+	  </div>
+	  -->
+		<table id="myTable" class="table_db_odor"> <!-- class="table_db_odor" -->
+			<thead>
+			  <tr class="header">
+				  {% for key, value in db.0.items %}
+				  	<th>
+						{{ key }}
+						<script type="text/javascript">
+						   var i_column = "{{ forloop.counter0 }}";
+						</script>
+						<input type="hidden" id="{{ forloop.counter0 }}" value="{{ forloop.counter0 }}">
+						<input type="text" name="myInput_i_name" id="myInput_i_{{ forloop.counter0 }}" onkeyup="myFunction_i(document.getElementById('{{ forloop.counter0 }}').value)" placeholder="Search..">
+					</th>
+				  {% endfor %}
+			  </tr>
+			</thead>
+			<tbody>
+			{% for db_infos in db %}
+				<tr>
+				{% for key, value in db_infos.items %}
+					{% if key == "Pubchem_CID" %}
+						<td class="col2"><a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{value}}" target="_blank">{{value}}</a></td>
+					{% elif key == "OlfRecept" %}
+						<td class = "col2">
+						{% for or in value %}
+							<a href="https://www.uniprot.org/uniprot/{{ dict_or_id|get_item:or }}" target="_blank">{{or}}</a>
+						{% endfor %}
+						</td>
+					{% elif key == "idChemicals" %}
+						<td class="col2"><a href="{% url 'OdorWebSite_Chemical' chem_id=value %}" target="_blank">{{value}}</a></td>
+					{% elif key == "path_svg" %}
+						<td class="col2"> 
+							{% if type_search_sub == False %}
+							<img src="{% static '' %}{{value}}" style="display:block;" width="100%" height="100%">
+							{% else %}
+							        {% autoescape off %}
+							        {{ value }}
+							        {% endautoescape %}
+							{% endif %}
+						</td>
+					{% else %}
+						<!--<p>{{ key }} {{ value }}</p>-->
+						<td class="col2">{{value}}</td>
+					{% endif %}
+				{% endfor %}
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+			<div class='pagination-container'>
+				<nav>
+				  <ul class="pagination">
+					  <!--<li data-page="prev" >
+						  <span> < <span class="sr-only">(current)</span></span>
+					  </li>-->
+				   <!--	Here the JS Function Will Add the Rows -->
+					  <!--<li data-page="next" id="prev">
+						  <span> > <span class="sr-only">(current)</span></span>
+					  </li>-->
+				  </ul>
+				</nav>
+				<div class="rows_count">Showing 1 to 50 of 4014 entries</div>
+			</div>
+</div>
+		<script type="text/javascript" src="{% static 'js/code_table.js' %}"></script>
+
+		<div id="res_table">
+			<!--<script type="text/javascript" src="{% static 'js/code_table.js' %}"></script>-->
+			<script src="{% static 'js/sortable.min.js' %}"></script>
+		</div>
+		{% endif %}
+    <!-- ./Search content -->
+
+	</main>
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container-footer">
+            <div class="row">
+                <div class="footer-content Contact">
+                    <h3 class="footer-title">Contact</h3>
+                    <div class="widget-body">
+                        <p>+3615odor<br>
+                        <a href="mailto:#">some.email@somewhere.com</a>
+                        <br>
+                            Université Paris Cité
+                        <br>
+                            Bâtiment Lamarck A
+                        <br>
+                            35 rue Hélène Brion, 75205, Paris Cedex 13
+                        </p>
+                    </div>
+                </div>
+
+                <div class="footer-content Follow">
+                    <h3 class="footer-title">Follow</h3>
+                    <div class="widget-body">
+                        <a href="https://www.inserm.fr/en/home/">
+                            <img src="{% static 'media/logos/inserm_logo2.png' %}">
+                        </a>
+                        <a href="https://u-paris.fr/en/">
+                            <img src="{% static 'media/logos/logo_paris.png' %}">
+                        </a>
+                        <a href="https://systox.u-paris-sciences.fr/">
+                            <img src="{% static 'media/logos/logo_systox.png' %}">
+                        </a>
+                        <a href="https://www2.dijon.inrae.fr/csga/index_eng.php">
+                            <img class="csga" src="{% static 'media/logos/logo-csga.png' %}">
+                        </a>
+                        <a href="http://bfa.univ-paris-diderot.fr/equipe-8/?lang=en">
+                            <img src="{% static 'media/logos/bfa-logo.png' %}">
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-content Funding">
+                    <h3 class="footer-title">Funding</h3>
+                    <div class="widget-body">
+                        This website was funded by Agence Nationale de la Recherche, ANR-18-CE21-0006-01 MULTIMIX.
+                        <a href="https://anr.fr/Projet-ANR-18-CE21-0006">
+                            <img src="{% static 'media/logos/ANR-logo-2021-sigle.svg' %}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                Copyright © 2022
+            </div>
+        </div>
+    </footer>
+    <!-- /Footer -->
+</body>
+<script type="text/javascript" src="{% static 'js/code.js' %}"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+</html>
