@@ -370,7 +370,10 @@ def utils_get_prediction_odor(BASE_DIR, query_smile = "CC=O", predict = "odor"):
     python_bin = str(BASE_DIR) + "/../.env-prediction/bin/python3.7"
     # Path to the script that must run under the virtualenv
     script_file = str(BASE_DIR) + "/odor/utils/prediction_subprocess.py"
+    print(python_bin)
+    print(c)
     if predict == "odor":
+        print(query_smile, python_bin, python_bin)
         p = subprocess.Popen([python_bin, script_file,
                               "-smile", query_smile,
                               "-label", str(BASE_DIR) + "/odor/utils/infos_models/label_odors_names.txt",

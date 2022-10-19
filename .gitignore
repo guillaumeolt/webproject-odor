@@ -4,3 +4,4 @@ src/odor/static/**
 src/odorwebsite/settings.txt
 odorwebsite/settings.txt
 src/odorwebsite/settings.py
+odor/utils/__pycache__/**
