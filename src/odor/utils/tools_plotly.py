@@ -101,7 +101,7 @@ def get_radar_plot_from_list_odor(df):
                                         "Occurrence: %{customdata[2]:.2f} %"
     ]))
     #plotly.offline.plot(fig, filename='media/test.html')
-    fig.write_image("/home/guillaumeolt/CMPLI/Projet_odeurs/Results/BDD_odors/plotly_radarplot_odor.svg")
+    #fig.write_image("/home/guillaumeolt/CMPLI/Projet_odeurs/Results/BDD_odors/plotly_radarplot_odor.svg")
     return plot(fig, output_type="div")
 
 def get_data_desc_plotly_list_odor(db_dict,list_odors):
