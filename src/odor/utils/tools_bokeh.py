@@ -42,7 +42,7 @@ def get_bokeh_plot_odor(mapper, list_name, list_path_svg, list_color, list_legen
     </div>
     """
 
-    print(mapper[:, 0], mapper[:, 1])
+
     source = ColumnDataSource(data)
     plot = figure( tooltips=TOOLTIPS)
     plot.add_tools(TapTool())
@@ -144,7 +144,7 @@ def get_bokeh_plot_odor_test(mapper, list_name, list_path_svg, list_color, list_
     """
 
 
-    print(mapper[:, 0], mapper[:, 1])
+
     render_cds = ColumnDataSource(data)
     cds = render_cds
     plot = figure( tooltips=TOOLTIPS)
@@ -235,7 +235,7 @@ def get_bokeh_plot_odor_from_list_or(mapper, db_dict, list_or, path_svg_add=""):
             list_chem_or.append(str(";".join(chem["OlfRecept"])))
         except:
             list_chem_or.append("None")
-        print(chem["OlfRecept"],"----------------------")
+
         i_odor = 0
         col = 'rgba( 220, 220, 220, 0.2)'
         leg = "other"

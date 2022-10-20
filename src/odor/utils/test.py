@@ -367,20 +367,22 @@ def utils_get_prediction_odor(BASE_DIR, query_smile = "CC=O", predict = "odor"):
     # Path to a Python interpreter that runs any Python script
     # under the virtualenv /path/to/virtualenv/
     #python_bin = "/home/guillaumeolt/miniconda3/envs/cpmli-predict-odor/bin/python"
-    python_bin = str(BASE_DIR) + "/../.env-prediction/bin/python3.7"
+    python_bin = "conda run -n $web_pred" #str(BASE_DIR) + "/../.env-prediction/bin/python3.7"
     # Path to the script that must run under the virtualenv
     script_file = str(BASE_DIR) + "/odor/utils/prediction_subprocess.py"
     print(python_bin)
     print(script_file)
     if predict == "odor":
         print(query_smile, python_bin, python_bin)
-        p = subprocess.Popen([python_bin, script_file,
+        p = subprocess.Popen(["conda", "run","-n","web_pred", "python3.7",
+                              script_file,
                               "-smile", query_smile,
                               "-label", str(BASE_DIR) + "/odor/utils/infos_models/label_odors_names.txt",
                               "-PATH_GCC", str(BASE_DIR) + "/odor/utils/Trained_models/GNN_CODB_ckpt",
                               "-predict", "odor"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if predict == "or":
-        p = subprocess.Popen([python_bin, script_file,
+        p = subprocess.Popen(["conda", "run","-n","web_pred", "python3.7",
+                              script_file,
                               "-smile", query_smile,
                               "-label", str(BASE_DIR) + "/odor/utils/infos_models/label_or_names.txt",
                               "-PATH_GCC", str(BASE_DIR) + "/odor/utils/Trained_models/GNN_RCDB_HO_ckpt",

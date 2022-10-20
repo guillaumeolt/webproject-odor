@@ -37,7 +37,7 @@ def predict_odor(smile, label_odors_names, PATH_GCC_CODB):
     # SMILE
     use_chirality = True  # False pour ne pas prendre en compte
     random_state = 2020  # None pour aléatoire
-    print([smile],"infunction")
+    #print([smile],"infunction")
     smiles = [smile]
     x = Smiles2GraphObj(smiles, use_chirality)
     naf = len(x[0].atom_features[0])
@@ -53,7 +53,7 @@ def predict_odor(smile, label_odors_names, PATH_GCC_CODB):
     predicted_Ext_Testset = PredictFromSmiles([smile], model, tasks, use_chirality=True)
     dict_pred = get_json_predict(predicted_Ext_Testset, tasks)
     #test_odors_all, t = getOdorExtSet(predicted_Ext_Testset, tasks, pourcentage=True)
-    print(predicted_Ext_Testset, t)
+    #print(predicted_Ext_Testset, t)
     return(dict_pred)
 def predict_OR(smile, label_or_names, PATH_GCC_RCDB):
     """
@@ -112,9 +112,9 @@ if __name__ == "__main__":
         if args.smile != None:
             label_odors_names = get_label_names(args.label)
             predicted_odors = predict_odor(args.smile, label_odors_names, args.PATH_GCC)
-            print(predicted_odors,','.join(predicted_odors))
-            print(f','.join(predicted_odors[0]))#, ','.join(list(itertools.chain.from_iterable(predicted_odors))))
-            print(json.dumps(str(predicted_odors)))
+            #print(predicted_odors,','.join(predicted_odors))
+            #print(f','.join(predicted_odors[0]))#, ','.join(list(itertools.chain.from_iterable(predicted_odors))))
+            #print(json.dumps(str(predicted_odors)))
             print(predicted_odors)
             #print(str(predicted_odors))
             quit()
@@ -122,9 +122,9 @@ if __name__ == "__main__":
         if args.smile != None:
             label_or_names = get_label_names(args.label)
             predicted_or = predict_OR(args.smile, label_or_names, args.PATH_GCC)
-            print(predicted_odors,','.join(predicted_odors))
-            print(f','.join(predicted_or[0]))#, ','.join(list(itertools.chain.from_iterable(predicted_odors))))
-            print(json.dumps(str(predicted_or)))
+            #print(predicted_odors,','.join(predicted_odors))
+            #print(f','.join(predicted_or[0]))#, ','.join(list(itertools.chain.from_iterable(predicted_odors))))
+            #print(json.dumps(str(predicted_or)))
             print(predicted_or)
-            print(str(predicted_or))
+            #print(str(predicted_or))
             quit()

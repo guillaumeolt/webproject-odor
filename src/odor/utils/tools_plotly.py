@@ -153,23 +153,23 @@ def get_data_desc_plotly_list_odor(db_dict,list_odors):
             #idx = idx + len(data_desc.values)
             df = pd.concat([df,df_bis])
 
-    print(df)
+
     # REMOVE ROWS WHERE ALL SCORE = 0
-    print(df['odor_values'])
+
     #df = df.drop(df[(df['odor_values'] == 0) & (df['odor'] == "All")].index)
     #df = df.drop(df[(df['odor_count'] < 20) & (df['odor'] == "All")].index)
     # Change values to differences against all dataset
-    print(df)
+
     df.reset_index(drop=True ,inplace=True)
     for index, row in df.iterrows():
-        print(index, df.loc[index,:])
+
 
         #print(row['descriptors'],"_", dict_data_all[row['descriptors']], index)
         #print(row['odor_values'], row['descriptors'], dict_data_all[row['descriptors']] )
 
         df.loc[index,'odor_values'] = row['odor_values'] - dict_data_all[row['Fragment']]
 
-    print(dict_data_all)
+
 
     return(df)
     #get_decriptors_rdkit
