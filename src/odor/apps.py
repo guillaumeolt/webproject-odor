@@ -29,6 +29,7 @@ class OdorConfig(AppConfig):
                                        get_bokeh_plot_odor_from_list_or
 
         from .utils.tools_umap import get_umap_chem_odor, write_umap_chem_odor, load_umap_chem_odor
+        from .utils.test import utils_get_phy_tree
         from odorwebsite.settings import BASE_DIR, STATIC_ROOT,STATIC_URL
         from sys import path
         print("launching server")
@@ -154,3 +155,21 @@ class OdorConfig(AppConfig):
             #close file
             text_file.close()
         """
+        ## COMPUTE PHYLOGENIQUE TREE
+        # OR 
+        #olfactory_receptors = OlfactoryReceptors.objects.all()
+        #for or_i in olfactory_receptors:
+        #    print(or_i.GeneName)
+        #    utils_get_phy_tree(BASE_DIR, query_or=or_i.GeneName,
+        #                                 path_tree="odor/static/media/phylo_tree_PhyML_Or10ad1.tree",
+        #                                 path_output="odor/static/media/phylogenic_tree_OR/"+or_i.GeneName+".svg")
+        # CHEM
+        #db_dict = my_custom_sql()
+        # Transform data
+        #db_dict = tranform_db_dict(db_dict)
+        #for k in db_dict:
+        #    if k["OlfRecept"] is not None:
+        #        utils_get_phy_tree(BASE_DIR, query_or=";".join(k["OlfRecept"]),
+        #                                     path_tree="odor/static/media/phylo_tree_PhyML_Or10ad1.tree",
+        #                                     path_output="odor/static/media/phylogenic_tree_chem/"+str(k["idChemicals"])+".svg")
+        #        print(k["idChemicals"], ";".join(k["OlfRecept"]))

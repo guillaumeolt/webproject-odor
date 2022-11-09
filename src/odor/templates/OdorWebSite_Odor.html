@@ -34,30 +34,46 @@
 </head>
 <body class="home">
     <!-- Fixed navbar -->
-	<div class="navbar" >
-		<div class="navbar-container">
-			<div class="navbar-header">
-				<!-- Button for smallest screens -->
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-                </button>
-				<a class="navbar-brand" href="{% url 'OdorWebSite_Home' %}"><img src="assets/images/logo.png" alt="OdorWebSite logo"></a>
-			</div>
-			<div class="navbar-collapse">
-				<ul class="navbar-items">
-					<li><a href="{% url 'OdorWebSite_Home' %}">Home</a></li>
-					<li><a href="{% url 'OdorWebSite_About' %}">About</a></li>
+    <div class="navbar" >
+        <div class="navbar-container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'OdorWebSite_Home' %}"><img src="assets/images/logo.png" alt="OdorWebSiteLogo"></a>
+            </div>
+            <!-- Button for smallest screens -->
+            <a href="#" class="navbar-toggle">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div class="navbar-collapse">
+                <ul class="navbar-items">
+                    <li><a href="{% url 'OdorWebSite_Home' %}">Home</a></li> <!-- <li class="active"><a href="#"> -->
+                    <li><a href="{% url 'OdorWebSite_About' %}">About</a></li> <!-- <li><a href="{% url 'OdorWebSite_About' %}"> -->
                     <li><a href="{% url 'search_chem_or_odor' %}">Search</a></li>
-					<li><a href="{% url 'OdorWebSite_Search' %}">Structure Search</a></li>
+                    <li class="deroulant"><a href="#">Tools</a>
+                        <ul class="sous">
+                            <li><a href="{% url 'OdorWebSite_Search' %}">Structure Search</a></li>
+                            <li><a href="{% url 'OdorWebSite_Predict' %}">Predict</a></li>
+                            <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>
+                        </ul>
+                    </li>
+                    <!--
+                    <li><a href="{% url 'OdorWebSite_Search' %}">Structure Search</a></li>
                     <li><a href="{% url 'OdorWebSite_Predict' %}">Predict</a></li>
-                    <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>
-					<li><a href="{% url 'OdorWebSite_Contact' %}">Contact</a></li>
-				</ul>
-			</div><!--/.nav-collapse -->
-		</div>
-	</div>
+                    <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>-->
+                    <li><a href="{% url 'OdorWebSite_Contact' %}">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+    const toggleButton = document.getElementsByClassName('navbar-toggle')[0];
+    const navbarLinks = document.getElementsByClassName('navbar-collapse')[0];
+    toggleButton.addEventListener('click', () => {
+        console.log("ok");
+      navbarLinks.classList.toggle('active');
+    });
+    </script>
     <!-- /.navbar -->
     <!-- Odor content -->
     <main>

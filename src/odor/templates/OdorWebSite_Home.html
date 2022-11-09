@@ -29,9 +29,17 @@
 					<li class="active"><a href="#">Home</a></li>
 					<li><a href="{% url 'OdorWebSite_About' %}">About</a></li>
                     <li><a href="{% url 'search_chem_or_odor' %}">Search</a></li>
+                    <li class="deroulant"><a href="#">Tools</a>
+                        <ul class="sous">
+                            <li><a href="{% url 'OdorWebSite_Search' %}">Structure Search</a></li>
+                            <li><a href="{% url 'OdorWebSite_Predict' %}">Predict</a></li>
+                            <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>
+                        </ul>
+                    </li>
+                    <!--
 					<li><a href="{% url 'OdorWebSite_Search' %}">Structure Search</a></li>
                     <li><a href="{% url 'OdorWebSite_Predict' %}">Predict</a></li>
-                    <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>
+                    <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>-->
 					<li><a href="{% url 'OdorWebSite_Contact' %}">Contact</a></li>
 				</ul>
 			</div>
@@ -71,9 +79,13 @@
                 <button type="submit" id="btn_search_odor" name="btn_search_odor">Launch odor search</button>
             </form>
         </div>-->
-        <div class="Search_filter" style="background-image: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.2)), url('{% static 'media/img/home_background.png' %}');">
+        <!--<div class="Search_filter" style="background-image: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.2)), url('{% static 'media/img/home_background.png' %}');">-->
+
+        <div class="Search_filter">
         <h1> OdorWebSiteTitle </h1>
         <h4> Explore odorant chemicals, olfactory receptors, odors </h4>
+        <div class="container_search">
+
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="chem-tab" data-toggle="tab" href="#chem" role="tab" aria-controls="chem" aria-selected="true">Chemicals</a>
@@ -144,23 +156,49 @@
             <div class="ex_search" id="ex_search_or">Examples Olfactory Receptors :
                 <a class="ex_search_or_1" href="#query=or1D2">OR1D2</a>
                 <a class="ex_search_or_2" href="#query=Q499H5">Q499H5</a>
-                <a class="ex_search_or_3" href="#query=humain">humain</a>
+                <a class="ex_search_or_3" href="#query=human">human</a>
             </div>
             <div class="ex_search" id="ex_search_odor">Examples Odors :
                 <a class="ex_search_odor_1" href="#query=coffee">coffee</a>
                 <a class="ex_search_odor_2" href="#query=sulfurous">sulfurous</a>
                 <a class="ex_search_odor_3" href="#query=floral">floral</a>
             </div>
-    </div>
+
+        </div>
+        </div>
             <script type="text/javascript" src="{% static 'js/code.js' %}"></script>
             <script type="text/javascript" src="{% static 'js/code_suggestion.js' %}"></script>
+        <div class="trail_grey"></div>
+        <div class="container_home_infos">
+            <div class="home_infos">
+                <div class="home_infos_img"><img src="{% static 'media/img/chemical.png' %}" alt="image molecule"></div>
+                <p>5907 odorant molecules</p>
+            </div>
+            <div class="home_infos">
+                <div class="home_infos_img"><img src="{% static 'media/img/protein.png' %}" alt="image molecule"></div>
+                <p>231 olfactory receptors</p>
+            </div>
+            <div class="home_infos">
+                <div class="home_infos_img"><img src="{% static 'media/img/odors-removebg-preview.png' %}" alt="image molecule"></div>
+                <p>933 odor notes</p>
+            </div>
+            <a href="https://www.flaticon.com/free-icons/compound" title="compound icons" style="display: none;">Compound icons created by Freepik - Flaticon</a>
+            <a href="https://www.flaticon.com/free-icons/protein" title="protein icons" style="display: none;">Protein icons created by Freepik - Flaticon</a>
+        </div>
+        <div class="trail_grey"></div>
     <main>
         <!-- Intro -->
+        <h3 class="p_overview">Overview</h3>
         <div class="container text-center">
             <div class="overview_text">
-                <h3 class="thin">Overview</h3>
                 <p class="center-intro">
-                    Odor web site allow the user to have easily acces to informations on :
+                    odorwebsite is a web server that compiles information about odorous molecules, their odours and their olfactory receptors. The server integrates several tools to analyse the interactions between odour molecules, olfactory receptors and their physico-chemical links.
+
+                    We freely give access to a compile database of 5976 chemicals with 5907 chemicals with known odors among which 284 are odorless. The database contains 231 olfactory receptors for which at least one chemical-or interaction is known. There are 55979 known odorant-odors links and 2070 known odorant-or interactions.
+                    
+                    The site provides several tools like the possibility to search for information on a compound according to its structure
+                    predict the odorant power of a molecule or its potential to interact with olfactory recptors. we facilitate the possibility to apply a docking protocol to the molecules and proteins of the database by redireting to the Seamdock server.
+                    <!--Odor web site allow the user to have easily acces to informations on :
                     - 5980 molecules with 5907 odorant molécules
                     - 296 Olfactory receptors
                     - 7544 smell taggs retrived from public sources
@@ -171,49 +209,54 @@
 
                     - site met à disposition plusieurs outils :
                     -- la possibilité de chercher les information d'un composé selon sa structure
-                    -- prédire le/les pouvoirs odorants d'une molécule
+                    -- prédire le/les pouvoirs odorants d'une molécule-->
                 </p>
             </div>
             <div class="overview_image">
-                <img src="{% static 'media/img/home_overview.svg' %}" alt="Overview SVG">
+                <img src="{% static 'media/img/home_overview_img.png' %}" alt="Overview SVG">
             </div>
         </div>
         <!-- /.Intro-->
+        <div class="trail_grey">
+            <div class="trail_grey_h3"><h3>Tools</h3></div>
+        </div>
         <!-- Structure Search -->
-        <div class="container text-center">
-            <div class="overview_image">
-                <img src="{% static 'media/img/home_overview.svg' %}" alt="Overview SVG">
+        <div class="container_tools">
+            <div class="container_tool sim">
+                <h2>Structural similarity</h2>
+                <p>Similar compounds from the database can be searched by 2 methods :
+                    The  similarity search based on a tanimoto score 
+                    The substructure search where we can search for a substructure pattern</p>
+                <div class="container_btn">
+                    <button type="button" class="btn_sim">
+                        Launch similarity search <i class="arrow right"></i>
+                    </button>
+                </div>
             </div>
-            <div class="overview_text">
-                <h2 class="thin">Tools : Structural search</h2>
-                <p class="center-intro">
-                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour
-                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour introduire
-                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour introduire
-                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour introduire
-                </p>
+            <div class="container_tool pred">
+                <h2>Prediction</h2>
+                <p>texte textetextetextetextetextetextetexte texte texte</p>
+                <div class="container_btn">
+                    <button type="button" class="btn_sim">
+                        Launch prediction <i class="arrow right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="container_tool pred">
+                <h2>Docking</h2>
+                <p>texte textetextetextetextetextetextetexte texte texte </p>
+                <div class="container_btn">
+                    <button type="button" class="btn_sim">
+                        Launch docking <i class="arrow right"></i>
+                    </button>
+                </div>
             </div>
         </div>
         <!-- /.Structure Search-->
-        <!-- Prediction -->
-        <div class="container text-center">
-            <div class="overview_text">
-                <h2 class="thin">Tools : Odor Prediction</h2>
-                <p class="center-intro">
-                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour
-                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour introduire
-                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour introduire
-                    Du texte pour Methodology le website.Du texte pour introduire le website.Du texte pour introduire
-                </p>
-            </div>
-            <div class="overview_image">
-                <img src="{% static 'media/img/home_overview.svg' %}" alt="Overview SVG">
-            </div>
-        </div>
-        <!-- /.Prediction-->
+
         <!-- References/partenaires -->
         <div class="container text-center-ref">
-            <h2 class="thin">References</h2>
+            <h3 class="thin">References</h3>
             <p class="center-intro">
                 Du texte pour References/partenaires le website.Du texte pour introduire le website.Du texte pour
                 Du texte pour References/partenaires le website.Du texte pour introduire le website.Du texte pour introduire
