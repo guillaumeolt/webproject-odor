@@ -1,6 +1,6 @@
 import json
 import random
-
+import shutil
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import F, Q
 from django.forms import JSONField
@@ -432,9 +432,13 @@ def OdorWebSite_docking_chem_or(request):
             docking_input_chemical = request.POST.get("search_chemical", "None")
 
         # Search Input protein structure
+        print(request.POST.get("search_or", "None"))
+        print(request.POST.get("search_or", "None")," sdferf")
         if request.POST.get("search_or", "None") == "":
+            print(request.POST.get('pdb_name', "None"), "---------------------<>")
             try:
                 pdb_name = request.POST.get('pdb_name', "None")
+                print(pdb_name, "---------------------<>")
                 urllib.request.urlretrieve('http://files.rcsb.org/download/' + pdb_name + '.pdb', str(BASE_DIR) + '/media/docking/prot.pdb')
 
                 docking_input_OR = str(BASE_DIR) + "/media/docking/prot.pdb"
@@ -445,7 +449,15 @@ def OdorWebSite_docking_chem_or(request):
                                                                             "chemicals_odors": chemicals_odors,
                                                                             'error_message': "Error inputs"})
         else:
-            docking_input_OR = request.POST.get("search_or", "None")
+            try:
+                docking_input_OR = request.POST.get("search_or", "None")
+                print("odor/static/media/db_prots/"+docking_input_OR, str(BASE_DIR) + '/media/docking/prot.pdb')
+                shutil.copyfile("odor/static/media/db_prots/"+docking_input_OR, str(BASE_DIR) + '/media/docking/prot.pdb')
+            except:
+                path_prot = None
+                return render(request, "OdorWebSite_Docking.html", context={"olfactory_receptors": olfactory_receptors,
+                                                                            "chemicals_odors": chemicals_odors,
+                                                                            'error_message': "Error inputs"})
 
 
         url = get_url_dockign_seamdock(str(BASE_DIR) + "/media/docking/lig.pdb", \
