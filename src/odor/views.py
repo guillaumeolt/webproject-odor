@@ -186,6 +186,8 @@ def OdorWebSite_Predict(request):
 
         # 8 PREDICT / 9 Visualize prediction wit Bokeh
         mapper = load_umap_chem_odor("odor/static/media/umap/mapper.pkl")
+        script = None
+        div = None
         if request.POST.get("predict_model_field") == "Odor" or request.POST.get("predict_model_field") != "Olfactory Receptor (Human)":
             dict_pred = utils_get_prediction_odor(BASE_DIR, query_smile = Chem.MolToSmiles(mol), predict = "odor")
             list_pred = list(dict_pred.keys())
@@ -200,17 +202,16 @@ def OdorWebSite_Predict(request):
 
         if request.POST.get("predict_model_field") == "Olfactory Receptor (Human)":
             dict_pred = utils_get_prediction_odor(BASE_DIR, query_smile = Chem.MolToSmiles(mol), predict="or")
-            
-            #list_pred = list(dict_pred.keys())
-            #script, div = get_bokeh_plot_odor_from_list_or(mapper, db_dict_all, list_pred, path_svg_add="static/media/db_mols_svg/")
+            list_pred = list(dict_pred.keys())
+            script, div = get_bokeh_plot_odor_from_list_or(mapper, db_dict_all, list_pred, path_svg_add="static/media/db_mols_svg/")
 
 
             # RADDAR PLOT PLOTLY
-            #tmp = list(list_pred)
-            #tmp.append('All')
+            tmp = list(list_pred)
+            tmp.append('All')
             #print(list_pred,"------------------------",type(list_pred))
-            #df = get_data_desc_plotly_list_or(db_dict_all, tmp)
-            #div_radar_plot = get_radar_plot_from_list_or(df)
+            df = get_data_desc_plotly_list_or(db_dict_all, tmp)
+            div_radar_plot = get_radar_plot_from_list_or(df)
 
             #div_radar_plot = None
         #res_mol_predict = random.choice(list)
