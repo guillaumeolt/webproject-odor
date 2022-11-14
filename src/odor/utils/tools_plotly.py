@@ -183,7 +183,7 @@ def get_radar_plot_from_list_or(df):
                                         "Fragment description: %{customdata[1]}",
                                         "Occurrence: %{customdata[2]:.2f} %"
     ]))
-    fig.write_image("/home/guillaumeolt/CMPLI/Projet_odeurs/Results/BDD_odors/plotly_radarplot_or.svg")
+    #fig.write_image("/home/guillaumeolt/CMPLI/Projet_odeurs/Results/BDD_odors/plotly_radarplot_or.svg")
 
     """
         fig = px.line_polar(df, r="odor_values", theta="Fragment", color="odor",line_close=True, custom_data=['Fragment', 'Fragment_desc', 'odor_count_occ'])
