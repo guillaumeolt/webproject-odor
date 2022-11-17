@@ -431,7 +431,17 @@ def OdorWebSite_docking_chem_or(request):
             save_2d_image_PNG_list([mol], "media/docking", name="_Name")
             docking_input_chemical = str(BASE_DIR) + '/media/docking/lig.pdb'
         else:
+            print(request.POST.get("search_chemical", "None"), "---------------------<>")
             docking_input_chemical = request.POST.get("search_chemical", "None")
+            try:
+                docking_input_chemical = request.POST.get("search_chemical", "None")
+                print("odor/static/media/db_mols_3d/"+docking_input_chemical+".pdb", str(BASE_DIR) + '/media/docking/lig.pdb')
+                shutil.copyfile("odor/static/media/db_mols_3d/"+docking_input_chemical+".pdb", str(BASE_DIR) + '/media/docking/lig.pdb')
+            except:
+                path_prot = None
+                return render(request, "OdorWebSite_Docking.html", context={"olfactory_receptors": olfactory_receptors,
+                                                                            "chemicals_odors": chemicals_odors,
+                                                                            'error_message': "Error inputs"})
 
         # Search Input protein structure
         print(request.POST.get("search_or", "None"))
