@@ -358,11 +358,14 @@ def utils_get_maccs_similarity(ChemicalsOdors, db_dict, name_mol, smi_str=False)
     return dict_sim_macc
 
 ### PHYLOGENIC TREE
-def utils_get_phy_tree(BASE_DIR, query_or, path_tree, path_output):
+def utils_get_phy_tree(BASE_DIR, query_or, path_tree, path_output, path_homology):
     script_file = str(BASE_DIR) + "/odor/utils/Rscript_auto_phylogenic_tree.R"
     #subprocess.Popen(["Rscript "+script_file,"--help"])
     print("Rscript "+script_file+" --or='{}'".format(query_or) + " --output='{}'".format(path_output)+" --tree='{}'".format(path_tree))
-    subprocess.call("Rscript "+script_file+" --or='{}'".format(query_or) + " --output='{}'".format(path_output)+" --tree='{}'".format(path_tree), shell=True)
+    subprocess.call("Rscript "+script_file+" --or='{}'".format(query_or) +\
+                                           " --output='{}'".format(path_output)+\
+                                           " --tree='{}'".format(path_tree)+\
+                                           " --homology='{}'".format(path_homology), shell=True)
     #subprocess.call(["Rscript",script_file,"--or='{}'".format(query_or),
     #                                       "--o='{}'".format(path_output),
     #                                       "--tree='{}'".format(path_tree)])

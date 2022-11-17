@@ -16,7 +16,7 @@ if("--help" %in% args) {
       --or               - string of the or
       --output                - output path and name file
       --tree             - path to the tree structure
-      
+      --homology         - path to or mouse and or human homology
       Example:
       Rscript Rscript_auto_phylogenic_tree.R --or=\"Or5k1;Or4p20\" --tree=\"../Data/phylogenic_tree/data_HORDE/phylo_tree_PhyML_Or10ad1.tree\" --o=\".\" \n\n")
   q(save="no")
@@ -46,6 +46,9 @@ if(is.null(argsL$tree)) {
 if(is.null(argsL$output)) {
   args$output = "./img.svg"
 }
+if(is.null(argsL$output)) {
+  args$homology = "../Data/BDD_odors/dt_homology_human_mouse.csv"
+}
 print("-/-")
 print(args$output)
 print(args)
@@ -66,12 +69,23 @@ mTree <- groupOTU(myTree, cls)
 
 vec_or = unlist(strsplit(args$or,";"))
 
+# add renplace homology
+dt_homology = read.table(args$homology, sep=",")
+vec_homology = dt_homology$V3
+names(vec_homology) = dt_homology$V2
+
+for (or_query in 1:length(vec_or) ) {
+  if (vec_or[or_query] %in% names(vec_homology)) {
+    vec_or[or_query]  = vec_homology[vec_or[or_query]]
+  }
+}
+
 image = ggtree(mTree,aes(color=group), layout="circular", size = 0.1, branch.length = 'none') + 
   geom_tiplab(data = ~ subset(., !(label %in% c(vec_or))),aes( label=label), 
               geom = "text", linetype='dashed', linesize=.1, size = 1)  +
   geom_label_repel(data = ~ subset(., label %in% c(vec_or)),
                    aes( label=label), 
-                   box.padding = 1,
+                   box.padding = 1, size = 10,
                    show.legend = FALSE, max.overlaps = 1000000000)
 ggsave(file=args$output, plot=image, width=20, height=16)
 
