@@ -77,75 +77,78 @@
     </script>
     <!-- /.navbar -->
     <!-- OR content -->
+    <div class="trail_grey">
+        <div class="trail_grey_h3"><h3>Olfactory receptor : {{ GeneName.GeneName }}</h3></div>
+    </div>
     <main>
-    <div>
-        <h1>Olfactory Receptor : {{ GeneName.GeneName }}</h1>
-    </div>
-    <h2>3D View:</h2>
-    <div id="container_visualisation_OR">
-        <div id="viewport" style="width:100%; height:100%;"></div>
-    </div>
-        <div class="or_sequence">
-            <p>Amino acid conceptual sequence: {{ GeneName.Sequence }}</p>
+        <div class="container_head_prot">
+            <div class="container_head_prot_img">
+                <div id="container_visualisation_OR">
+                    <div id="viewport" style="width:100%; height:100%;"></div>
+                </div>
+            </div>
+            <div class="container_head_prot_infos">
+                <table class="tg-chem">
+                    <tbody>
+                      <tr>
+                        <td class="tg-0pky"><strong>Name</strong></td>
+                        <td class="tg-0pky">{{ GeneName.GeneName }}</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-0pky"><strong>Uniprot id</strong></td>
+                        <td class="tg-0pky">{{ GeneName.idUniprot }}</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-0pky"><strong>Synonyms</strong></td>
+                        <td class="tg-0pky">
+                            {{ GeneName.Synonym }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="tg-0pky"><strong>Species</strong></td>
+                        <td class="tg-0pky">{{ GeneName.Species }}</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-0pky"><strong>Sequence</strong></td>
+                        <td class="tg-0pky">{{ GeneName.Sequence }}</td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    <script>
-        var GeneName_or_pdb  = "{{ GeneName.FileName_3D_Structure }}";
-        var path_pdb_or = "{% static 'media/db_prots/' %}{{ GeneName.FileName_3D_Structure }}";
-        console.log(path_pdb_or);
-    </script>
-    <script src="{% static 'js/code_or.js' %}"></script>
 
-    <h1>Radar plot:</h1>
-    {% block content %}
-        {% autoescape off %}
-        {{ div_radar_plot }}
-        {% endautoescape %}
-    {% endblock content%}
-    <h1>Umap OR:</h1>
-      {{div| safe}}
-   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
-   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
-   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script>
-   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.4.2.min.js"></script>
-   {{script| safe}}
-    <div><h1>OR phylogenic tree</h1></div>
-    <div>
-        <img src="{% static 'media/phylogenic_tree_OR/' %}{{ GeneName.GeneName }}.svg" style="display:block;" width="100%" height="100%">
-    </div>
-    <h2>Select compound for docking:</h2>
-        <form method="post" action="{% url 'docking_chem_or' %} " target="_blank">
-        {% csrf_token %}
-            <div class="tab-content">
-              <div class="tab-pane active" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
-                  <input type="text" id="search_chemical" name="search_chemical" placeholder="Search Chemicals by name, cas, smile, PubChem CID"></input>
-                  <input type="text" id="search_or" name="search_or" style="display:none" value="{{ GeneName.FileName_3D_Structure }}"></input>
-                  <button type="submit" id="btn_search_chem" name="btn_search_chemical">Launch seamdock</button>
-                  <script>
-                      var availableTags = [
-                                           {% for chem in chemicals_odors %}
-                                               "{{chem.CAS | safe}}", "{{chem.Name | addslashes}}",
-                                           {% endfor %}
-                                           ];
 
-                      var availableTags_dict_chem = {
-                          {% for chem in chemicals_odors %}
-                          "{{ chem.idChemicals }}": {CAS: "{{chem.CAS | safe}}",
-                                                     Name:"{{chem.Name | addslashes}}"},
-                          {% endfor %}
-                      };
-                  </script>
-              </div>
-            </div>
-        </form>
-            <div class="relative">
-                <div class="autocomplete_container" id="autocomplete_container"></div>
-            </div>
-            <div class="selection_to_dock_chem" id="selection_to_dock_chem">
-                  <p> Molecule to dock to the OR:</p>
-            </div>
+    <div class="container_part">
+        <div class="part_number">
+            <h3>1.</h3>
+        </div>
+        <div class="part_title">
+            <h3>3D Structure</h3>
+        </div>
+        <div class="part_infos_img">
+            <img id="part_infos_img_1" src="{% static 'media/img/Information.png' %}">
+        </div>
+        <div class="trail_grey"></div>
     </div>
-            <script type="text/javascript" src="{% static 'js/code_docking.js' %}"></script>
-    <div><h2>Molecules:</h2></div>
+    <div class="part_help" id="part_help_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    <div id="container_visualisation_OR">
+        <div id="viewport2" style="width:100%; height:100%;"></div>
+    </div>
+
+
+    <div class="container_part">
+        <div class="part_number">
+            <h3>2.</h3>
+        </div>
+        <div class="part_title">
+            <h3>Chemicals interaction</h3>
+        </div>
+        <div class="part_infos_img">
+            <img id="part_infos_img_2" src="{% static 'media/img/Information.png' %}">
+        </div>
+        <div class="trail_grey"></div>
+    </div>
+    <div class="part_help" id="part_help_2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
     <div class="container_tab_odor">
         <table id="myTable" class="table_db_odor"> <!-- class="table_db_odor" -->
             <thead>
@@ -176,7 +179,116 @@
             </tbody>
         </table>
     </div>
+
+
+    <div class="container_part">
+        <div class="part_number">
+            <h3>3.</h3>
+        </div>
+        <div class="part_title">
+            <h3>Overrepresented/Underrepresented functional groups</h3>
+        </div>
+        <div class="part_infos_img">
+            <img id="part_infos_img_3" src="{% static 'media/img/Information.png' %}">
+        </div>
+        <div class="trail_grey"></div>
+    </div>
+    <div class="part_help" id="part_help_3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    {% block content %}
+        {% autoescape off %}
+        {{ div_radar_plot }}
+        {% endautoescape %}
+    {% endblock content%}
+
+    <div class="container_part">
+        <div class="part_number">
+            <h3>4.</h3>
+        </div>
+        <div class="part_title">
+            <h3>Structural similarity</h3>
+        </div>
+        <div class="part_infos_img">
+            <img id="part_infos_img_4" src="{% static 'media/img/Information.png' %}">
+        </div>
+        <div class="trail_grey"></div>
+    </div>
+    <div class="part_help" id="part_help_4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    <div class="container_umap">
+        {{div| safe}}
+       <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
+       <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
+       <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script>
+       <script src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.4.2.min.js"></script>
+       {{script| safe}}
+       <style>
+        .bk-root {  align-content: center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;}
+        </style>  
+    </div>
+
+
+    <div class="container_part">
+        <div class="part_number">
+            <h3>5.</h3>
+        </div>
+        <div class="part_title">
+            <h3>Phylogenic tree</h3>
+        </div>
+        <div class="part_infos_img">
+            <img id="part_infos_img_5" src="{% static 'media/img/Information.png' %}">
+        </div>
+        <div class="trail_grey"></div>
+    </div>
+    <div class="part_help" id="part_help_5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    <div class="part_help" id="part_help_4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    <div>
+        <img src="{% static 'media/phylogenic_tree_OR/' %}{{ GeneName.GeneName }}.svg" style="display:block;" width="100%" height="100%">
+    </div>
+
+    <!--
+    <h2>Select compound for docking:</h2>
+    -->
+        <form method="post" action="{% url 'docking_chem_or' %} " target="_blank" style="display: none;">
+        {% csrf_token %}
+            <div class="tab-content">
+              <div class="tab-pane active" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
+                  <input type="text" id="search_chemical" name="search_chemical" placeholder="Search Chemicals by name, cas, smile, PubChem CID"></input>
+                  <input type="text" id="search_or" name="search_or" style="display:none" value="{{ GeneName.FileName_3D_Structure }}"></input>
+                  <button type="submit" id="btn_search_chem" name="btn_search_chemical">Launch seamdock</button>
+                  <script>
+                      var availableTags = [
+                                           {% for chem in chemicals_odors %}
+                                               "{{chem.CAS | safe}}", "{{chem.Name | addslashes}}",
+                                           {% endfor %}
+                                           ];
+
+                      var availableTags_dict_chem = {
+                          {% for chem in chemicals_odors %}
+                          "{{ chem.idChemicals }}": {CAS: "{{chem.CAS | safe}}",
+                                                     Name:"{{chem.Name | addslashes}}"},
+                          {% endfor %}
+                      };
+                  </script>
+              </div>
+            </div>
+        </form>
+            <div class="relative">
+                <div class="autocomplete_container" id="autocomplete_container"></div>
+            </div>
+            <div class="selection_to_dock_chem" id="selection_to_dock_chem">
+                  <!--<p> Molecule to dock to the OR:</p>-->
+            </div>
+    </div>
+            <script type="text/javascript" src="{% static 'js/code_docking.js' %}"></script>
     </main>
+    <script>
+        var GeneName_or_pdb  = "{{ GeneName.FileName_3D_Structure }}";
+        var path_pdb_or = "{% static 'media/db_prots/' %}{{ GeneName.FileName_3D_Structure }}";
+        console.log(path_pdb_or);
+    </script>
+    <script src="{% static 'js/code_or.js' %}"></script>
     <!-- ./About content -->
     <!-- Footer -->
     <footer id="footer">

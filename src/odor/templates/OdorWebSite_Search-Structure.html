@@ -72,7 +72,27 @@
     <!-- /.navbar -->
 	<main>
     <!-- Search content -->
+        <div class="container_head search">
+            <h3 class="p_overview">Similarity search</h3>
+            <p>Structural similarity search can be performed by either searching for overall similar structure though a tanimoto score or by searching for sub-structures.<br>
+            	<br> 
+				The <b>similarity search</b> based on a tanimoto score for a query molecule returns a score between 0 and 1 (similar) for all the molecules in the database. The molecule encodes maccs fingerprint which is a bit vector of 120 bit counting the presence (1) or absence (0) of a specific functional group in the structure of the molecule. The tanimoto score varies between 0 and 1 the higher the score the higher the similarity between the molecules. Molecules are then sorted from most similar to the lowest.<br> 
+				<br> 
+				The <b>substructure search</b> where we can search for a substructure pattern matching by searching via a smart pattern or any molecule identifier available in the searching method. It returns all the molecules of the database with the query substructure in its structure.
+			</p>
+            <div class="container_head_img">
+                <img src="{% static 'media/img/structure-search_img.png' %}" alt="search png">
+            </div>
+        </div>
+
+
 	<div id="form_search">
+		<div class="container_input">
+			<p>Draw structure/substrucure:</p>
+		</div>
+		<div class="container_input">
+			<p>Input structure/substructure:</p>
+		</div>
 		<div id = "container_sketcher">
 		<div id="root" class="root-ketcher"></div>
 					<script>!function(e){function r(r){for(var n,a,p=r[0],l=r[1],c=r[2],i=0,s=[];i<p.length;i++)a=p[i],Object.prototype.hasOwnProperty.call(o,a)&&o[a]&&s.push(o[a][0]),o[a]=0;for(n in l)Object.prototype.hasOwnProperty.call(l,n)&&(e[n]=l[n]);for(f&&f(r);s.length;)s.shift()();return u.push.apply(u,c||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,p=1;p<t.length;p++){var l=t[p];0!==o[l]&&(n=!1)}n&&(u.splice(r--,1),e=a(a.s=t[0]))}return e}var n={},o={1:0},u=[];function a(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,a),t.l=!0,t.exports}a.m=e,a.c=n,a.d=function(e,r,t){a.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},a.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,r){if(1&r&&(e=a(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(a.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)a.d(t,n,function(r){return e[r]}.bind(null,n));return t},a.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(r,"a",r),r},a.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},a.p="./";var p=this["webpackJsonpketcher-react-app"]=this["webpackJsonpketcher-react-app"]||[],l=p.push.bind(p);p.push=r,p=p.slice();for(var c=0;c<p.length;c++)r(p[c]);var f=l;t()}([])</script>
@@ -82,18 +102,35 @@
 		<form id = "container_search" method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			<div id="form_load">
-				<p>Search by sdf file:</p>
+				<p>Structure (sdf):</p>
+				<div class="form_load_img">
 				  <label for="file-input">
 					<img src="{% static 'media/logos/logo_download.png' %}"/>
-				  </label>
+				  </label>					
+				</div>
+
 				<input id="file-input" class="file-load" type="file" name="document"></input>
-				<p>Search by pubchem name:</p>
+				<p>1D structure: </p>
+				<input type="text" id="smile" name="smilefield" placeholder="Smile, Smart, Inchi, InchiKey"></input>
+				<p> </p>
+				<div class="ex_search_chem_structure" id="ex_search_chem_structure">Ex :
+	                <a class="ex_search_chem_s1" href="#query=CC=O<">CC=O</a>
+	                <a class="ex_search_chem_s1" href="#query=[OH]c1ccccc1">[OH]c1ccccc1</a>
+	            </div>
+				<div class="container_input container_input_pubchem">
+					<p>Search structure/substructure via Pubchem: </p>
+				</div>
+				<p>Pubchem name :</p>
 				<input type="text" id="pubchem_name" name="pubchem_name" placeholder="PubChem name"></input>
 					<!--<label for="document">Select file</label>-->
-
+				<p> </p>
+	            <div class="ex_search_pubchem" id="ex_search_pubchem">Ex :
+	                <a class="ex_search_pubchem_1" href="#query=Acetaldehyde">Acetaldehyde</a>
+	                <a class="ex_search_pubchem_2" href="#query=3-Pentanone">3-Pentanone</a>
+	                <a class="ex_search_pubchem_3" href="#query=Thiophene">Thiophene</a>
+	            </div>
+	            <script src="{% static 'js/code_search_structure.js' %}"></script>
 				<!--<button type="reset">Reset</button>-->
-				<p>Search by smile:</p>
-				<input type="text" id="smile" name="smilefield" placeholder="Smile, Smart, Inchi, InchiKey"></input>
 			</div>
 			<div id="form_launch">
 				<button type="submit" id="btn_search" name="btn_search" onclick="get_smile_file()">Launch similarity search</button>
@@ -103,6 +140,7 @@
 	</div>
 		<div id="result">
 			<script type="text/javascript" src="{% static 'js/code.js' %}"></script>
+			<script type="text/javascript" src="{% static 'js/code_search_structure.js' %}"></script>
 		</div>
 
 		{% if error_message != None %}

@@ -4,7 +4,7 @@ class OdorConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'odor'
     def ready(self):
-
+        """
         from .models import ChemicalsOdors,\
                           OlfactoryReceptors,\
                           Smell_Percepts,\
@@ -32,7 +32,7 @@ class OdorConfig(AppConfig):
         from .utils.test import utils_get_phy_tree
         from odorwebsite.settings import BASE_DIR, STATIC_ROOT,STATIC_URL
         from sys import path
-        """
+
         print("launching server")
          #  COMPUTE CHEMICALS IMAGES
         #print(path)

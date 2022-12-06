@@ -74,49 +74,76 @@
     <!-- /.navbar -->
     <!-- Main predict content -->
 	<main>
-		<div>
-			<h1>Prediction</h1>
-		</div>
-		<div id="form_search">
-			<div id = "container_sketcher">
-				<p> Draw structure:</p>
-			<div id="root"></div>
-						<script>!function(e){function r(r){for(var n,a,p=r[0],l=r[1],c=r[2],i=0,s=[];i<p.length;i++)a=p[i],Object.prototype.hasOwnProperty.call(o,a)&&o[a]&&s.push(o[a][0]),o[a]=0;for(n in l)Object.prototype.hasOwnProperty.call(l,n)&&(e[n]=l[n]);for(f&&f(r);s.length;)s.shift()();return u.push.apply(u,c||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,p=1;p<t.length;p++){var l=t[p];0!==o[l]&&(n=!1)}n&&(u.splice(r--,1),e=a(a.s=t[0]))}return e}var n={},o={1:0},u=[];function a(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,a),t.l=!0,t.exports}a.m=e,a.c=n,a.d=function(e,r,t){a.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},a.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,r){if(1&r&&(e=a(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(a.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)a.d(t,n,function(r){return e[r]}.bind(null,n));return t},a.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(r,"a",r),r},a.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},a.p="./";var p=this["webpackJsonpketcher-react-app"]=this["webpackJsonpketcher-react-app"]||[],l=p.push.bind(p);p.push=r,p=p.slice();for(var c=0;c<p.length;c++)r(p[c]);var f=l;t()}([])</script>
-						<script src="{% static 'js/2.43f6f78e.chunk.js' %}"></script>
-						<script src="{% static 'js/main.730396f6.chunk.js' %}"></script>
-			</div>
-			<form id = "container_search" method="post" enctype="multipart/form-data">
-				{% csrf_token %}
-				<div id="form_load">
-					<p>Search by sdf file:</p>
-					<label for="file-input"><img src="{% static 'media/logos/logo_download.png' %}"/></label>
-					<input type="file" id="file-input" class="file-load" name="document"></input>
-					<p>Predictict using pubchem name:</p>
-					<input type="text" id="pubchem_name" name="pubchem_name" placeholder="PubChem name"></input>
-						<!--<label for="document">Select file</label>-->
+		<div class="container_head search">
+            <h3 class="p_overview">Prediction</h3>
+            <p>Two deep learning prediction models based on a graphical Graphical Neural Network (GNN) have been added to the website to predict the potential odor and/or the potential interacting human ORs of a query compound. These models have been extracted from the article [ref]. The odor predictor can predict one or multiples odors cklass among a set of 23 odor classes with a prc auc of 0,497 and the human ORs predictor can predict the potential interaction of a molecule with one or multiple human among a set of 74 human OR with a prc-auc of 0,91.<br>
+			Additional physicochemical informations on the query molecule are computed and shown to the user as the molecular weight, logP, name if found in pubchem.
+			The similarity of the query compound is also computed on all odorant of the database and the 10 most similar odorant are displayed with their odor class and potential ORs interaction informations to strengthen the confidence of the given prediction.
 
-					<!--<button type="reset">Reset</button>-->
-					<p>Predictict using smile:</p>
-					<input type="text" id="smile" name="smilefield" placeholder="Smile, Inchi"></input>
-					<p>Choose a model to predict:</p>
+            <div class="container_head_img">
+                <img src="{% static 'media/img/predict_img.png' %}" alt="search png">
+            </div>
+        </div>
+	<div id="form_search">
+		<div class="container_input">
+			<p>Draw structure/substrucure:</p>
+		</div>
+		<div class="container_input">
+			<p>Input structure/substructure:</p>
+		</div>
+		<div id = "container_sketcher">
+		<div id="root" class="root-ketcher"></div>
+					<script>!function(e){function r(r){for(var n,a,p=r[0],l=r[1],c=r[2],i=0,s=[];i<p.length;i++)a=p[i],Object.prototype.hasOwnProperty.call(o,a)&&o[a]&&s.push(o[a][0]),o[a]=0;for(n in l)Object.prototype.hasOwnProperty.call(l,n)&&(e[n]=l[n]);for(f&&f(r);s.length;)s.shift()();return u.push.apply(u,c||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,p=1;p<t.length;p++){var l=t[p];0!==o[l]&&(n=!1)}n&&(u.splice(r--,1),e=a(a.s=t[0]))}return e}var n={},o={1:0},u=[];function a(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,a),t.l=!0,t.exports}a.m=e,a.c=n,a.d=function(e,r,t){a.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},a.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,r){if(1&r&&(e=a(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(a.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)a.d(t,n,function(r){return e[r]}.bind(null,n));return t},a.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(r,"a",r),r},a.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},a.p="./";var p=this["webpackJsonpketcher-react-app"]=this["webpackJsonpketcher-react-app"]||[],l=p.push.bind(p);p.push=r,p=p.slice();for(var c=0;c<p.length;c++)r(p[c]);var f=l;t()}([])</script>
+					<script src="{% static 'js/2.43f6f78e.chunk.js' %}"></script>
+					<script src="{% static 'js/main.730396f6.chunk.js' %}"></script>
+		</div>
+		<form id = "container_search" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div id="form_load">
+				<p>Structure (sdf):</p>
+				<div class="form_load_img">
+				  <label for="file-input">
+					<img src="{% static 'media/logos/logo_download.png' %}"/>
+				  </label>					
+				</div>
+
+				<input id="file-input" class="file-load" type="file" name="document"></input>
+				<p>1D structure: </p>
+				<input type="text" id="smile" name="smilefield" placeholder="Smile, Smart, Inchi, InchiKey"></input>
+				<p> </p>
+				<div class="ex_search_chem_structure" id="ex_search_chem_structure">Ex :
+	                <a class="ex_search_chem_s1" href="#query=CC=O<">CC=O</a>
+	                <a class="ex_search_chem_s1" href="#query=[OH]c1ccccc1">[OH]c1ccccc1</a>
+	            </div>
+				<div class="container_input container_input_pubchem">
+					<p>Search structure/substructure via Pubchem: </p>
+				</div>
+				<p>Pubchem name :</p>
+				<input type="text" id="pubchem_name" name="pubchem_name" placeholder="PubChem name"></input>
+					<!--<label for="document">Select file</label>-->
+				<p> </p>
+	            <div class="ex_search_pubchem" id="ex_search_pubchem">Ex :
+	                <a class="ex_search_pubchem_1" href="#query=Acetaldehyde">Acetaldehyde</a>
+	                <a class="ex_search_pubchem_2" href="#query=3-Pentanone">3-Pentanone</a>
+	                <a class="ex_search_pubchem_3" href="#query=Thiophene">Thiophene</a>
+	            </div>
+				<div class="container_input container_input_pubchem">
+					<p>Choose a model: </p>
+				</div>
 					<div class="choose_model">
 						<input id="predict_model_or" class = "predict_model" type="radio" name='predict_model_field' value='Olfactory Receptor (Human)' checked>
-						<label>Olfactory Receptor (Human)</label>
+						<label class="label_model_or">Olfactory Receptor (Human)</label>
 						<input id="predict_model_odor" class = "predict_model" type="radio" name='predict_model_field' value='Odor'>
-						<label>Odor</label>
+						<label class="label_model_odor">Odor</label>
 					</div>
-					<!--
-					<label for="predict_model">Choose a model to predict:</label>
-					<select multiple name="predict_model_field" id="predict_model">
-					  <option>Olfactory Receptor (Human)</option>
-					  <option>Odor</option>
-					</select>-->
-				</div>
+	            <script src="{% static 'js/code_search_structure.js' %}"></script>
+				<!--<button type="reset">Reset</button>-->
+			</div>
 				<div id="form_launch">
 					<button type="submit" id="btn_search" name="btn_predict" onclick="get_smile_file()">Launch prediction</button>
 				</div>
-			</form>
-		</div>
+		</form>
+	</div>
 		<div id="result">
 			<script type="text/javascript" src="{% static 'js/code.js' %}"></script>
 		</div>

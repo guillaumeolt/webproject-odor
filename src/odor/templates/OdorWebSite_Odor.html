@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="theme-color" content="#000000"/>
     <meta name="description" content="Ketcher is a web-based chemical structure editor"/>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>
@@ -15,17 +15,17 @@
     <link href="{% static 'css/2.1a1d4f17.chunk.css' %}'" rel="stylesheet">
     <link href="{% static 'css/main.4b33aa94.chunk.css' %}" rel="stylesheet">
 
-	<link rel="stylesheet" href="{% static 'css/sortable.min.css' %}" />
-	<script src="{% static 'js/sortable.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/sortable.min.css' %}" />
+    <script src="{% static 'js/sortable.min.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-	<script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
     <title>OdorFinder/OdorPred (to change)</title>
 
     <script src="{% static 'js/cytoscape.min.js' %}"></script>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-	<link rel="stylesheet" href="{% static 'css/style_website.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_website.css' %}">
     <link rel="stylesheet" href="{% static 'css/style_website_odor.css' %}">
 
     <!-- BOKEH -->
@@ -76,35 +76,23 @@
     </script>
     <!-- /.navbar -->
     <!-- Odor content -->
+    <div class="trail_grey">
+        <div class="trail_grey_h3"><h3>Odor : {{ odor.Odor }}</h3></div>
+    </div>
     <main>
-        <div><h1>Odor : {{ odor.Odor }}</h1></div>
-        <div><h1>Structural/Odorant space</h1></div>
-        <div><h2>Radar plot:</h2></div>
-        <p>This radar plot is intended to quickly illustrate the difference in occurrence of functional
-            groups among a subset of molecules against the whole database of molecule for which an odor of <strong>{{ odor.Odor }}</strong> has been recognised</p>
-        {% block content %}
-            {% autoescape off %}
-            <!--{{ div_radar_plot }}-->
-            {{ div_radar_plot }}
-            {% endautoescape %}
-        {% endblock content%}
-        <h1>Umap :</h1>
-        <p>This UMAP representation of compounds distribution in a 2D map projection allow to observe structural similarity between molecules
-            for which an odor of <strong>{{ odor.Odor }}</strong> has been recognised</p>
-          {{div| safe}}
-       <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
-       <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
-       <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script>
-       <script src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.4.2.min.js"></script>
-       {{script| safe}}
-        <div><h2>Odor-chemical interactions visualisation:</h2></div>
-        <div id="cy"></div>
-        <script>
-            var db  = {{ db|safe }};
-            var dic_odor_chem  = {{ dic_odor_chem|safe }};
-        </script>
-        <script src="{% static 'js/code_odor.js' %}"></script>
-        <div><h2>Molecules:</h2></div>
+        <div class="container_part">
+            <div class="part_number">
+                <h3>1.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Chemicals with {{ odor.Odor }} odor</h3>
+            </div>
+            <div class="part_infos_img">
+                <img id="part_infos_img_1" src="{% static 'media/img/Information.png' %}">
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+        <div class="part_help" id="part_help_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
         <div class="container_tab_odor">
             <table id="myTable" class="table_db_odor"> <!-- class="table_db_odor" -->
                 <thead>
@@ -135,6 +123,70 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="container_part">
+            <div class="part_number">
+                <h3>2.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Overrepresented/Underrepresented functional groups</h3>
+            </div>
+            <div class="part_infos_img">
+                <img id="part_infos_img_2" src="{% static 'media/img/Information.png' %}">
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+        <div class="part_help" id="part_help_2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+        <!--
+        <p>This radar plot is intended to quickly illustrate the difference in occurrence of functional
+            groups among a subset of molecules against the whole database of molecule for which an odor of <strong>{{ odor.Odor }}</strong> has been recognised</p>
+        -->
+        {% block content %}
+            {% autoescape off %}
+            <!--{{ div_radar_plot }}-->
+            {{ div_radar_plot }}
+            {% endautoescape %}
+        {% endblock content%}
+
+        <div class="container_part">
+            <div class="part_number">
+                <h3>3.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Structural similarity</h3>
+            </div>
+            <div class="part_infos_img">
+                <img id="part_infos_img_3" src="{% static 'media/img/Information.png' %}">
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+        <div class="part_help" id="part_help_3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+        <!--
+        <p>This UMAP representation of compounds distribution in a 2D map projection allow to observe structural similarity between molecules
+            for which an odor of <strong>{{ odor.Odor }}</strong> has been recognised</p>
+        -->
+          {{div| safe}}
+       <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
+       <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
+       <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script>
+       <script src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.4.2.min.js"></script>
+       {{script| safe}}
+        <style>
+        .bk-root {  align-content: center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;}
+        </style>  
+
+
+        <!--<div><h2>Odor-chemical interactions visualisation:</h2></div>-->
+        <div id="cy" style="display: none;"></div>
+        <script>
+            var db  = {{ db|safe }};
+            var dic_odor_chem  = {{ dic_odor_chem|safe }};
+        </script>
+        <script src="{% static 'js/code_odor.js' %}"></script>
+
     </main>
     <!-- ./Odor content -->
     <!-- Footer -->

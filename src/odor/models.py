@@ -229,7 +229,7 @@ def my_custom_sql_odor_get_chem(odor_id):
         dic_db_k[k["idChemicals"]] = k
     return([dic_db_k])
 
-def my_custom_sql_odor_get_chem(or_id):
+def my_custom_sql_or_get_chem(or_id):
     cursor = connection.cursor()
     sql_query = "select  Chemicals.idChemicals, " \
                          "Chemicals.CAS, " \

@@ -73,22 +73,34 @@
     <!-- /.navbar -->
     <!-- About content -->
     <main>
-        <h1>Docking</h1>
-        <form method="post" action="{% url 'docking_chem_or' %} " target="_blank">
+        <div class="container_head search">
+            <h3 class="p_overview">Docking</h3>
+            <p>With known chemical and or of the database information we linked the web server to the sea dock website which allows us to perform online docking. To perform docking we retrieved 3D structure of olfactory receptors computed with Alpha Fold for the proteins of the rat mouse and human. In order to standardize docking parameters ORs structures were aligned using TMalign against Olfr17 (uniprot id Q7TRM9) on the Z axis with a reference center set at 0.0.0 with pymol. The grid box size has been set to X: 43 Å, Y: 24 Å, Z: 38 Å  to be sufficiently large and restricted to target the core of all the ORs. seamdock is an online service that integrates multiple docking tools in a common framework allowing to easily perform ligand protein docking without advanced computer and docking knowledge. The user can choose to use the structure of ORs and chemicals directly from the website or to retrieve a pdb structure imported from the PDB database.
+            </p>
+            <div class="container_head_img">
+                <img src="{% static 'media/img/docking_img.png' %}" alt="search png">
+            </div>
+        </div>
+
+        <form class="form_load" id="form_load" method="post" action="{% url 'docking_chem_or' %} " target="_blank">
             {% csrf_token %}
             <div id="container_docking">
                 <div id="container_title_dock">
-                    <h2>Select chemical</h2>
-                    <h2>Select protein</h2>
+                    <div class="container_input">
+                        <p>Select chemical</p>
+                    </div>
+                    <div class="container_input">
+                        <p>Select protein</p>
+                    </div>
                 </div>
                 <div id="container_docking_lig">
-                    <p>Search by sdf file:</p>
+                    <p>Structure (sdf):</p>
                     <label for="file-input"><img src="{% static 'media/logos/logo_download.png' %}"/></label>
                     <input id="file-input" class="file-load" type="file" name="document"></input>
-                    <p>Search by pubchem name:</p>
+                    <p>Pubchem name :</p>
                     <input type="text" id="pubchem_name" name="pubchem_name" placeholder="PubChem name"></input>
-                    <p>Search by smile:</p>
-				    <input type="text" id="smile" name="smilefield" placeholder="Smile, Smart, Inchi, InchiKey"></input>
+                    <p>1D structure: </p>
+				    <input type="text" id="smile" name="smilefield" placeholder="Smile, Inchi, InchiKey"></input>
                     <p>Search molecule in database:</p>
                     <div class="tab-pane active" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
                         <input type="text" id="search_chemical" name="search_chemical" placeholder="Search Chemicals by name, cas, smile, PubChem CID"></input>
@@ -97,6 +109,7 @@
                         <div class="autocomplete_container" id="autocomplete_container_lig"></div>
                     </div>
                 </div>
+                
                 <div id="container_docking_prot">
                     <p> Search protein structure by pdb code:</p>
                     <input type="text" id="pdb-input" name="pdb_name" placeholder="PDB code"></input>

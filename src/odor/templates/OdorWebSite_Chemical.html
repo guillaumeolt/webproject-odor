@@ -77,39 +77,88 @@
     });
     </script>
     <!-- Chemical content -->
+    <div class="trail_grey">
+        <div class="trail_grey_h3"><h3>Chemical : {{ chem.IUPAC_name }}</h3></div>
+    </div>
     <main>
     <div>
-        <div><h1>Chemical : {{ chem.IUPAC_name }}</h1></div>
-        <table class="tg-chem">
-            <tbody>
-              <tr>
-                <td class="tg-0pky" rowspan="4">
-                    <img src="{% static 'media/db_mols_svg/' %}{{chem.idChemicals}}.svg" style="display:block;" width="50%" height="50%">
-                </td>
-                <td class="tg-0pky"><strong>IUPAC Name</strong></td>
-                <td class="tg-0pky">{{ chem.IUPAC_name }}</td>
-              </tr>
-              <tr>
-                <td class="tg-0pky"><strong>PubChem CID</strong></td>
-                <td class="tg-0pky">
-                    <a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{db.Pubchem_CID}}" target="_blank">{{db.Pubchem_CID}}</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="tg-0pky"><strong>CAS</strong></td>
-                <td class="tg-0pky">{{db.CAS}}</td>
-              </tr>
-              <tr>
-                <td class="tg-0pky"><strong>SMILES</strong></td>
-                <td class="tg-0pky">{{db.SMILE}}</td>
-              </tr>
-            </tbody>
-        </table>
-        <div><h1>Odors</h1></div>
+        <div class="container_head_chem">
+            <div class="container_head_chem_img">
+                <img src="{% static 'media/db_mols_svg/' %}{{chem.idChemicals}}.svg" style="display:block;">
+            </div>
+            <div class="container_head_chem_infos">
+                <table class="tg-chem">
+                    <tbody>
+                      <tr>
+                        <td class="tg-0pky"><strong>IUPAC Name</strong></td>
+                        <td class="tg-0pky">{{ chem.IUPAC_name }}</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-0pky"><strong>PubChem CID</strong></td>
+                        <td class="tg-0pky">
+                            <a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{db.Pubchem_CID}}" target="_blank">{{db.Pubchem_CID}}</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="tg-0pky"><strong>CAS</strong></td>
+                        <td class="tg-0pky">{{db.CAS}}</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-0pky"><strong>SMILES</strong></td>
+                        <td class="tg-0pky">{{db.SMILE}}</td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="container_part">
+            <div class="part_number">
+                <h3>1.</h3>
+            </div>
+            <div class="part_title">
+                <h3>3D Structure</h3>
+            </div>
+            <div class="part_infos_img">
+                <img id="part_infos_img_1" src="{% static 'media/img/Information.png' %}">
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+        <div class="part_help" id="part_help_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+        <div id="container_visualisation_mol">
+            <div id="viewport" style="width:100%; height:100%;"></div>
+        </div>
+
+        <div class="container_part">
+            <div class="part_number">
+                <h3>2.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Odors</h3>
+            </div>
+            <div class="part_infos_img">
+                <img id="part_infos_img_2" src="{% static 'media/img/Information.png' %}">
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+        <div class="part_help" id="part_help_2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
         {% for key, value in dic_chem_odor.items %}
             <a href="{% url 'OdorWebSite_Odor' odor_id=key %}" target="_blank">{{value}}</a>
         {% endfor %}
-        <div><h1>Olfactory receptors</h1></div>
+
+        <div class="container_part">
+            <div class="part_number">
+                <h3>3.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Olfactory receptors interaction</h3>
+            </div>
+            <div class="part_infos_img">
+                <img id="part_infos_img_3" src="{% static 'media/img/Information.png' %}">
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+        <div class="part_help" id="part_help_3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
         {% for or in db.OlfRecept|str_split_or %}
             <a href="{% url 'OdorWebSite_OR' GeneName=or %}" target="_blank">{{or}}</a>
         {% endfor %}
@@ -117,25 +166,37 @@
         <!--{% for or in olfactory_receptors %}
             <a href="{% url 'OdorWebSite_OR' GeneName=or.GeneName %}" target="_blank">{{or.GeneName}}</a>
         {% endfor %}-->
-        <div><h1>3D Structure</h1></div>
-        <div id="container_visualisation_mol">
-            <div id="viewport" style="width:100%; height:100%;"></div>
+
+        <div class="container_part">
+            <div class="part_number">
+                <h3>4.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Phylogenic tree</h3>
+            </div>
+            <div class="part_infos_img">
+                <img id="part_infos_img_4" src="{% static 'media/img/Information.png' %}">
+            </div>
+            <div class="trail_grey"></div>
         </div>
-        <div><h1>Chemical-olfactory receptors and chemical-odor interactions visualisation</h1></div>
-        <div id="cy"></div>
+        <div class="part_help" id="part_help_4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+        <!--<div><h1>Chemical-olfactory receptors and chemical-odor interactions visualisation</h1></div>-->
+        <div id="cy" style="display: none;"></div>
         <script>
             var db  = {{ db|safe }};
             var dic_chem_odor  = {{ dic_chem_odor|safe }};
             var path_3d_structure = "{% static 'media/db_mols_3d/' %}{{chem.idChemicals}}.pdb"
         </script>
         <script src="{% static 'js/code_chemical.js' %}"></script>
-        <div><h1>OR phylogenic tree</h1></div>
         <div>
             <img src="{% static 'media/phylogenic_tree_chem/' %}{{chem.idChemicals}}.svg" style="display:block;" width="100%" height="100%">
         </div>
+
+        <!--
         <div><h1>Docking</h1></div>
-    <h2>Select olfactory receptor for docking:</h2>
-        <form method="post" action="{% url 'docking_chem_or' %} " target="_blank">
+        <h2>Select olfactory receptor for docking:</h2>
+    -->
+        <form method="post" action="{% url 'docking_chem_or' %} " target="_blank" style="display: none;">
         {% csrf_token %}
             <div class="tab-content">
               <div class="tab-pane active" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">

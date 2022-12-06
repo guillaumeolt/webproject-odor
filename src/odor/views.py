@@ -343,6 +343,7 @@ def OdorWebSite_Odor_template(request, odor_id=None, db_dict_all=None):
     #print(chem_id, "-------------------")
     odor = Smell_Percepts.objects.get(idSmell_Percepts=odor_id)
     db_dict = my_custom_sql_odor_id(odor_id)[0]
+
     dic_odor_chem = my_custom_sql_odor_get_chem(odor_id)[0]
 
     db_dict_all = my_custom_sql()
