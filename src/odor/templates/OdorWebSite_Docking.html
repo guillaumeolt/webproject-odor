@@ -111,8 +111,8 @@
                 </div>
                 
                 <div id="container_docking_prot">
-                    <p> Search protein structure by pdb code:</p>
-                    <input type="text" id="pdb-input" name="pdb_name" placeholder="PDB code"></input>
+                    <p style="display: none;"> Search protein structure by pdb code:</p>
+                    <input style="display: none;" type="text" id="pdb-input" name="pdb_name" placeholder="PDB code"></input>
                     <p> Search olfactory receptor in database:</p>
                     <div class="tab-pane active" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
                         <input type="text" id="search_or" name="search_or" placeholder="Search OR by name, Uniprot ID, Species"></input>
@@ -135,6 +135,9 @@
                <button type="submit" id="btn_search" name="btn_search">Launch seamdock</button>
             </div>
         </form>
+
+        <!--<div class="loader" id="loader"></div>-->
+
 		{% if error_message != None %}
 		<div class="error_input"><p>{{ error_message }}</p></div>
         {% endif %}
@@ -172,7 +175,7 @@
                 <div class="footer-content Contact">
                     <h3 class="footer-title">Contact</h3>
                     <div class="widget-body">
-                        <p>+3615odor<br>
+                        <p>+33XXXXXXX<br>
                         <a href="mailto:#">some.email@somewhere.com</a>
                         <br>
                             Université Paris Cité

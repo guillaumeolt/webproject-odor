@@ -25,9 +25,12 @@
 
 	<link rel="stylesheet" href="{% static 'css/style_website.css' %}">
 	<link rel="stylesheet" href="{% static 'css/style_website_predict.css' %}">
+
     <!-- BOKEH -->
     <link href=”http://cdn.pydata.org/bokeh/release/bokeh-2.4.2.min.css" rel=”stylesheet” type=”text/css”>
     <link href=”http://cdn.pydata.org/bokeh/release/bokeh-widgets-2.4.2.min.css" rel=”stylesheet” type=”text/css”>
+    <!-- download table -->
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
 </head>
 <body class="home">
     <!-- Fixed navbar -->
@@ -86,10 +89,10 @@
         </div>
 	<div id="form_search">
 		<div class="container_input">
-			<p>Draw structure/substrucure:</p>
+			<p>Draw structure:</p>
 		</div>
 		<div class="container_input">
-			<p>Input structure/substructure:</p>
+			<p>Input structure:</p>
 		</div>
 		<div id = "container_sketcher">
 		<div id="root" class="root-ketcher"></div>
@@ -116,7 +119,7 @@
 	                <a class="ex_search_chem_s1" href="#query=[OH]c1ccccc1">[OH]c1ccccc1</a>
 	            </div>
 				<div class="container_input container_input_pubchem">
-					<p>Search structure/substructure via Pubchem: </p>
+					<p>Search structure via Pubchem: </p>
 				</div>
 				<p>Pubchem name :</p>
 				<input type="text" id="pubchem_name" name="pubchem_name" placeholder="PubChem name"></input>
@@ -144,16 +147,31 @@
 				</div>
 		</form>
 	</div>
-		<div id="result">
+		<div id="result" style="display: none;">
 			<script type="text/javascript" src="{% static 'js/code.js' %}"></script>
 		</div>
+
+		<div class="loader" id="loader"></div>
 
 		{% if error_message != None %}
 		<div class="error_input"><p>{{ error_message }}</p></div>
 		{% elif  prediction != None %}
-		<h1>Molecul to predict:</h1>
+	    <div class="container_part">
+	        <div class="part_number">
+	            <h3>1.</h3>
+	        </div>
+	        <div class="part_title">
+	            <h3>Query molecule</h3>
+	        </div>
+	        <div class="part_infos_img">
+	        	<img id="part_infos_down_1" src="{% static 'media/img/Download.svg' %}">
+	            <img id="part_infos_img_1" src="{% static 'media/img/Information.png' %}">
+	        </div>
+	        <div class="trail_grey"></div>
+	    </div>
+    	<div class="part_help" id="part_help_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
 		<div class="container">
-			<table id="myTable" class="table_db_odor"> <!-- class="table_db_odor" -->
+			<table id="myTable1" class="table_db_odor"> <!-- class="table_db_odor" -->
 				<thead>
 				  <tr class="header">
 					  <th>Molecule</th>
@@ -183,11 +201,44 @@
 					</tr>
 				</tbody>
 			</table>
+			<script type="text/javascript">
+				$(function() {
+        $("#part_infos_down_1").click(function(e){
+          var table = $("#myTable1");
+          if(table && table.length){
+            $(table).table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: "prediction_result_query_" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: false
+            });
+          }
+        });
+        
+      });
+			</script>
 		</div>
-		<h1>Prediction:</h1>
+	    <div class="container_part">
+	        <div class="part_number">
+	            <h3>2.</h3>
+	        </div>
+	        <div class="part_title">
+	            <h3>Prediction</h3>
+	        </div>
+	        <div class="part_infos_img">
+	        	<img id="part_infos_down_2" src="{% static 'media/img/Download.svg' %}">
+	            <img id="part_infos_img_2" src="{% static 'media/img/Information.png' %}">
+	        </div>
+	        <div class="trail_grey"></div>
+	    </div>
+    	<div class="part_help" id="part_help_2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
 		<!-- tableau resultats -->
 		<div class="container">
-			<table id="myTable" class="table_db_odor"> <!-- class="table_db_odor" -->
+			<table id="myTable2" class="table_db_odor"> <!-- class="table_db_odor" -->
 				<thead>
 				  <tr class="header">
 					  <th>OR/ODEUR</th>
@@ -203,24 +254,87 @@
 				{% endfor %}
 				</tbody>
 			</table>
+			<script type="text/javascript">
+				$(function() {
+        $("#part_infos_down_2").click(function(e){
+          var table = $("#myTable2");
+          if(table && table.length){
+          	console.log(table);
+            $(table).table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: "prediction_result_probaiblities_" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: false
+            });
+          }
+        });
+        
+      });
+			</script>
 		</div>
-		<h1>Radar plot:</h1>
+	    <div class="container_part">
+	        <div class="part_number">
+	            <h3>3.</h3>
+	        </div>
+	        <div class="part_title">
+	            <h3>Overrepresented/Underrepresented functional groups</h3>
+	        </div>
+	        <div class="part_infos_img">
+	            <img id="part_infos_img_3" src="{% static 'media/img/Information.png' %}">
+	        </div>
+	        <div class="trail_grey"></div>
+	    </div>
+    	<div class="part_help" id="part_help_3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
 		{% block content %}
 			{% autoescape off %}
 			{{ div_radar_plot }}
 			{% endautoescape %}
 		{% endblock content%}
-		<h1>Umap predict:</h1>
+	    <div class="container_part">
+	        <div class="part_number">
+	            <h3>4.</h3>
+	        </div>
+	        <div class="part_title">
+	            <h3>Chemcial space</h3>
+	        </div>
+	        <div class="part_infos_img">
+	            <img id="part_infos_img_4" src="{% static 'media/img/Information.png' %}">
+	        </div>
+	        <div class="trail_grey"></div>
+	    </div>
+    	<div class="part_help" id="part_help_4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
 		  {{div| safe}}
 	   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
 	   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
 	   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script>
 	   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.4.2.min.js"></script>
 	   {{script| safe}}
-
-		<h1>Read accross</h1>
+       <style>
+        .bk-root {  align-content: center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;}
+        </style>  
+	    <div class="container_part">
+	        <div class="part_number">
+	            <h3>5.</h3>
+	        </div>
+	        <div class="part_title">
+	            <h3>Read accross</h3>
+	        </div>
+	        <div class="part_infos_img">
+	        	<img id="part_infos_down_5" src="{% static 'media/img/Download.svg' %}">
+	            <img id="part_infos_img_5" src="{% static 'media/img/Information.png' %}">
+	        </div>
+	        <div class="trail_grey"></div>
+	    </div>
+    	<div class="part_help" id="part_help_5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
 	<div class="container">
-			<table id="myTable" class="table_db_odor"> <!-- class="table_db_odor" -->
+			<table id="myTable5" class="table_db_odor"> <!-- class="table_db_odor" -->
 				<thead>
 				  <tr class="header">
 					  {% for key, value in db.0.items %}
@@ -261,10 +375,31 @@
 				</tbody>
 
 			</table>
+			<script type="text/javascript">
+				$(function() {
+        $("#part_infos_down_5").click(function(e){
+          var table = $("#myTable5");
+          if(table && table.length){
+            $(table).table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: "prediction_result_read_accross_" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: false
+            });
+          }
+        });
+        
+      });
+			</script>
 	</div>
-		<div><p>Read accross all set</p></div>
+		<div><p></p></div>
 	{% endif %}
 	</main>
+	<script type="text/javascript" src="{% static 'js/code_predict.js' %}"></script>
     <!-- ./Predict content -->
     <!-- Footer -->
     <footer id="footer">
@@ -273,7 +408,7 @@
                 <div class="footer-content Contact">
                     <h3 class="footer-title">Contact</h3>
                     <div class="widget-body">
-                        <p>+3615odor<br>
+                        <p>+33XXXXXXX<br>
                         <a href="mailto:#">some.email@somewhere.com</a>
                         <br>
                             Université Paris Cité

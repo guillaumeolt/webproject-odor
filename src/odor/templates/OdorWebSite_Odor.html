@@ -31,6 +31,8 @@
     <!-- BOKEH -->
     <link href=”http://cdn.pydata.org/bokeh/release/bokeh-2.4.2.min.css" rel=”stylesheet” type=”text/css”>
     <link href=”http://cdn.pydata.org/bokeh/release/bokeh-widgets-2.4.2.min.css" rel=”stylesheet” type=”text/css”>
+    <!-- download table -->
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
 </head>
 <body class="home">
     <!-- Fixed navbar -->
@@ -88,6 +90,7 @@
                 <h3>Chemicals with {{ odor.Odor }} odor</h3>
             </div>
             <div class="part_infos_img">
+                <img id="part_infos_down_1" src="{% static 'media/img/Download.svg' %}">
                 <img id="part_infos_img_1" src="{% static 'media/img/Information.png' %}">
             </div>
             <div class="trail_grey"></div>
@@ -122,6 +125,28 @@
                 {% endfor %}
                 </tbody>
             </table>
+        <script type="text/javascript">
+            var odor = "{{ odor.Odor|safe }}";
+            console.log(odor);
+                    $(function() {
+            $("#part_infos_down_1").click(function(e){
+              var table = $("#myTable");
+              if(table && table.length){
+            $(table).table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: "chemicals_odor_" +odor+ "_" +new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: false
+            });
+          }
+        });
+        
+      });
+        </script>
         </div>
 
         <div class="container_part">
@@ -153,7 +178,7 @@
                 <h3>3.</h3>
             </div>
             <div class="part_title">
-                <h3>Structural similarity</h3>
+                <h3>Chemical space</h3>
             </div>
             <div class="part_infos_img">
                 <img id="part_infos_img_3" src="{% static 'media/img/Information.png' %}">
@@ -196,7 +221,7 @@
                 <div class="footer-content Contact">
                     <h3 class="footer-title">Contact</h3>
                     <div class="widget-body">
-                        <p>+3615odor<br>
+                        <p>+33XXXXXXX<br>
                         <a href="mailto:#">some.email@somewhere.com</a>
                         <br>
                             Université Paris Cité

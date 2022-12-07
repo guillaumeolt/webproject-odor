@@ -25,7 +25,8 @@
 	<link rel="stylesheet" href="{% static 'css/style_website_search-structure.css' %}">
 
 	<script src="{% static 'js/jquery.min.js' %}"></script>
-
+    <!-- download table -->
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
 </head>
 <body class="home">
     <!-- Fixed navbar -->
@@ -73,7 +74,7 @@
 	<main>
     <!-- Search content -->
         <div class="container_head search">
-            <h3 class="p_overview">Similarity search</h3>
+            <h3 class="p_overview">Structure search</h3>
             <p>Structural similarity search can be performed by either searching for overall similar structure though a tanimoto score or by searching for sub-structures.<br>
             	<br> 
 				The <b>similarity search</b> based on a tanimoto score for a query molecule returns a score between 0 and 1 (similar) for all the molecules in the database. The molecule encodes maccs fingerprint which is a bit vector of 120 bit counting the presence (1) or absence (0) of a specific functional group in the structure of the molecule. The tanimoto score varies between 0 and 1 the higher the score the higher the similarity between the molecules. Molecules are then sorted from most similar to the lowest.<br> 
@@ -129,19 +130,21 @@
 	                <a class="ex_search_pubchem_2" href="#query=3-Pentanone">3-Pentanone</a>
 	                <a class="ex_search_pubchem_3" href="#query=Thiophene">Thiophene</a>
 	            </div>
-	            <script src="{% static 'js/code_search_structure.js' %}"></script>
 				<!--<button type="reset">Reset</button>-->
 			</div>
 			<div id="form_launch">
-				<button type="submit" id="btn_search" name="btn_search" onclick="get_smile_file()">Launch similarity search</button>
-				<button type="submit" id="btn_search" name="btn_match" onclick="get_smile_file()">Launch substructure search</button>
+				<button type="submit" id="btn_search" name="btn_search" onclick="loader_activate();get_smile_file()">Launch similarity search</button>
+				<button type="submit" id="btn_search" name="btn_match" onclick="loader_activate();get_smile_file()">Launch substructure search</button>
 			</div>
 		</form>
 	</div>
-		<div id="result">
+
+		<div class="loader" id="loader"></div>
+		<div id="result" style="display: none;">
 			<script type="text/javascript" src="{% static 'js/code.js' %}"></script>
-			<script type="text/javascript" src="{% static 'js/code_search_structure.js' %}"></script>
 		</div>
+
+
 
 		{% if error_message != None %}
 		<div class="error_input"><p>{{ error_message }}</p></div>
@@ -150,8 +153,21 @@
 			<p>Query SMART pattern : {{ smart }}</p>
 		</div>
 		{% elif  compound != None %}
+	    <div class="container_part">
+	        <div class="part_number">
+	            <h3>1.</h3>
+	        </div>
+	        <div class="part_title">
+	            <h3>Query chemical</h3>
+	        </div>
+	        <div class="part_infos_img">
+	            <img id="part_infos_img_1" src="{% static 'media/img/Information.png' %}">
+	        </div>
+	        <div class="trail_grey"></div>
+	    </div>
+    	<div class="part_help" id="part_help_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
 		<div class="query_compound">
-			<p>Query Compound :</p>
+			<!--<p>Query Compound :</p>-->
 			<div class="container_query_compound">
 				<div class="query_compound-img">
 					    {% block content %}
@@ -188,7 +204,6 @@
 		</div>
 		{% endif %}
 
-
 	<!--
 		<div>
 		<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
@@ -196,6 +211,20 @@
 		</div>
 	-->
 		{% if compound != None or smart != None%}
+	    <div class="container_part">
+	        <div class="part_number">
+	            <h3>2.</h3>
+	        </div>
+	        <div class="part_title">
+	            <h3>Similarity table</h3>
+	        </div>
+	        <div class="part_infos_img">
+	        	<img id="part_infos_down_2" src="{% static 'media/img/Download.svg' %}">
+	            <img id="part_infos_img_2" src="{% static 'media/img/Information.png' %}">
+	        </div>
+	        <div class="trail_grey"></div>
+	    </div>
+    	<div class="part_help" id="part_help_2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
 		<div class="container">
 	  <!--
       <div class="header_wrap">
@@ -264,8 +293,28 @@
 					  </li>-->
 				  </ul>
 				</nav>
-				<div class="rows_count">Showing 1 to 50 of 4014 entries</div>
+				<!--<div class="rows_count">Showing 1 to 50 of 4014 entries</div>-->
 			</div>
+		<script type="text/javascript">
+					$(function() {
+	        $("#part_infos_down_2").click(function(e){
+	          var table = $("#myTable");
+	          if(table && table.length){
+            $(table).table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: "prediction_result_probaiblities_" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: false
+            });
+          }
+        });
+        
+      });
+		</script>
 </div>
 		<script type="text/javascript" src="{% static 'js/code_table.js' %}"></script>
 
@@ -277,6 +326,7 @@
     <!-- ./Search content -->
 
 	</main>
+	<script type="text/javascript" src="{% static 'js/code_search_structure.js' %}"></script>
     <!-- Footer -->
     <footer id="footer">
         <div class="container-footer">
@@ -284,7 +334,7 @@
                 <div class="footer-content Contact">
                     <h3 class="footer-title">Contact</h3>
                     <div class="widget-body">
-                        <p>+3615odor<br>
+                        <p>+33XXXXXXX<br>
                         <a href="mailto:#">some.email@somewhere.com</a>
                         <br>
                             Université Paris Cité
@@ -334,5 +384,4 @@
     <!-- /Footer -->
 </body>
 <script type="text/javascript" src="{% static 'js/code.js' %}"></script>
-<script src="{% static 'js/jquery.min.js' %}"></script>
 </html>
