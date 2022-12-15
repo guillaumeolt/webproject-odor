@@ -24,7 +24,7 @@ class ChemicalsOdors(models.Model):
     Molecular_Weight = models.CharField(max_length=45)
     Molecular_Formula = models.CharField(max_length=45)
     InChi = models.CharField(max_length=400, default='None')
-    InChi_Key = models.CharField(max_length=45)
+    InChi_Key = models.CharField(max_length=45, default='None')
     class Meta:
         db_table = "Chemicals"
 
