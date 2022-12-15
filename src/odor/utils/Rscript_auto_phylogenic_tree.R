@@ -16,6 +16,7 @@ if("--help" %in% args) {
       --or               - string of the or
       --output                - output path and name file
       --tree             - path to the tree structure
+      --species             - species between mouse or human
       --homology         - path to or mouse and or human homology
       Example:
       Rscript Rscript_auto_phylogenic_tree.R --or=\"Or5k1;Or4p20\" --tree=\"../Data/phylogenic_tree/data_HORDE/phylo_tree_PhyML_Or10ad1.tree\" --o=\".\" \n\n")
@@ -46,6 +47,9 @@ if(is.null(argsL$tree)) {
 if(is.null(argsL$output)) {
   args$output = "./img.svg"
 }
+if(is.null(argsL$species)) {
+  args$species = "mouse"
+}
 if(is.null(argsL$output)) {
   args$homology = "../Data/BDD_odors/dt_homology_human_mouse.csv"
 }
@@ -71,12 +75,23 @@ vec_or = unlist(strsplit(args$or,";"))
 
 # add renplace homology
 dt_homology = read.table(args$homology, sep=",")
-vec_homology = dt_homology$V3
-names(vec_homology) = dt_homology$V2
 
-for (or_query in 1:length(vec_or) ) {
-  if (vec_or[or_query] %in% names(vec_homology)) {
-    vec_or[or_query]  = vec_homology[vec_or[or_query]]
+if (args$species == "mouse") {
+  vec_homology = dt_homology$V3
+  names(vec_homology) = dt_homology$V2
+  
+  for (or_query in 1:length(vec_or) ) {
+    if (vec_or[or_query] %in% names(vec_homology)) {
+      vec_or[or_query]  = vec_homology[vec_or[or_query]]
+    }
+  }
+} else {
+  vec_homology = dt_homology$V3
+  names(vec_homology) = dt_homology$V2
+  for (or_query in 1:length(vec_or) ) {
+    if (vec_or[or_query] %in% names(vec_homology)) {
+      vec_or[or_query]  = vec_homology[vec_or[or_query]]
+    }
   }
 }
 

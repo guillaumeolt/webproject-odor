@@ -170,31 +170,48 @@
 		<table id="myTable" class="table_db_odor"> <!-- class="table_db_odor" -->
 			<thead>
 			  <tr class="header">
-				  	<th>Image</th>
-                    <th>ID</th>
+				  	<th>Structure</th>
+                    <!--<th>ID</th>-->
                     <th>Name</th>
                     <th>CAS</th>
                     <th>PubChem CID</th>
+                    <th>Synonyms</th>
                     <th>SMILE</th>
 			  </tr>
 			</thead>
 			<tbody>
 			{% for db_infos in db_dict %}
-				<tr>
-                    <td class="col2"><img src="{% static 'media/db_mols_svg/' %}{{db_infos.idChemicals}}.svg" style="display:block;" width="50%" height="50%"></td>
-                    <td class="col2">
-                        <a href="{% url 'OdorWebSite_Chemical' chem_id=db_infos.idChemicals %}" target="_blank">
-                            {{db_infos.idChemicals|highlight_search:search_value}}
+				<tr data-href="{% url 'OdorWebSite_Chemical' chem_id=db_infos.idChemicals %}" style="cursor: pointer;">
+                    <td class="col2"><img src="{% static 'media/db_mols_svg/' %}{{db_infos.idChemicals}}.svg" style="display:block;" width="50%" height="50%" ></td>
+                    <!--<td class="col2">
+                        <a href=" url 'OdorWebSite_Chemical' chem_id=db_infos.idChemicals " target="_blank">
+                            db_infos.idChemicals|highlight_search:search_value
                         </a>
-                    </td>
+                    </td>-->
                     <td class="col2">{{db_infos.Name|highlight_search:search_value}}</td>
                     <td class="col2">{{db_infos.CAS|highlight_search:search_value}}</td>
                     <td class="col2">{{db_infos.Pubchem_CID|highlight_search:search_value}}</td>
+                    <td class="col2" style="max-height: 100px;overflow-y: scroll;display: block;padding: 20px;">
+                        {% for chem in  db_infos.Synonyms|str_split_or %}
+                        <div class="div_or_synonym_tab" style="display: flow-root list-item;">
+                            {{ chem|highlight_search:search_value }}
+                        </div>
+                        <!--db_infos.Synonym|highlight_search:search_value-->
+                        {% endfor %}
+                    </td>
                     <td class="col2">{{db_infos.SMILE|highlight_search:search_value}}</td>
 				</tr>
 			{% endfor %}
 			</tbody>
 		</table>
+        <script type="text/javascript">
+                $(document).ready(function(){
+      $('table tr').click(function(){
+        window.location = $(this).data('href');
+        return false;
+      });
+    });
+        </script>
 </div>
     </main>
     <!-- ./search content -->

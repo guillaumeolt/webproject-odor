@@ -13,10 +13,17 @@ import subprocess
 #from .prediction import *
 # Check Files Type POST
 
-
+@register.filter
+def str_split_odor(str_odor):
+    if str_odor is not None:
+        return str_odor.split(";")
+    else:
+        return str_odor
 @register.filter
 def str_split_or(str_or):
-    return str_or.split(";")
+    l = list(set(str_or.split("|")))
+    new_list = [x for x in l if x != '']
+    return new_list
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
@@ -42,7 +49,19 @@ def get_cas(synonyms):
     except:
         return None
     return None
-
+@register.filter
+def get_synonnyms(synonyms):
+    return list(set(synonyms.split(";")))
+@register.filter
+def get_synonnyms_chem(synonyms):
+    return list(set(synonyms.split("|")))
+@register.filter(is_safe=True)
+def get_or_sources(sources):
+    text = sources.split("|")[0]
+    url = sources.split("|")[1]
+    pattern = '<a href="{}">{}</a>'.format(url, text)
+    print(pattern)
+    return(pattern)
 
 def get_path_svg_db(db_dict):
     for i in range(len(db_dict)):
@@ -57,6 +76,11 @@ def tranform_db_dict(db_dict):
     for i in range(len(db_dict)):
         if db_dict[i]["OlfRecept"] != None:
             db_dict[i]["OlfRecept"] = db_dict[i]["OlfRecept"].split(";")
+        try:
+            if db_dict[i]["idOlfactoryReceptors"] != None:
+                db_dict[i]["idOlfactoryReceptors"] = db_dict[i]["idOlfactoryReceptors"].split(";")
+        except:
+            pass
     return(db_dict)
 def tranform_db_dict_iduniprot(receptors_iduniprot):
     """
@@ -64,8 +88,25 @@ def tranform_db_dict_iduniprot(receptors_iduniprot):
     """
     receptors_iduniprot_dict = dict()
     for i in range(len(receptors_iduniprot)):
-        receptors_iduniprot_dict[receptors_iduniprot[i]['GeneName']] = receptors_iduniprot[i]['idUniprot']
+        receptors_iduniprot_dict[receptors_iduniprot[i]['GeneName']] = receptors_iduniprot[i]['idOlfactoryReceptors']
     return(receptors_iduniprot_dict)
+def tranform_db_dict_iduniprot_bis(receptors_iduniprot):
+    """
+    transform or dictionary with or keys
+    """
+    receptors_iduniprot_dict = dict()
+    for i in range(len(receptors_iduniprot)):
+        receptors_iduniprot_dict[str(receptors_iduniprot[i]['idOlfactoryReceptors'])] = receptors_iduniprot[i]['GeneName']
+    return(receptors_iduniprot_dict)
+
+def tranform_db_dict_idodor(odor_id):
+    """
+    transform or dictionary with odor keys
+    """
+    odor_id_dict = dict()
+    for i in range(len(odor_id)):
+        odor_id_dict[odor_id[i]['Odor']] = odor_id[i]['idSmell_Percepts']
+    return(odor_id_dict)
 # 1 Check Input:
 def check_valid_input(request):
     """
@@ -358,13 +399,14 @@ def utils_get_maccs_similarity(ChemicalsOdors, db_dict, name_mol, smi_str=False)
     return dict_sim_macc
 
 ### PHYLOGENIC TREE
-def utils_get_phy_tree(BASE_DIR, query_or, path_tree, path_output, path_homology):
+def utils_get_phy_tree(BASE_DIR, query_or, path_tree, path_output, path_homology, species):
     script_file = str(BASE_DIR) + "/odor/utils/Rscript_auto_phylogenic_tree.R"
     #subprocess.Popen(["Rscript "+script_file,"--help"])
     print("Rscript "+script_file+" --or='{}'".format(query_or) + " --output='{}'".format(path_output)+" --tree='{}'".format(path_tree))
     subprocess.call("Rscript "+script_file+" --or='{}'".format(query_or) +\
                                            " --output='{}'".format(path_output)+\
                                            " --tree='{}'".format(path_tree)+\
+                                           " --species='{}'".format(species)+\
                                            " --homology='{}'".format(path_homology), shell=True)
     #subprocess.call(["Rscript",script_file,"--or='{}'".format(query_or),
     #                                       "--o='{}'".format(path_output),

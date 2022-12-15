@@ -74,7 +74,7 @@ def get_bokeh_plot_odor_test(mapper, list_name, list_path_svg, list_color, list_
     odors = list_chem_odors,
     olfactory_receptors = list_chem_or,
     )
-    l_legend = list(set(l_predicted))
+    l_legend = list(set(list_legend))
     l_legend.append("All")
     l_legend.append("other")
     colorby_selector = bokeh.models.Select(
@@ -92,7 +92,7 @@ def get_bokeh_plot_odor_test(mapper, list_name, list_path_svg, list_color, list_
     
     var odors = render_cds.data['odors'];
     var olfactory_receptors = render_cds.data['olfactory_receptors'];
-    
+    var idChemicals = render_cds.data['idChemicals'];
     
     // View of the colors for convenience
     var colors = render_cds.data['color'];
@@ -102,12 +102,20 @@ def get_bokeh_plot_odor_test(mapper, list_name, list_path_svg, list_color, list_
     var n = colors.length;
 
     // Update colors
+    console.log(colorby);
+    console.log(colorby);
     for (var i = 0; i < n; i++) {
+        console.log(typeof(idChemicals[i]));
+        console.log(toString(idChemicals[i]));
         if (odors[i].split(";").includes(colorby)) {
             color_views[i] = 'blue';//colors[i];
             legend_color[i] = colorby;
         }
         else if (olfactory_receptors[i].split(";").includes(colorby)) {
+            color_views[i] = 'blue';//colors[i];
+            legend_color[i] = colorby;
+        }
+        else if (idChemicals[i].toString() == colorby) {
             color_views[i] = 'blue';//colors[i];
             legend_color[i] = colorby;
         } 
@@ -213,7 +221,7 @@ def get_bokeh_plot_odor_from_list_odors(mapper, db_dict, list_odors, path_svg_ad
     script, div = get_bokeh_plot_odor_test(mapper, list_name, list_path_svg, list_color, list_legend, list_chem_id, list_chem_odors, list_chem_or, l_predicted=list_odors)
     return script, div
 
-def get_bokeh_plot_odor_from_list_or(mapper, db_dict, list_or, path_svg_add=""):
+def get_bokeh_plot_odor_from_list_or(mapper, db_dict, list_or, receptors_idOR_dict_bis, path_svg_add=""):
     color_list = "orange,green,pink,blueviolet,brown,turquoise,gold,yellow,blue,red,magenta,navy,skyblue,peru,cyan,darkolivegreen".split(',')
     color_dict = dict(zip(list_or, color_list[:len(list_or)]))
     list_smi = []
@@ -241,9 +249,9 @@ def get_bokeh_plot_odor_from_list_or(mapper, db_dict, list_or, path_svg_add=""):
         leg = "other"
         for or_id in list_or:
             try:
-                if or_id in chem["OlfRecept"]:
+                if or_id in chem["idOlfactoryReceptors"]:
                     col = color_dict[or_id]
-                    leg = or_id
+                    leg = receptors_idOR_dict_bis[or_id]
             except:
                 pass
         list_color.append(col)
@@ -251,4 +259,48 @@ def get_bokeh_plot_odor_from_list_or(mapper, db_dict, list_or, path_svg_add=""):
 
     #BOKEH plot
     script, div = get_bokeh_plot_odor_test(mapper, list_name, list_path_svg, list_color, list_legend, list_chem_id, list_chem_odors, list_chem_or,l_predicted=list_or)
+    return script, div
+
+
+
+def get_bokeh_plot_odor_from_list_chem(mapper, db_dict, list_chem, path_svg_add=""):
+    color_list = "orange,green,pink,blueviolet,brown,turquoise,gold,yellow,blue,red,magenta,navy,skyblue,peru,cyan,darkolivegreen".split(',')
+    color_dict = dict(zip(list_chem, color_list[:len(list_chem)]))
+    list_smi = []
+    list_name = []
+    list_path_svg = []
+    list_color = []
+    list_legend = []
+    list_chem_id = []
+    list_chem_odors = []
+    list_chem_or = []
+    print("---",list_chem)
+    for chem in db_dict:
+        #with open(path_svg_add+str(chem["idChemicals"])+".svg", 'r') as file:
+            #svg = file.read()
+        list_name.append(chem["Name"])
+        list_path_svg.append(path_svg_add+str(chem["idChemicals"])+".svg")
+        list_chem_id.append(chem["idChemicals"])
+        list_chem_odors.append(str(chem["smell"]))
+        try:
+            list_chem_or.append(str(";".join(chem["OlfRecept"])))
+        except:
+            list_chem_or.append("None")
+
+        i_odor = 0
+        col = 'rgba( 220, 220, 220, 0.2)'
+        leg = "other"
+        for chem_id in list_chem:
+            try:
+                if chem_id == str(chem["idChemicals"]):
+                    col = color_dict[chem_id]
+                    leg = chem_id
+                    print(chem_id, col, leg , "--", chem)
+            except:
+                pass
+        list_color.append(col)
+        list_legend.append(leg)
+
+    #BOKEH plot
+    script, div = get_bokeh_plot_odor_test(mapper, list_name, list_path_svg, list_color, list_legend, list_chem_id, list_chem_odors, list_chem_or,l_predicted=list_chem)
     return script, div

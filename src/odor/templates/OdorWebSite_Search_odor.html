@@ -95,7 +95,7 @@
             <form method="post" action="{% url 'search_chem_or_odor' %}">
             {% csrf_token %}
                 <div class="tab-content">
-                  <div class="tab-pane active" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
+                  <div class="tab-pane" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
                       <input type="text" id="search_chemical" name="search_chemical" placeholder="Search Chemicals by name, cas, smile, PubChem CID"></input>
                       <button type="submit" id="btn_search_chem" name="btn_search_chemical">Search</button>
                       <script>
@@ -126,7 +126,7 @@
                           };
                       </script>
                   </div>
-                  <div class="tab-pane" id="odor-tab-pane" role="tabpanel" aria-labelledby="odor-tab">
+                  <div class="tab-pane active" id="odor-tab-pane" role="tabpanel" aria-labelledby="odor-tab">
                       <input type="text" id="search_odor" name="search_odor" placeholder="Search Odors"></input>
                       <button type="submit" id="btn_search_odor" name="btn_search_odor">Search</button>
                       <script>
@@ -143,7 +143,7 @@
                 <div class="autocomplete_container" id="autocomplete_container"></div>
             </div>-->
 
-            <div class="ex_search active" id="ex_search_chem">Examples Chemicals :
+            <div class="ex_search" id="ex_search_chem">Examples Chemicals :
                 <a class="ex_search_chem_1" href="#query=Acetaldehyde">Acetaldehyde</a>
                 <a class="ex_search_chem_2" href="#query=3-Pentanone">3-Pentanone</a>
                 <a class="ex_search_chem_3" href="#query=Thiophene">Thiophene</a>
@@ -153,7 +153,7 @@
                 <a class="ex_search_or_2" href="#query=Q499H5">Q499H5</a>
                 <a class="ex_search_or_3" href="#query=human">human</a>
             </div>
-            <div class="ex_search" id="ex_search_odor">Examples Odors :
+            <div class="ex_search active" id="ex_search_odor">Examples Odors :
                 <a class="ex_search_odor_1" href="#query=coffee">coffee</a>
                 <a class="ex_search_odor_2" href="#query=sulfurous">sulfurous</a>
                 <a class="ex_search_odor_3" href="#query=floral">floral</a>

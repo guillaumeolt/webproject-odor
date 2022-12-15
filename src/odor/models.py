@@ -19,8 +19,12 @@ class ChemicalsOdors(models.Model):
     SMILE = models.CharField(max_length=250, unique=True)
     Pubchem_CID = models.CharField(max_length=450)
     Mixture = models.SmallIntegerField()
-    Synonyms = models.CharField(max_length=450)
+    Synonyms = models.CharField(max_length=800)
     CAS = models.CharField(max_length=45)
+    Molecular_Weight = models.CharField(max_length=45)
+    Molecular_Formula = models.CharField(max_length=45)
+    InChi = models.CharField(max_length=400)
+    InChi_Key = models.CharField(max_length=45)
     class Meta:
         db_table = "Chemicals"
 
@@ -52,13 +56,14 @@ def dictfetchall(cursor):
 
 def my_custom_sql():
     cursor = connection.cursor()
-    sql_query = "select mydb.Chemicals.idChemicals, "\
-                        "mydb.Chemicals.Pubchem_CID, "\
-                        "mydb.Chemicals.CAS, "\
-                        "mydb.Chemicals.Name, "\
+    sql_query = "select mydb.Chemicals.Name, "\
                         "mydb.Chemicals.IUPAC_name, "\
+                        "mydb.Chemicals.CAS, "\
+                        "mydb.Chemicals.idChemicals, "\
+                        "mydb.Chemicals.Pubchem_CID, "\
                         "mydb.Chemicals.SMILE, "\
                         "GROUP_CONCAT(distinct Smell_Percepts.Odor SEPARATOR ';') AS smell, "\
+                        "GROUP_CONCAT(distinct OlfactoryReceptors.idOlfactoryReceptors SEPARATOR ';') as idOlfactoryReceptors, "\
                         "GROUP_CONCAT(distinct OlfactoryReceptors.GeneName SEPARATOR ';') as OlfRecept "\
                  "from mydb.Chemicals "\
                         "left join mydb.Chemicals_has_Smell_Percepts on mydb.Chemicals.idChemicals = mydb.Chemicals_has_Smell_Percepts.Chemicals_idChemicals "\
@@ -80,6 +85,7 @@ def my_custom_sql_with_human_homologue():
                         "mydb.Chemicals.IUPAC_name, "\
                         "mydb.Chemicals.SMILE, "\
                         "GROUP_CONCAT(distinct Smell_Percepts.Odor SEPARATOR ';') AS smell, "\
+                        "GROUP_CONCAT(distinct NULLIF(CONCAT(COALESCE(OlfactoryReceptors.idOlfactoryReceptors,''),';',COALESCE(OlfRecept.idOlfactoryReceptors,'')),';') SEPARATOR ';') as idOlfactoryReceptors, "\
                         "GROUP_CONCAT(distinct NULLIF(CONCAT(COALESCE(OlfactoryReceptors.GeneName,''),';',COALESCE(OlfRecept.GeneName,'')),';') SEPARATOR ';') as OlfRecept "\
                  "from mydb.Chemicals "\
                         "left join mydb.Chemicals_has_Smell_Percepts on mydb.Chemicals.idChemicals = mydb.Chemicals_has_Smell_Percepts.Chemicals_idChemicals "\
@@ -250,3 +256,68 @@ def my_custom_sql_or_get_chem(or_id):
     for k in dic_db:
         dic_db_k[k["idChemicals"]] = k
     return([dic_db_k])
+
+
+def my_custom_sql_chem_get_odor_dic(chem_id):
+    cursor = connection.cursor()
+    sql_query = "select  Smell_Percepts.idSmell_Percepts, " \
+                        "Smell_Percepts.Odor, "\
+                        "Chemicals_has_Smell_Percepts.Sources, "\
+                        "Chemicals_has_Smell_Percepts.odor_tag "\
+                 "from mydb.Chemicals "\
+                        "left join mydb.Chemicals_has_Smell_Percepts on mydb.Chemicals.idChemicals = mydb.Chemicals_has_Smell_Percepts.Chemicals_idChemicals "\
+                        "left join mydb.Smell_Percepts on mydb.Smell_Percepts.idSmell_Percepts = mydb.Chemicals_has_Smell_Percepts.Smell_Percepts_idSmell_Percepts "\
+                "WHERE mydb.Chemicals.idChemicals = %s "
+
+
+    cursor.execute(sql_query, [str(chem_id)])
+    dic_db = dictfetchall(cursor)
+
+    dic_db_k = dict()
+    for k in dic_db:
+        dic_db_k[k["idSmell_Percepts"]] = k
+    return(dic_db_k)
+
+def my_custom_sql_chem_get_or_dic(chem_id):
+    cursor = connection.cursor()
+    sql_query = "select  OlfactoryReceptors.GeneName, " \
+                        "OlfactoryReceptors.idOlfactoryReceptors, "\
+                        "OlfactoryReceptors.idUniprot, "\
+                        "OlfactoryReceptors.Synonym, "\
+                        "OlfactoryReceptors.Species, "\
+                        "OlfactoryReceptors_has_Chemicals.Sources "\
+                 "from mydb.Chemicals "\
+                        "left join mydb.OlfactoryReceptors_has_Chemicals on mydb.Chemicals.idChemicals = mydb.OlfactoryReceptors_has_Chemicals.Chemicals_idChemicals "\
+                        "left join mydb.OlfactoryReceptors on mydb.OlfactoryReceptors.idOlfactoryReceptors = mydb.OlfactoryReceptors_has_Chemicals.OlfactoryReceptors_idOlfactoryReceptors "\
+                "WHERE GeneName IS NOT NULL and idUniprot IS NOT NULL and idChemicals = %s "
+    print(sql_query)
+    cursor.execute(sql_query, [str(chem_id)])
+    dic_db = dictfetchall(cursor)
+
+    dic_db_k = dict()
+    for k in dic_db:
+        dic_db_k[k["GeneName"]] = k
+    return(dic_db_k)
+
+"""
+
+select  mydb.Chemicals.idChemicals,
+        OlfactoryReceptors.GeneName,
+        OlfactoryReceptors.idUniprot,
+        OlfactoryReceptors.Synonym,
+        OlfactoryReceptors.Species 
+from mydb.Chemicals 
+        left join mydb.OlfactoryReceptors_has_Chemicals on mydb.Chemicals.idChemicals = mydb.OlfactoryReceptors_has_Chemicals.Chemicals_idChemicals 
+        left join mydb.OlfactoryReceptors on mydb.OlfactoryReceptors.idOlfactoryReceptors = mydb.OlfactoryReceptors_has_Chemicals.OlfactoryReceptors_idOlfactoryReceptors 
+WHERE GeneName IS NOT NULL and idUniprot IS NOT NULL and idChemicals = 50;
+"""
+"""
+def my_custom_sql_or_get_chem(or_id):
+
+
+    select Odor, Sources, odor_tag 
+from mydb.Chemicals 
+        left join mydb.Chemicals_has_Smell_Percepts on mydb.Chemicals.idChemicals = mydb.Chemicals_has_Smell_Percepts.Chemicals_idChemicals 
+        left join mydb.Smell_Percepts on mydb.Smell_Percepts.idSmell_Percepts = mydb.Chemicals_has_Smell_Percepts.Smell_Percepts_idSmell_Percepts 
+WHERE Smell_Percepts.Odor !="" and idChemicals = 0;
+"""

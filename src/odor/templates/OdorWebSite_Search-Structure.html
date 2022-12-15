@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -237,14 +236,30 @@
 			<thead>
 			  <tr class="header">
 				  {% for key, value in db.0.items %}
+				    {% if key != "idChemicals" and key != "idOlfactoryReceptors" %}
 				  	<th>
-						{{ key }}
+				  		{% if key == "Pubchem_CID" %}
+				  			PubChem CID
+				  		{% elif key == "CAS" %}
+				  			CAS N°
+				  		{% elif key == "IUPAC_name" %}
+				  			IUPAC name 
+				  		{% elif key == "smell" %}
+				  			Odor 
+				  		{% elif key == "OlfRecept" %}
+				  			Olfactory receptors 
+				  		{% elif key == "path_svg" %}
+				  			Structure 
+				  		{% else %}
+							{{ key }}
+						{% endif %}
 						<script type="text/javascript">
 						   var i_column = "{{ forloop.counter0 }}";
 						</script>
 						<input type="hidden" id="{{ forloop.counter0 }}" value="{{ forloop.counter0 }}">
 						<input type="text" name="myInput_i_name" id="myInput_i_{{ forloop.counter0 }}" onkeyup="myFunction_i(document.getElementById('{{ forloop.counter0 }}').value)" placeholder="Search..">
 					</th>
+					{% endif %}
 				  {% endfor %}
 			  </tr>
 			</thead>
@@ -252,29 +267,42 @@
 			{% for db_infos in db %}
 				<tr>
 				{% for key, value in db_infos.items %}
-					{% if key == "Pubchem_CID" %}
-						<td class="col2"><a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{value}}" target="_blank">{{value}}</a></td>
-					{% elif key == "OlfRecept" %}
-						<td class = "col2">
-						{% for or in value %}
-							<a href="https://www.uniprot.org/uniprot/{{ dict_or_id|get_item:or }}" target="_blank">{{or}}</a>
-						{% endfor %}
-						</td>
-					{% elif key == "idChemicals" %}
-						<td class="col2"><a href="{% url 'OdorWebSite_Chemical' chem_id=value %}" target="_blank">{{value}}</a></td>
-					{% elif key == "path_svg" %}
-						<td class="col2"> 
-							{% if type_search_sub == False %}
-							<img src="{% static '' %}{{value}}" style="display:block;" width="100%" height="100%">
-							{% else %}
-							        {% autoescape off %}
-							        {{ value }}
-							        {% endautoescape %}
-							{% endif %}
-						</td>
-					{% else %}
-						<!--<p>{{ key }} {{ value }}</p>-->
-						<td class="col2">{{value}}</td>
+					{% if key != "idChemicals" %}
+
+						{% if key == "Pubchem_CID" %}
+							<td class="col2"><a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{value}}" target="_blank">{{value}}</a></td>
+						{% elif key == "OlfRecept" %}
+							<td class = "col2">
+							{% for or in value %}
+								<!--<a href="https://www.uniprot.org/uniprot/ dict_or_id|get_item:or " target="_blank">or</a>-->
+								<a href="{% url 'OdorWebSite_OR' idOlfactoryReceptors=dict_or_id|get_item:or %}" target="_blank">{{or}}</a>
+							{% endfor %}
+							</td>
+						{% elif key == "smell" %}
+							<td class = "col2">
+							{% for odor in value|str_split_odor %}
+								<!--<a href="https://www.uniprot.org/uniprot/ dict_or_id|get_item:or " target="_blank">or</a>-->
+								<a href="{% url 'OdorWebSite_Odor' odor_id=odors_id|get_item:odor %}" target="_blank">{{odor}}</a>
+							{% endfor %}
+							</td>
+						{% elif key == "idOlfactoryReceptors" %}
+						{% elif key == "idChemicals" %}
+							<td class="col2"><a href="{% url 'OdorWebSite_Chemical' chem_id=value %}" target="_blank">{{value}}</a></td>
+						{% elif key == "path_svg" %}
+							<td class="col2"> 
+								{% if type_search_sub == False %}
+							    <p class="trigger">Hover to display structure</p>
+							    <span data-original="{% static '' %}{{value}}">
+								{% else %}
+								        {% autoescape off %}
+								        {{ value }}
+								        {% endautoescape %}
+								{% endif %}
+							</td>
+						{% else %}
+							<!--<p>{{ key }} {{ value }}</p>-->
+							<td class="col2">{{value}}</td>
+						{% endif %}
 					{% endif %}
 				{% endfor %}
 				</tr>
@@ -314,6 +342,24 @@
         });
         
       });
+		</script>
+		<script type="text/javascript">
+		$(document).ready(function($) {
+		  
+		  $('.trigger').hover(function() {
+		   console.log('hovered');
+		   // find our span
+		   var elem = $(this).siblings('span');
+		   
+		    // get our img url
+		   var src = elem.attr('data-original');
+		   
+		    // change span to img using the value from data-original
+		   elem.replaceWith('<img src="' + src + '" style="display:block;" width="100%" height="100%"/>');
+		   $(this).remove();
+		  });
+		  
+		});	
 		</script>
 </div>
 		<script type="text/javascript" src="{% static 'js/code_table.js' %}"></script>

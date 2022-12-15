@@ -274,7 +274,7 @@
         });
         
       });
-			</script>
+		</script>
 		</div>
 	    <div class="container_part">
 	        <div class="part_number">
@@ -338,6 +338,7 @@
 				<thead>
 				  <tr class="header">
 					  {% for key, value in db.0.items %}
+					  	{% if key != "idOlfactoryReceptors" %}
 						<th>
 							{{ key }}
 							<script type="text/javascript">
@@ -346,6 +347,7 @@
 							<input type="hidden" id="{{ forloop.counter0 }}" value="{{ forloop.counter0 }}">
 							<input type="text" name="myInput_i_name" id="myInput_i_{{ forloop.counter0 }}" onkeyup="myFunction_i(document.getElementById('{{ forloop.counter0 }}').value)" placeholder="Search..">
 						</th>
+						{% endif %}
 					  {% endfor %}
 				  </tr>
 				</thead>
@@ -365,6 +367,7 @@
 							<td class="col2"><a href="{% url 'OdorWebSite_Chemical' chem_id=value %}" target="_blank">{{value}}</a></td>
 						{% elif key == "path_svg" %}
 							<td class="col2"><img src="{% static '' %}{{value}}" style="display:block;" width="100%" height="100%"></td>
+						{% elif key == "idOlfactoryReceptors" %}
 						{% else %}
 							<!--<p>{{ key }} {{ value }}</p>-->
 							<td class="col2">{{value}}</td>

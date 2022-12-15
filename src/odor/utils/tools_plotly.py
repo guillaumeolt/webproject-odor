@@ -205,7 +205,7 @@ def get_radar_plot_from_list_or(df):
 
 
     return plot(fig, output_type="div")
-def get_data_desc_plotly_list_or(db_dict,list_or):
+def get_data_desc_plotly_list_or(db_dict,list_or, receptors_idOR_dict_bis):
     df = None
     #idx = 0
     n=0
@@ -213,7 +213,7 @@ def get_data_desc_plotly_list_or(db_dict,list_or):
         list_mol = []
         for chem in db_dict:
             try:
-                if OR == "All" or OR in chem["OlfRecept"]:
+                if OR == "All" or OR in chem["idOlfactoryReceptors"]:
                     n += 1
                     mol = Chem.MolFromSmiles(chem['SMILE'])
                     mol.SetProp("_Name",chem["Name"])
@@ -227,6 +227,10 @@ def get_data_desc_plotly_list_or(db_dict,list_or):
                 pass
         data_desc = get_decriptors_rdkit_fr(list_mol, list_fr = DIC_FRAGMENTS.keys())
         data_desc[data_desc != 0] = 1
+        if OR != "All":
+            name_OR = receptors_idOR_dict_bis[OR]
+        else:
+            name_OR = "All"
         if OR == "All":
             data_desc_all = data_desc.mean(axis=0)
             dict_data_all = data_desc_all.to_dict()
@@ -239,7 +243,7 @@ def get_data_desc_plotly_list_or(db_dict,list_or):
                                  'or_count': data_desc.sum(axis=0).values,
                                  'or_count_all_or': [len(list_mol) for i in range(len(data_desc_mean.values))],
                                'or_count_occ': data_desc.sum(axis=0).values/len(list_mol)*100,
-                                 'or': [OR for i in range(len(data_desc_mean.values))]})
+                                 'or': [name_OR for i in range(len(data_desc_mean.values))]})
                               #index = range(idx, idx+len(data_desc.values)))
             #idx = idx + len(data_desc.values)
         else:
@@ -251,7 +255,7 @@ def get_data_desc_plotly_list_or(db_dict,list_or):
                                  'or_count': data_desc.sum(axis=0).values,
                                  'or_count_all_or': [len(list_mol) for i in range(len(data_desc_mean.values))],
                                    'or_count_occ': data_desc.sum(axis=0).values / len(list_mol) * 100,
-                                 'or': [OR for i in range(len(data_desc_mean.values))]})
+                                 'or': [name_OR for i in range(len(data_desc_mean.values))]})
                                   #index = range(idx, idx+len(data_desc.values)))
             #idx = idx + len(data_desc.values)
             df = pd.concat([df,df_bis])

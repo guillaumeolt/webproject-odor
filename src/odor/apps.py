@@ -26,10 +26,10 @@ class OdorConfig(AppConfig):
         from .utils.tools_plotly import get_data_desc_plotly_list_odor, get_radar_plot_from_list_odor,\
                                         get_data_desc_plotly_list_or, get_radar_plot_from_list_or
         from .utils.tools_bokeh import get_bokeh_plot_odor_from_list_odors, get_bokeh_plot_odor_from_list_odors,\
-                                       get_bokeh_plot_odor_from_list_or
+                                       get_bokeh_plot_odor_from_list_or, get_bokeh_plot_odor_from_list_chem
 
         from .utils.tools_umap import get_umap_chem_odor, write_umap_chem_odor, load_umap_chem_odor
-        from .utils.test import utils_get_phy_tree
+        from .utils.test import utils_get_phy_tree, tranform_db_dict_iduniprot_bis
         from odorwebsite.settings import BASE_DIR, STATIC_ROOT,STATIC_URL
         from sys import path
 
@@ -49,12 +49,14 @@ class OdorConfig(AppConfig):
                 list_db.append(mol)
             except:
                 pass
+
         save_2d_image_SVG_list(list_db,"odor/static/media/db_mols_svg")
         write_2d_pdb_list(list_db,"odor/static/media/db_mols_2d")
         write_3d_pdb_list(list_db,"odor/static/media/db_mols_3d")
-        """
+
+
         ## MAPPER
-        """
+
         list_db = []
         list_smi = []
         list_name = []
@@ -123,48 +125,60 @@ class OdorConfig(AppConfig):
             text_file.close()
             print(odor.Odor, path_svg_add)
 
-        
+        db_dict_all = my_custom_sql()
+        db_dict_all = tranform_db_dict(db_dict_all)
+
+        # Add SVG
+        db_dict_all = get_path_svg_db(db_dict_all)
         ## COMPUTE OR FIGURES
+        receptors_idOR = OlfactoryReceptors.objects.values('GeneName', 'idOlfactoryReceptors')#'idUniprot')
+        # Transform data
+        receptors_idOR_dict = tranform_db_dict_iduniprot_bis(receptors_idOR)
+
         olfactory_receptors = OlfactoryReceptors.objects.all()
         for or_i in olfactory_receptors:
             print(or_i.GeneName)
             # plotly
-            df = get_data_desc_plotly_list_or(db_dict_all, ["All", or_i.GeneName])#odor.Odor])
+            df = get_data_desc_plotly_list_or(db_dict_all, ["All", str(or_i.idOlfactoryReceptors)], receptors_idOR_dict)#odor.Odor])
             div_radar_plot = get_radar_plot_from_list_or(df)
 
             #open text file
-            text_file = open("odor/static/media/plotly_or/"+or_i.GeneName+".html", "w")
+            text_file = open("odor/static/media/plotly_or/"+str(or_i.idOlfactoryReceptors)+".html", "w")
             #write string to file
             text_file.write(div_radar_plot)
             #close file
             text_file.close()
 
             path_svg_add = '../static/media/db_mols_svg/'#os.path.join(STATIC_ROOT,'media/db_mols_svg/')
-            script, div = get_bokeh_plot_odor_from_list_or(mapper, db_dict_all, [or_i.GeneName], path_svg_add =path_svg_add)
+            script, div = get_bokeh_plot_odor_from_list_or(mapper, db_dict_all, [str(or_i.idOlfactoryReceptors)], receptors_idOR_dict, path_svg_add =path_svg_add)
             print(script, div)
             #open text file
-            text_file = open("odor/static/media/bokeh_or/"+or_i.GeneName+".div", "w")
+            text_file = open("odor/static/media/bokeh_or/"+str(or_i.idOlfactoryReceptors)+".div", "w")
             #write string to file
             text_file.write(div)
             #close file
             text_file.close()
 
             #open text file
-            text_file = open("odor/static/media/bokeh_or/"+or_i.GeneName+".script", "w")
+            text_file = open("odor/static/media/bokeh_or/"+str(or_i.idOlfactoryReceptors)+".script", "w")
             #write string to file
             text_file.write(script)
             #close file
             text_file.close()
-                ## COMPUTE PHYLOGENIQUE TREE
-        # OR 
+
+
+        ## COMPUTE PHYLOGENIQUE TREE mouse
+        # OR mouse
         olfactory_receptors = OlfactoryReceptors.objects.all()
         for or_i in olfactory_receptors:
             print(or_i.GeneName)
             utils_get_phy_tree(BASE_DIR, query_or=or_i.GeneName,
                                          path_tree="odor/static/media/phylo_tree_PhyML_Or10ad1.tree",
-                                         path_output="odor/static/media/phylogenic_tree_OR/"+or_i.GeneName+".svg",
-                                         path_homology="odor/static/media/dt_homology_human_mouse.csv")
-        # CHEM
+                                         path_output="odor/static/media/phylogenic_tree_OR/"+str(or_i.idOlfactoryReceptors)+".svg",
+                                         path_homology="odor/static/media/dt_homology_human_mouse.csv",
+                                         species="mouse")
+
+        # CHEM mouse
         db_dict = my_custom_sql()
         # Transform data
         db_dict = tranform_db_dict(db_dict)
@@ -173,6 +187,58 @@ class OdorConfig(AppConfig):
                 utils_get_phy_tree(BASE_DIR, query_or=";".join(k["OlfRecept"]),
                                              path_tree="odor/static/media/phylo_tree_PhyML_Or10ad1.tree",
                                              path_output="odor/static/media/phylogenic_tree_chem/"+str(k["idChemicals"])+".svg",
-                                             path_homology="odor/static/media/dt_homology_human_mouse.csv")
+                                             path_homology="odor/static/media/dt_homology_human_mouse.csv",
+                                             species="mouse")
                 print(k["idChemicals"], ";".join(k["OlfRecept"]))
+
+        ## COMPUTE PHYLOGENIQUE TREE human
+        # OR mouse
+        olfactory_receptors = OlfactoryReceptors.objects.all()
+        for or_i in olfactory_receptors:
+            print(or_i.GeneName)
+            utils_get_phy_tree(BASE_DIR, query_or=or_i.GeneName,
+                                         path_tree="odor/static/media/phylo_tree_PhyML_human.tree",
+                                         path_output="odor/static/media/phylogenic_tree_human_OR/"+str(or_i.idOlfactoryReceptors)+".svg",
+                                         path_homology="odor/static/media/dt_homology_mouse_human.csv",
+                                         species="human")
+
+        # CHEM mouse
+        db_dict = my_custom_sql()
+        # Transform data
+        db_dict = tranform_db_dict(db_dict)
+        for k in db_dict:
+            if k["OlfRecept"] is not None:
+                utils_get_phy_tree(BASE_DIR, query_or=";".join(k["OlfRecept"]),
+                                             path_tree="odor/static/media/phylo_tree_PhyML_human.tree",
+                                             path_output="odor/static/media/phylogenic_tree_human_chem/"+str(k["idChemicals"])+".svg",
+                                             path_homology="odor/static/media/dt_homology_mouse_human.csv",
+                                             species="human")
+                print(k["idChemicals"], ";".join(k["OlfRecept"]))
+
+        ## COMPUTE CHEM UMAP FIGURES
+        db_dict_all = my_custom_sql()
+        db_dict_all = tranform_db_dict(db_dict_all)
+
+        # Add SVG
+        db_dict_all = get_path_svg_db(db_dict_all)
+        mapper = load_umap_chem_odor("odor/static/media/umap/mapper.pkl")
+        chemicals_odors = ChemicalsOdors.objects.all()
+        for chem_i in chemicals_odors:
+            path_svg_add = '../static/media/db_mols_svg/'#os.path.join(STATIC_ROOT,'media/db_mols_svg/')
+            script, div = get_bokeh_plot_odor_from_list_chem(mapper, db_dict_all, [str(chem_i.idChemicals)], path_svg_add =path_svg_add)
+            #print(script, div)
+            #open text file
+            text_file = open("odor/static/media/bokeh_chem/"+str(chem_i.idChemicals)+".div", "w")
+            #write string to file
+            text_file.write(div)
+            #close file
+            text_file.close()
+
+            #open text file
+            text_file = open("odor/static/media/bokeh_chem/"+str(chem_i.idChemicals)+".script", "w")
+            #write string to file
+            text_file.write(script)
+            #close file
+            text_file.close()
+        quit()
         """

@@ -94,7 +94,7 @@
             <form method="post" action="{% url 'search_chem_or_odor' %}">
             {% csrf_token %}
                 <div class="tab-content">
-                  <div class="tab-pane active" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
+                  <div class="tab-pane" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
                       <input type="text" id="search_chemical" name="search_chemical" placeholder="Search Chemicals by name, cas, smile, PubChem CID"></input>
                       <button type="submit" id="btn_search_chem" name="btn_search_chemical">Search</button>
                       <script>
@@ -112,7 +112,7 @@
                           };
                       </script>
                   </div>
-                  <div class="tab-pane" id="or-tab-pane" role="tabpanel" aria-labelledby="or-tab">
+                  <div class="tab-pane active" id="or-tab-pane" role="tabpanel" aria-labelledby="or-tab">
                       <input type="text" id="search_or" name="search_or" placeholder="Search OR by name, Uniprot ID, Species"></input>
                       <button type="submit" id="btn_search_or" name="btn_search_OR">Search</button>
                       <script>
@@ -142,12 +142,12 @@
                 <div class="autocomplete_container" id="autocomplete_container"></div>
             </div>-->
 
-            <div class="ex_search active" id="ex_search_chem">Examples Chemicals :
+            <div class="ex_search" id="ex_search_chem">Examples Chemicals :
                 <a class="ex_search_chem_1" href="#query=Acetaldehyde">Acetaldehyde</a>
                 <a class="ex_search_chem_2" href="#query=3-Pentanone">3-Pentanone</a>
                 <a class="ex_search_chem_3" href="#query=Thiophene">Thiophene</a>
             </div>
-            <div class="ex_search" id="ex_search_or">Examples Olfactory Receptors :
+            <div class="ex_search active" id="ex_search_or">Examples Olfactory Receptors :
                 <a class="ex_search_or_1" href="#query=or1D2">OR1D2</a>
                 <a class="ex_search_or_2" href="#query=Q499H5">Q499H5</a>
                 <a class="ex_search_or_3" href="#query=human">human</a>
@@ -170,9 +170,9 @@
 		<table id="myTable" class="table_db_odor"> <!-- class="table_db_odor" -->
 			<thead>
 			  <tr class="header">
-				  	<th>GeneName</th>
-                    <th>idUniprot</th>
-                    <th>Synonym</th>
+				  	<th>Symbol</th>
+                    <th>Uniprot ID</th>
+                    <th>Synonyms</th>
                     <th>Species</th>
 			  </tr>
 			</thead>
@@ -180,12 +180,19 @@
 			{% for db_infos in db_dict %}
 				<tr >
                     <td class="col2">
-                        <a href="{% url 'OdorWebSite_OR' GeneName=db_infos.GeneName %}" target="_blank">
+                        <a href="{% url 'OdorWebSite_OR' idOlfactoryReceptors=db_infos.idOlfactoryReceptors %}" target="_blank">
                             {{db_infos.GeneName|highlight_search:search_value}}
                         </a>
                     </td>
                     <td class="col2">{{db_infos.idUniprot|highlight_search:search_value}}</td>
-                    <td class="col2">{{db_infos.Synonym|highlight_search:search_value}}</td>
+                    <td class="col2">
+                    {% for or in  db_infos.Synonym|str_split_or %}
+                        <div class="div_or_synonym_tab" style="display: flow-root list-item;">
+                            {{ or|highlight_search:search_value }}
+                        </div>
+                        <!--db_infos.Synonym|highlight_search:search_value-->
+                    {% endfor %}
+                    </td>
                     <td class="col2">{{db_infos.Species|highlight_search:search_value}}</td>
 				</tr>
 			{% endfor %}

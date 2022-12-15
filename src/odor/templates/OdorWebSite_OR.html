@@ -32,6 +32,8 @@
     <!-- BOKEH -->
     <link href=”http://cdn.pydata.org/bokeh/release/bokeh-2.4.2.min.css" rel=”stylesheet” type=”text/css”>
     <link href=”http://cdn.pydata.org/bokeh/release/bokeh-widgets-2.4.2.min.css" rel=”stylesheet” type=”text/css”>
+    <!-- download table -->
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
 </head>
 <body class="home">
     <!-- Fixed navbar -->
@@ -91,27 +93,33 @@
                 <table class="tg-chem">
                     <tbody>
                       <tr>
-                        <td class="tg-0pky"><strong>Name</strong></td>
-                        <td class="tg-0pky">{{ GeneName.GeneName }}</td>
+                        <td class="tg-0pky"><strong>Symbol</strong></td>
+                        <td class="tg-0pky tg-0pky-infos">{{ GeneName.GeneName }}</td>
                       </tr>
                       <tr>
-                        <td class="tg-0pky"><strong>Uniprot id</strong></td>
-                        <td class="tg-0pky">{{ GeneName.idUniprot }}</td>
+                        <td class="tg-0pky"><strong>Uniprot ID</strong></td>
+                        <td class="tg-0pky tg-0pky-infos">
+                            <a href="https://www.uniprot.org/uniprotkb/{{GeneName.idUniprot}}/entry" target="_blank">{{GeneName.idUniprot}}</a>
+                        </td>
                       </tr>
-                      <tr>
                         <td class="tg-0pky"><strong>Synonyms</strong></td>
-                        <td class="tg-0pky">
-                            {{ GeneName.Synonym }}
+                       <td class="tg-0pky tg-0pky-infos class_synonyms">
+                            {% for synonym in GeneName.Synonym|get_synonnyms %}
+                            <p class="style_synonym">{{ synonym|safe }}</p>
+                            {% endfor %}
                         </td>
                       </tr>
                       <tr>
                         <td class="tg-0pky"><strong>Species</strong></td>
-                        <td class="tg-0pky">{{ GeneName.Species }}</td>
+                        <td class="tg-0pky tg-0pky-infos">{{ GeneName.Species }}</td>
                       </tr>
+                      <!--
                       <tr>
                         <td class="tg-0pky"><strong>Sequence</strong></td>
-                        <td class="tg-0pky">{{ GeneName.Sequence }}</td>
-                      </tr>
+                        <td class="tg-0pky tg-0pky-infos">
+                            <div style="overflow-x:auto; width:100%">{{ GeneName.Sequence }}</div>
+                        </td>
+                      </tr>-->
                     </tbody>
                 </table>
             </div>
@@ -126,6 +134,9 @@
             <h3>3D Structure</h3>
         </div>
         <div class="part_infos_img">
+            <a href="{% static 'media/db_prots/' %}{{GeneName.idUniprot}}.pdb" download="structure3D_alphafold_v4_dec_2022_protein_{{ GeneName.GeneName }}_uniprot_id_{{GeneName.idUniprot}}.pdb">
+                <img id="part_infos_down_1" class="part_infos_down" src="{% static 'media/img/Download.svg' %}">
+            </a>
             <img id="part_infos_img_1" src="{% static 'media/img/Information.png' %}">
         </div>
         <div class="trail_grey"></div>
@@ -144,13 +155,14 @@
             <h3>Chemicals interaction</h3>
         </div>
         <div class="part_infos_img">
+            <img id="part_infos_down_2" src="{% static 'media/img/Download.svg' %}">
             <img id="part_infos_img_2" src="{% static 'media/img/Information.png' %}">
         </div>
         <div class="trail_grey"></div>
     </div>
     <div class="part_help" id="part_help_2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
     <div class="container_tab_odor">
-        <table id="myTable" class="table_db_odor"> <!-- class="table_db_odor" -->
+        <table id="myTable2" class="table_db_odor"> <!-- class="table_db_odor" -->
             <thead>
               <tr class="header">
                     <th>Image</th>
@@ -178,6 +190,27 @@
             {% endfor %}
             </tbody>
         </table>
+        <script type="text/javascript">
+            var or = "{{ GeneName.GeneName|safe }}";
+        $(function() {
+            $("#part_infos_down_2").click(function(e){
+              var table = $("#myTable2");
+              if(table && table.length){
+            $(table).table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: "olfactory_receptor_"+or+"_chemicals_interaction_"+new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: false
+            });
+          }
+        });
+        
+      });
+        </script>
     </div>
 
 
@@ -237,6 +270,9 @@
             <h3>Phylogenic tree</h3>
         </div>
         <div class="part_infos_img">
+            <a href="{% static 'media/phylogenic_tree_OR/' %}{{ GeneName.GeneName }}.svg" download="phylogenic_tree_{{ GeneName.GeneName }}.svg">
+                <img id="part_infos_down_5" class="part_infos_down" src="{% static 'media/img/Download.svg' %}">
+            </a>
             <img id="part_infos_img_5" src="{% static 'media/img/Information.png' %}">
         </div>
         <div class="trail_grey"></div>
@@ -244,9 +280,15 @@
     <div class="part_help" id="part_help_5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
     <div class="part_help" id="part_help_4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
     <div>
-        <img src="{% static 'media/phylogenic_tree_OR/' %}{{ GeneName.GeneName }}.svg" style="display:block;" width="100%" height="100%">
-    </div>
-
+        <img src="{% static 'media/phylogenic_tree_OR/' %}{{ GeneName.GeneName }}.svg" onerror="imgError(this);" style="display:block;" width="100%" height="100%">
+        </div>
+        <script type="text/javascript">
+            function imgError(image) {
+                image.onerror = "";
+                image.src = "{% static 'media/img/no_data_img.png' %}";
+                return true;
+            }
+        </script>
     <!--
     <h2>Select compound for docking:</h2>
     -->

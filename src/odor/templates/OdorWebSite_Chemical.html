@@ -33,6 +33,8 @@
     import cytoscape from "{% static 'js/cytoscape.esm.min.js' %}";
     </script>
      <script src="{% static 'js/ngl.js' %}"></script>
+    <!-- download table -->
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
 </head>
 <body class="home">
     <!-- Fixed navbar -->
@@ -89,23 +91,51 @@
             <div class="container_head_chem_infos">
                 <table class="tg-chem">
                     <tbody>
+                   <tr>
+                        <td class="tg-0pky"><strong>Name</strong></td>
+                        <td class="tg-0pky tg-0pky-infos">{{ chem.Name }}</td>
+                      </tr>
                       <tr>
                         <td class="tg-0pky"><strong>IUPAC Name</strong></td>
-                        <td class="tg-0pky">{{ chem.IUPAC_name }}</td>
+                        <td class="tg-0pky tg-0pky-infos">{{ chem.IUPAC_name }}</td>
                       </tr>
                       <tr>
                         <td class="tg-0pky"><strong>PubChem CID</strong></td>
-                        <td class="tg-0pky">
+                        <td class="tg-0pky tg-0pky-infos">
                             <a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{db.Pubchem_CID}}" target="_blank">{{db.Pubchem_CID}}</a>
                         </td>
                       </tr>
                       <tr>
-                        <td class="tg-0pky"><strong>CAS</strong></td>
-                        <td class="tg-0pky">{{db.CAS}}</td>
+                        <td class="tg-0pky"><strong>Cas N°</strong></td>
+                        <td class="tg-0pky tg-0pky-infos">{{db.CAS}}</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-0pky"><strong>Synonyms</strong></td>
+                        <td class="tg-0pky tg-0pky-infos class_synonyms">
+                            {% for synonym in chem.Synonyms|get_synonnyms_chem %}
+                            <p class="style_synonym">{{ synonym|safe }}</p>
+                            {% endfor %}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="tg-0pky"><strong>Molecular Formula</strong></td>
+                        <td class="tg-0pky tg-0pky-infos">{{ chem.Molecular_Formula }}</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-0pky"><strong>Molecular Weight</strong></td>
+                        <td class="tg-0pky tg-0pky-infos">{{ chem.Molecular_Weight }}</td>
                       </tr>
                       <tr>
                         <td class="tg-0pky"><strong>SMILES</strong></td>
-                        <td class="tg-0pky">{{db.SMILE}}</td>
+                        <td class="tg-0pky tg-0pky-infos">{{db.SMILE}}</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-0pky"><strong>InChi</strong></td>
+                        <td class="tg-0pky tg-0pky-infos">{{ chem.InChi }}</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-0pky"><strong>InChi Key</strong></td>
+                        <td class="tg-0pky tg-0pky-infos">{{ chem.InChi_Key }}</td>
                       </tr>
                     </tbody>
                 </table>
@@ -120,6 +150,9 @@
                 <h3>3D Structure</h3>
             </div>
             <div class="part_infos_img">
+                <a href="{% static 'media/db_mols_3d/' %}{{chem.idChemicals}}.pdb" download="structure3D_chemical_{{ chem.IUPAC_name }}.sdf">
+                    <img id="part_infos_down_1" class="part_infos_down" src="{% static 'media/img/Download.svg' %}">
+                </a>
                 <img id="part_infos_img_1" src="{% static 'media/img/Information.png' %}">
             </div>
             <div class="trail_grey"></div>
@@ -137,14 +170,71 @@
                 <h3>Odors</h3>
             </div>
             <div class="part_infos_img">
+                <img id="part_infos_down_2" src="{% static 'media/img/Download.svg' %}">
                 <img id="part_infos_img_2" src="{% static 'media/img/Information.png' %}">
             </div>
             <div class="trail_grey"></div>
         </div>
         <div class="part_help" id="part_help_2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+        
         {% for key, value in dic_chem_odor.items %}
-            <a href="{% url 'OdorWebSite_Odor' odor_id=key %}" target="_blank">{{value}}</a>
+            {% if value == None %}
+                <div class="error_no_data"><p>No data available</p></div>
+                <style type="text/css">
+                    #myTable2 {
+                        display: none;
+                    }
+                </style>
+            {% else %}
+                <a class="style_odor" href="{% url 'OdorWebSite_Odor' odor_id=key %}" target="_blank">{{value}}</a>
+            {% endif %}
         {% endfor %}
+
+
+        <div class="container_tab_odor">
+            <table id="myTable2" class="table_db_odor"> <!-- class="table_db_odor" -->
+                <thead>
+                  <tr class="header">
+                        <!--<th>idSmell_Percepts</th>-->
+                        <th>Odor</th>
+                        <th>Sources</th>
+                        <th>Initial odor label</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for key, odor_infos in dic_chem_odor_dic.items %}
+                    <tr>
+                        <!--<td class="col2">{{odor_infos.idSmell_Percepts}}</td>-->
+                        <td class="col2"><a href="{% url 'OdorWebSite_Odor' odor_id=odor_infos.idSmell_Percepts %}" target="_blank">{{odor_infos.Odor}}</a></td>
+                        <td class="col2">{{odor_infos.Sources}}</td>
+                        <td class="col2">{{odor_infos.odor_tag}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        <script type="text/javascript">
+            var chemical = "{{ chem.IUPAC_name|safe }}";
+        $(function() {
+            $("#part_infos_down_2").click(function(e){
+              var table = $("#myTable2");
+              if(table && table.length){
+            $(table).table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: "chemical_"+chemical+"_odors_"+new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: false
+            });
+          }
+        });
+        
+      });
+        </script>
+        </div>
 
         <div class="container_part">
             <div class="part_number">
@@ -154,28 +244,123 @@
                 <h3>Olfactory receptors interaction</h3>
             </div>
             <div class="part_infos_img">
+                <img id="part_infos_down_3" src="{% static 'media/img/Download.svg' %}">
                 <img id="part_infos_img_3" src="{% static 'media/img/Information.png' %}">
             </div>
             <div class="trail_grey"></div>
         </div>
         <div class="part_help" id="part_help_3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-        {% for or in db.OlfRecept|str_split_or %}
-            <a href="{% url 'OdorWebSite_OR' GeneName=or %}" target="_blank">{{or}}</a>
-        {% endfor %}
+        <!--for or in db.OlfRecept|str_split_or -->
+        {% if dic_chem_or_dic != None %}
+            {% for key, or_infos in dic_chem_or_dic.items %}
+                <a class="style_or" href="{% url 'OdorWebSite_OR' idOlfactoryReceptors=or_infos.idOlfactoryReceptors %}" target="_blank">{{or_infos.GeneName}}</a>
+            {% endfor %}
+        {% else %}
+            <div class="error_no_data"><p>No data available</p></div>
+            <style type="text/css">
+                #myTable3 {
+                    display: none;
+                }
+            </style>
+        {% endif %}
 
-        <!--{% for or in olfactory_receptors %}
-            <a href="{% url 'OdorWebSite_OR' GeneName=or.GeneName %}" target="_blank">{{or.GeneName}}</a>
-        {% endfor %}-->
+        <div class="container_tab_odor">
+            <table id="myTable3" class="table_db_odor"> <!-- class="table_db_odor" -->
+                <thead>
+                  <tr class="header">
+                        <th>Name</th>
+                        <th>Uniprot id</th>
+                        <th>Synonyms</th>
+                        <th>Species</th>
+                        <th>Sources</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for key, or_infos in dic_chem_or_dic.items %}
+                    <tr>
+                        <td class="col2"><a href="{% url 'OdorWebSite_OR' idOlfactoryReceptors=or_infos.idOlfactoryReceptors %}" target="_blank">{{or_infos.GeneName}}</a></td>
+                        <td class="col2">{{or_infos.idUniprot}}</td>
+                        <td class="col2" class="class_synonyms">
+                            {% for synonym in or_infos.Synonym|get_synonnyms %}
+                            <p class="style_synonym">{{ synonym|safe }}</p>
+                            {% endfor %}
+                        </td>
+                        </td>
+                        <td class="col2">{{or_infos.Species}}</td>
+                        <td class="col2">
+                            <p>
+                            {{or_infos.Sources|get_or_sources|safe}}
+                            </p>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        <script type="text/javascript">
+            var chemical = "{{ chem.IUPAC_name|safe }}";
+                    $(function() {
+            $("#part_infos_down_3").click(function(e){
+              var table = $("#myTable3");
+              if(table && table.length){
+            $(table).table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: "chemicals_" +chemical+ "_or_" +new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: false
+            });
+          }
+        });
+        
+      });
+        </script>
+        </div>
+
 
         <div class="container_part">
             <div class="part_number">
                 <h3>4.</h3>
             </div>
             <div class="part_title">
-                <h3>Phylogenic tree</h3>
+                <h3>Chemical space</h3>
             </div>
             <div class="part_infos_img">
                 <img id="part_infos_img_4" src="{% static 'media/img/Information.png' %}">
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+        <div class="part_help" id="part_help_4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+        <div class="container_umap">
+            {{div| safe}}
+           <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
+           <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
+           <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script>
+           <script src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.4.2.min.js"></script>
+           {{script| safe}}
+           <style>
+            .bk-root {  align-content: center;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;}
+            </style>  
+        </div>
+
+        <div class="container_part">
+            <div class="part_number">
+                <h3>5.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Phylogenic tree</h3>
+            </div>
+            <div class="part_infos_img">
+                <a href="{% static 'media/phylogenic_tree_chem/' %}{{chem.idChemicals}}.svg" download="phylogenic_tree_{{ chem.IUPAC_name }}.svg">
+                    <img id="part_infos_down_5" class="part_infos_down" src="{% static 'media/img/Download.svg' %}">
+                </a>
+                <img id="part_infos_img_5" src="{% static 'media/img/Information.png' %}">
             </div>
             <div class="trail_grey"></div>
         </div>
@@ -189,13 +374,21 @@
         </script>
         <script src="{% static 'js/code_chemical.js' %}"></script>
         <div>
-            <img src="{% static 'media/phylogenic_tree_chem/' %}{{chem.idChemicals}}.svg" style="display:block;" width="100%" height="100%">
+            <!--<img src="{% static 'media/phylogenic_tree_chem/' %}{{chem.idChemicals}}.svg" onerror="this.onerror=null; this.src='static/media/img/no_data_img.png'" style="display:block;" width="100%" height="100%">-->
+            <img id="phy_tree" src="{% static 'media/phylogenic_tree_chem/' %}{{ chem.idChemicals }}.svg" onerror="imgError(this);" style="display:block;" width="100%" height="100%">
         </div>
+        <script type="text/javascript">
+            function imgError(image) {
+                image.onerror = "";
+                image.src = "{% static 'media/img/no_data_img.png' %}";
+                return true;
+            }
+        </script>
 
         <!--
         <div><h1>Docking</h1></div>
         <h2>Select olfactory receptor for docking:</h2>
-    -->
+        -->
         <form method="post" action="{% url 'docking_chem_or' %} " target="_blank" style="display: none;">
         {% csrf_token %}
             <div class="tab-content">

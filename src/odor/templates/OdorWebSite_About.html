@@ -25,7 +25,9 @@
 	<script src="{% static 'js/jquery.min.js' %}"></script>
     <title>OdorFinder/OdorPred (to change)</title>
 
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 	<link rel="stylesheet" href="{% static 'css/style_website.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_website_about.css' %}">
 </head>
 <body class="home">
     <!-- Fixed navbar -->
@@ -71,10 +73,469 @@
     </script>
     <!-- /.navbar -->
     <!-- About content -->
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+    <script type="text/javascript">
+        // Get the button
+        let mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+          if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+          } else {
+            mybutton.style.display = "none";
+          }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }
+    </script>
     <main>
-        <div>
-            <h1>About</h1>
+        <div class="container_head search">
+            <h1>Help</h1>
         </div>
+        <div class="container_part">
+            <div class="part_title">
+                <h3>Summary</h3>
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+        <div class="container_summary">
+            <ol>
+                <li>
+                    <h4><a href="#What_is_OdorWebsite">What is OdorWebsite?</a></h4>
+                </li>
+                <li>
+                    <h4><a href="#Overview">Overview</a></h4>
+                </li>
+                <li>
+                    <h4><a href="#annotations">Compound-odor and compound-receptor annotations</a></h4>
+                </li>
+                <li>
+                    <h4><a href="#Search">Search</a></h4>
+                </li>
+                <li>
+                    <h4><a href="#Tools">Tools:</a></h4>
+                      <ul>
+                        <li>
+                            <h4><a href="#search_structure">Structure search</a></h4>
+                        </li>
+                        <li>
+                            <h4><a href="#Prediction">Prediction</a></h4>
+                        </li>
+                        <li>
+                            <h4><a href="#Docking">Docking</a></h4>
+                        </li>
+                      </ul>
+                </li>
+                <li>
+                    <h4><a href="#FAQ">FAQ</a></h4>
+                </li>
+                <li>
+                    <h4><a href="#Browser_compatibility">Browser compatibility</a></h4>
+                </li>
+            </ol>
+        </div>
+        <div class="container_part">
+            <div class="part_number" id="What_is_OdorWebsite">
+                <h3>1.</h3>
+            </div>
+            <div class="part_title">
+                <h3>What is OdorWebsite?</h3>
+            </div>
+            <div class="part_infos_img">
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+
+        <p>
+            Odorwebsite is a web server that allows to explore the physico-chemical interactions between molecules-odors and molecules-olfactory receptors. The server integrates a large database of odorant molecules and human, mouse and rat olfactory receptors as well as molecule-odor and molecule-olfactory receptor interactions. 
+            <br>
+            <br>
+            Several tools have been developed and integrated into the server in order to deepen the knowledge on the mechanisms that link these interactions, including the possibility to search for compounds according to their structure, to predict the odorant potential of a molecule or olfactory receptors in interaction or to apply a docking protocol.
+        </p>
+
+        <div class="container_part">
+            <div class="part_number" id="Overview">
+                <h3>2.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Overview</h3>
+            </div>
+            <div class="part_infos_img">
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+
+        <p>
+            On odorwebsite you can access the anotations of the database with descriptive pages :
+        </p>
+        <ul>
+          <li><strong>Chemical</strong> descriptive page : Access to annotations for a given chemical. The user can find common chemical information, odor and olfactory receptor annotations as well as several figures to better understand the physico-chemical relationships</li>
+          <li><strong>Olfactory receptor</strong> descriptive page: Access annotations for a given olfactory receptor. The user can find common information on the protein, annotations on chemicals interacting with the olfactory receptor as well as several figures to better understand these physico-chemical interactions</li>
+          <li><strong>Odor</strong> descriptive page: Access the annotations for a given odor note. The user can find the chemicals known to have the given odor as well as several figures to better understand the physicochemical of the odor</li>
+        </ul> 
+        <p>
+            The webserver includes 3 tools:
+        </p>
+         <ul>
+          <li><strong>Structure search</strong> : A tool for searching checmialc of the database according to a chemcial structure. The search is done according to 2 protocols. A protocol by similarity according to tanimoto score and a protocol according to the search of sub structures.</li>
+          <li><strong>Prediction</strong> : A tool to predict the potential odor of a molecule or to predict its potential olfactory receptors in interaction</li>
+          <li><strong>Docking</strong> : A tool to link our database of olfactory receptors and odorant molecules to the SeamDock server in order to launch a docking protocol on the seamdock server</li>
+        </ul>
+        <p>
+            These descriptive cards and tools are supported by graphic tools to support and deepen knowledge of odors and the physico chemical interactions between odor-molecules and moles-olfactory receptors:
+        </p>
+         <ul>
+          <li><strong>Overrepresented/underrepresented functional groups</strong> : Radar plot of functional group occurrence. The occurrence of functional groups is calculated on the data set of 5907 molecules and compared to a subset of molecules having an interesting odor or interacting with a specific olfactory receptor. By hovering over the screen, additional information about the occurrence of the functional group in the subset of molecules is displayed.</li>
+        </ul>
+        <img src="{% static 'media/img/help_radar_plot.png' %}">
+         <ul>
+          <li><strong>Chemical Space</strong> :  The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized trough an umap representation in a 2d map projection. The molecules were carachetrised using the morgan fingerprint. 
+          when a point is hovered more information on the molecule and its odors and its olfactory receptos are displayed and the user can click on the dot to be redirected to the corresponding compound</li>
+        </ul>
+        <img src="{% static 'media/img/help_umap.png' %}">
+        <ul>
+          <li><strong>Phylogenetic tree</strong> : Mouse phylogenic tree was computed using the sequence of mouse olfactory receptors from HORDE website. The phylogenic tree was computed on the "phyloegen.fr" website using the PhyML algorithm. Olfactory receptors were colored according their familly described by <a href="https://doi.org/DOI: 10.1007/s003350010196">Glusman et al.</a> The olfactory receptor of interest in the server are displayed bigger.
+            </li>
+        </ul>
+        <img src="{% static 'media/img/help_phytree.png' %}">
+
+        <div class="container_part">
+            <div class="part_number" id="annotations">
+                <h3>3.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Search</h3>
+            </div>
+            <div class="part_infos_img">
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+
+        <p>
+            The user can search chemicals, olfactory receptors and odors annotation directly on the home page or on the Search page.
+            <br>
+            <br>
+            The search pannel display several options:
+        </p>
+
+         <ol>
+          <li>Search chemical annotations of the website</li>
+          <li>Search olfactory receptors annotations of the website</li>
+          <li>Search odors annotations of the website</li>
+          <li>Examples to try the search protocol</li>
+          <li>Launch the search protocol</li>
+        </ol>
+        <img src="{% static 'media/img/help_search_home_bis.png' %}">
+
+        <p>
+            The search protocol returns a table of chemicals, olfactory receptors or odors according to the selected query. The table highlights the query pattern in bold. for chemical search, the query pattern is compared to name, case number,  pubchem cid, smile, inchi and inchi key. For olfactory receptor search, the query pattern is compared to the gene symbol, the uniprot id, synonyms and species. For the odor search, the query pattern is compared to odor notes.
+            <br>
+            When searching for a chemical, an olfactory receptor or an odor in the home page, suggestions are available and clickablen this will redirect the user to the descriptive page of the chemical, olfactory recptor or odor clicked.
+        </p>
+        <img src="{% static 'media/img/help_search_chem.png.svg' %}">
+        <img src="{% static 'media/img/help_search_or.png.svg' %}">
+        <img src="{% static 'media/img/help_search_odor.png.svg' %}">
+
+        <div class="container_part">
+            <div class="part_number" id="Search">
+                <h3>4.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Compound-odor and compound-receptor annotations</h3>
+            </div>
+            <div class="part_infos_img">
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+        <div class="container_help_part_4">
+            <div class="contenue_help_part_4">
+                <h4>Molecule</h4>
+                <p>The <strong>Chemical</strong> descriptive page consist of different informations:</p>
+                <ul>
+                    <li>The 2D image structure of the chemical computed with RDKIT</li>
+                    <li>General informations of the chemical retrieved from pubchem: Name, synonyms, IUPAC name, CAS N°, molecular formula, molecular weight, smiles, inchi and inchi key</li>
+                    <li>The 3D structure of the molecule computed using RDKIt with the ETDKG (v3) forcefield</li>
+                    <li>List of odor notes of the molecule if any</li>
+                    <li>List of interacting olfactory receptors if any</li>
+                    <li>The chemical space with the molecule colored</li>
+                    <li>The pylogenic tree of the interacting olfactory receptors highlighted if any </li>
+                </ul>
+            </div>
+            <div class="contenue_help_part_4">
+                <h4>Olfactory receptor</h4>
+                <p>The <strong>Olfactory receptor</strong> descriptive page consist of different informations:</p>
+                <ul>
+                    <li>General informations on the olfactory receptor with its symbol (following Glusman et al. nomenclature ), Uniprot ID, synonyms, species</li>
+                    <li>The 3D structure of the molecule computed and retrieved from AlphaFold (dec 2022 v4)</li>
+                    <li>List of chemicals known to interact with the olfactory receptor</li>
+                    <li>Radar plot of the overrepresented/underrepresented functional groups among the chemicals interacting with the olfactory receptor</li>
+                    <li>The chemical space with the molecules interacting with the olfactory receptor colored</li>
+                    <li>The pylogenic tree with the olfactory receptor highlighted</li>
+                </ul>
+            </div>
+
+            <div class="contenue_help_part_4">
+                <h4>Odor</h4>
+                <p>The <strong>Odor</strong> descriptive page is composed of different informations:</p>
+                <ul>
+                    <li>List of chemicals known to to have this odor note</li>
+                    <li>Radar plot of the overrepresented/underrepresented functional groups among the chemicals having this odor</li>
+                    <li>The chemical space with the molecules having this odor highlighted</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container_part">
+            <div class="part_number" id="Tools">
+                <h3>5.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Tools:</h3>
+            </div>
+            <div class="part_infos_img">
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+        <div class="container_part">
+            <div class="part_number" id="search_structure">
+                <h3>5.1.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Structure search</h3>
+            </div>
+            <div class="part_infos_img">
+            </div>
+        </div>
+
+        <p>
+            The server allows to search the database for molecular structures of interest in the form of a molecular similarity search and a sub structure search.
+            <br>
+            <br>
+            The <strong>similarity search</strong> allows to calculate and identify the structural similarity between the molecules of the database and a molecul of interest. The similarity is calculated according to a tanimoto score based on the MACCS fingerprints. MACCS fingerprint is a bit vector of 120 bit counting the presence (1) or absence (0) of a specific functional group in the structure of the molecule. The tanimoto score varies between 0 and 1 the higher the score the higher the similarity between the molecules. Molecules are then sorted from most similar to the lowest.
+            <br>
+            <br>
+            The <strong>substructure search</strong> allow to search for a substructure pattern matching by searching via a smart pattern or any molecule identifier available in the searching method. It returns all the molecules of the database with the query substructure in its structure.
+        </p>
+        <p>INPUT</p>
+        <p>
+            To do a structural search by calculating the similarity the user must provide the structure of a molecule. Several possibilities are proposed to him to provide this molecule:
+        </p>
+        <ol>
+            <li>The user can provide his structure as an .sdf file</li>
+            <li>The user can provide the chemical structure under the form of a smile, inchi or inchi key</li>
+            <li>The user can search for a molecule via its name which will be identified via a request sent to the puchem server</li>
+            <li>Sketcher : The user can draw his molecule of interest using the dedicated sketcher</li>
+        </ol>
+        <img src="{% static 'media/img/help_input_structure_search.png' %}">
+        <p>CHOOSE PROTOCOL</p>
+        <p>
+            Choose the similarity protocol or the substructure protocol by clicking on the launch button of your choice:
+        </p>
+        <img src="{% static 'media/img/help_structure_search_btn.png' %}">
+        <p>OUTPUT</p>
+        <p>
+            The output results consist of a summary of the query compound if retrieved on pubchem server or the query pattern if not and a table of the molecules.
+        </p>
+        <img src="{% static 'media/img/help_structure_search_output_query.png' %}">
+        <p>
+            The results table shows the information on the molecules as well as their known odor and their interactive olfactory receptor if the information is available. In relation to the search protocol, two columns are possible:
+        </p>
+        <ol>
+            <li>The tanimoto score for all the molecules of the database</li>
+            <li>The molecules containing the substructure with the substructure highlighted in red</li>
+        </ol>
+        <img src="{% static 'media/img/help_structure_search_output.png' %}">
+
+
+        <div class="container_part">
+            <div class="part_number" id="Prediction">
+                <h3>5.2.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Prediction</h3>
+            </div>
+            <div class="part_infos_img">
+            </div>
+        </div>
+        <p>
+            Two deep learning prediction models based on a graphical Graphical Neural Network (GNN) developped by <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Achebouche et al</a> were added to the website to predict the potential odor and/or potential interacting human olfactory receptors of a query compound. The odor predictor can predict one or more odor classes among a set of 23 odor notes with a prc auc of 0,497 and the human olfactory receptor predictor can predict the potential interaction of a molecule with one or multiple human olfactory receptors among a set of 74 human OR with a prc-auc of 0,91.<br>
+            <br>
+            The similarity of the query compound is also computed on all odorant of the database and the 10 most similar odorant are displayed with their odor notes and potential olfactory receptors interaction informations to strengthen the confidence of the given prediction.
+        </p>
+        <p>INPUT</p>
+        <p>
+            To perform a prediction the user must provide the structure of a molecule. Several possibilities are proposed to him to provide this molecule:
+        </p>
+        <ol>
+            <li>The user can provide it’s structure as an .sdf file</li>
+            <li>The user can provide the chemicla structure under the fomr of a smile, inchi or inchi key</li>
+            <li>The user can search for a molecule via its name which will be identified via a request sent to the puchem server</li>
+            <li>Sketcher : The user can draw his molecule of interest using the dedicated sketcher</li>
+        </ol>
+        <img src="{% static 'media/img/help_input_structure_search.png' %}">
+        <p>CHOOSE MODEL</p>
+        <img src="{% static 'media/img/help_predict_model.png' %}">
+
+        <p>Select the model to predict the odor or the potential interacting olfactory receptors then launch the predicion by clicking on the blue button.</p>
+        <p>OUTPUT</p>
+        <p>The ouput conisst of several tables and figures:</p>
+        <ol>
+            <li>Physico chemical informations on the query moleucle with it's molecular weight, the number h-bonds acceptors and h-bond donors atoms, the number of heavy atoms (non hydrogens),  the number of rotatable bonds, the Topological Surface Area and the LogP.</li>
+            <li>
+                The predicted probabilities
+                <ul>
+                    <li>For the predicted odors</li>
+                    <li>For the predicted human olfacvtory receptors</li>
+                </ul>
+            </li>
+            <li>
+                Radar plot of the functional groups over/under represented among
+                <ul>
+                    <li>The set of molecules known to have the predicted odor</li>
+                    <li>The set of molecules known to interact with the predicted olfactory receptors</li>
+                </ul>
+            </li>
+            <li>
+                Umap of the chemical space with chemicals colored by:
+                <ul>
+                    <li>The set of molecules known to have the predicted odor</li>
+                    <li>The set of molecules known to interact with the predicted olfactory receptors</li>
+                </ul>
+            </li>
+            <li>Table of the 10 most similar chemicals of the database with their known odors and their interacting olfactory receptors if any known</li>
+        </ol>
+        <p>
+            PREDICTION OUTPUT EXAMPLE FOR CARVONE:
+        </p>
+        <div class="container_help_prediction_images">
+            <div class="pred_img_all">
+                <img src="{% static 'media/img/help_predict_query.png' %}">
+            </div>
+            <div class="pred_img_one">
+                <img src="{% static 'media/img/help_predict_probability_or.png' %}">
+            </div>
+            <div class="pred_img_one">
+                <img src="{% static 'media/img/help_predict_probability_chem.png' %}">
+            </div>
+            <div class="pred_img_one">
+                <img src="{% static 'media/img/help_predict_radarplot_or.png' %}">
+            </div>
+            <div class="pred_img_one">
+                <img src="{% static 'media/img/help_predict_radar_plot_chem.png' %}">
+            </div>
+            <div class="pred_img_one">
+                <img src="{% static 'media/img/help_predict_umap_or.png' %}">
+            </div>
+            <div class="pred_img_one">
+                <img src="{% static 'media/img/help_predict_umap_chem.png' %}">
+            </div>
+            <div class="pred_img_all">
+                <img src="{% static 'media/img/help_predict_read_accross.png' %}">
+            </div>
+        </div>
+
+        <div class="container_part">
+            <div class="part_number" id="Docking">
+                <h3>5.3.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Docking</h3>
+            </div>
+            <div class="part_infos_img">
+            </div>
+        </div>
+        <p>
+            We linked the web server to the <a href="https://bioserv.rpbs.univ-paris-diderot.fr/services/SeamDock/">SeamDock webserver</a> which allows us to perform online docking.
+            <br>
+            <br>
+            To perform docking we retrieved 3D structure of olfactory receptors computed with Alpha Fold for the proteins of the rat, mouse and human.
+            <br>
+            <br>
+            In order to standardize docking parameters for all docking of the ORs that are g-protein we aligned all the structures against Or10a4 (uniprot id Q7TRM9) on the Z axis with a reference center set at 0.0.0 with pymol using TM-align. The grid box size has been set to X: 43 Å, Y: 24 Å, Z: 38 Å and centered in 0;0;0 in order to be sufficiently large and restricted to target the core of all the olfactory receptors.
+            seamdock is an online service that integrates multiple docking tools in a common framework allowing to easily perform ligand protein docking without advanced computer and docking knowledge.
+        </p>
+        <p>INPUT</p>
+        <p>To perform the docking the user must choose the chemical structure to dock and the olfactory receptor to be docked on. Several possibilities are proposed to provide these structures:</p>
+        <ol>
+            <li>The user can provide it’s chemical structure as an .sdf file</li>
+            <li>The user can provide the chemical structure under the form of a smile, inchi or inchi key</li>
+            <li>The user can search for a molecule via its name which will be identified via a request sent to the puchem server</li>
+            <li>The user can retrieve a chemical from the database by its name, cas, synonnyms</li>
+            <li>The user can retrieve an olfactory receptor by it’s name or uniprot id</li>
+        </ol>
+        <img src="{% static 'media/img/help_input_docking.png' %}">
+        <p>OUTPUT</p>
+        <p>The user is redirect on the SeamDock server with parameters of the docking preregistered</p>
+        <div class="container_part">
+            <div class="part_number" id="FAQ">
+                <h3>6.</h3>
+            </div>
+            <div class="part_title">
+                <h3>FAQ</h3>
+            </div>
+            <div class="part_infos_img">
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+        <p>
+            <strong>Q1.</strong> Can we trust the docking results ?
+        </p>
+        <p>
+            <strong>A1.</strong> Chemicals and proteins structures were retrieved computationaly, to date there is no 3D structure of olfctory receptors on the pdb so the results of docking method should be taken with caution.
+        </p>
+        <div class="container_part">
+            <div class="part_number" id="Browser_compatibility">
+                <h3>7.</h3>
+            </div>
+            <div class="part_title">
+                <h3>Browser compatibility</h3>
+            </div>
+            <div class="part_infos_img">
+            </div>
+            <div class="trail_grey"></div>
+        </div>
+        <table class="table_db_odor">
+          <tbody>
+            <tr>
+              <td><b>OS</b></td>
+              <td><b>Version</b></td>
+              <td><b>Chrome</b></td>
+              <td><b>Firefox</b></td>
+              <td><b>Microsoft Edge</b></td>
+              <td><b>Safari</b></td>
+            </tr>
+            <tr>
+              <td>Linux</td>
+              <td>Ubuntu 20</td>
+              <td>87.0</td>
+              <td>107.0</td>
+              <td>n/a</td>
+              <td>n/a</td>
+            </tr>
+            <tr>
+              <td>MacOS</td>
+              <td>Mojave</td>
+              <td>87.0</td>
+              <td>84.0</td>
+              <td>n/a</td>
+              <td>?</td>
+            </tr>
+            <tr>
+              <td>Windows</td>
+              <td>10</td>
+              <td>87.0</td>
+              <td>84.0</td>
+              <td>?</td>
+              <td>n/a</td>
+            </tr>
+          </tbody>
+        </table>
     </main>
     <!-- ./About content -->
     <!-- Footer -->
