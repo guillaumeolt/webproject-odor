@@ -48,12 +48,12 @@
             <div class="navbar-collapse">
                 <ul class="navbar-items">
                     <li><a href="{% url 'OdorWebSite_Home' %}">Home</a></li> <!-- <li class="active"><a href="#"> -->
-                    <li><a href="{% url 'OdorWebSite_About' %}">About</a></li> <!-- <li><a href="{% url 'OdorWebSite_About' %}"> -->
+                    <li><a href="{% url 'OdorWebSite_About' %}">Help</a></li> <!-- <li><a href="{% url 'OdorWebSite_About' %}"> -->
                     <li><a href="{% url 'search_chem_or_odor' %}">Search</a></li>
                     <li class="deroulant"><a href="#">Tools</a>
                         <ul class="sous">
                             <li><a href="{% url 'OdorWebSite_Search' %}">Structure Search</a></li>
-                            <li class="active"><a href="#">Predict</a></li>
+                            <li class="active"><a href="#">Prediction</a></li>
                             <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>
                         </ul>
                     </li>
@@ -169,7 +169,7 @@
 	        </div>
 	        <div class="trail_grey"></div>
 	    </div>
-    	<div class="part_help" id="part_help_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    	<div class="part_help" id="part_help_1">Physico chemical informations on the query moleucle with it's molecular weight, the number h-bonds acceptors and h-bond donors atoms, the number of heavy atoms (non hydrogens), the number of rotatable bonds, the Topological Surface Area and the LogP. These informations were computed with RDKIT.</div>
 		<div class="container">
 			<table id="myTable1" class="table_db_odor"> <!-- class="table_db_odor" -->
 				<thead>
@@ -235,7 +235,7 @@
 	        </div>
 	        <div class="trail_grey"></div>
 	    </div>
-    	<div class="part_help" id="part_help_2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    	<div class="part_help" id="part_help_2">The predicted probabilities by the deep learning model.</div>
 		<!-- tableau resultats -->
 		<div class="container">
 			<table id="myTable2" class="table_db_odor"> <!-- class="table_db_odor" -->
@@ -288,7 +288,7 @@
 	        </div>
 	        <div class="trail_grey"></div>
 	    </div>
-    	<div class="part_help" id="part_help_3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    	<div class="part_help" id="part_help_3">Radar plot of the functional groups over/under represented among the set of molecules known to have the predicted odor or the set of molecules known to interact with the predicted olfactory receptors. The occurrence of functional groups is calculated on the data set of 5907 molecules and compared to a subset of molecules having an interesting odor or interacting with a specific olfactory receptor. By hovering over the screen, additional information about the occurrence of the functional group in the subset of molecules is displayed.</div>
 		{% block content %}
 			{% autoescape off %}
 			{{ div_radar_plot }}
@@ -306,7 +306,7 @@
 	        </div>
 	        <div class="trail_grey"></div>
 	    </div>
-    	<div class="part_help" id="part_help_4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    	<div class="part_help" id="part_help_4">Umap of the chemical space with chemicals colored by the set of molecules known to have the predicted odor or the set of molecules known to interact with the predicted olfactory receptors.  The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized trough an umap representation in a 2d map projection. The molecules were carachetrised using the morgan fingerprint. when a point is hovered more information on the molecule and its odors and its olfactory receptos are displayed and the user can click on the dot to be redirected to the corresponding compound.</div>
 		  {{div| safe}}
 	   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
 	   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
@@ -332,7 +332,7 @@
 	        </div>
 	        <div class="trail_grey"></div>
 	    </div>
-    	<div class="part_help" id="part_help_5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    	<div class="part_help" id="part_help_5">Table of the 10 most similar chemicals of the database with their known odors and their interacting olfactory receptors if any known. The similarity is calculated according to a tanimoto score based on the MACCS fingerprints. MACCS fingerprint is a bit vector of 120 bit counting the presence (1) or absence (0) of a specific functional group in the structure of the molecule. The tanimoto score varies between 0 and 1 the higher the score the higher the similarity between the molecules. Molecules are then sorted from most similar to the lowest.</div>
 	<div class="container">
 			<table id="myTable5" class="table_db_odor"> <!-- class="table_db_odor" -->
 				<thead>
@@ -340,7 +340,21 @@
 					  {% for key, value in db.0.items %}
 					  	{% if key != "idOlfactoryReceptors" %}
 						<th>
+				  		{% if key == "Pubchem_CID" %}
+				  			PubChem CID
+				  		{% elif key == "CAS" %}
+				  			CAS N°
+				  		{% elif key == "IUPAC_name" %}
+				  			IUPAC name 
+				  		{% elif key == "smell" %}
+				  			Odor 
+				  		{% elif key == "OlfRecept" %}
+				  			Olfactory receptors 
+				  		{% elif key == "path_svg" %}
+				  			Structure 
+				  		{% else %}
 							{{ key }}
+						{% endif %}
 							<script type="text/javascript">
 							   var i_column = "{{ forloop.counter0 }}";
 							</script>
@@ -361,6 +375,13 @@
 							<td class = "col2">
 							{% for or in value %}
 								<a href="https://www.uniprot.org/uniprot/{{ dict_or_id|get_item:or }}" target="_blank">{{or}}</a>
+							{% endfor %}
+							</td>
+						{% elif key == "smell" %}
+							<td class = "col2">
+							{% for odor in value|str_split_odor %}
+								<!--<a href="https://www.uniprot.org/uniprot/ dict_or_id|get_item:or " target="_blank">or</a>-->
+								<a href="{% url 'OdorWebSite_Odor' odor_id=odors_id|get_item:odor %}" target="_blank">{{odor}}</a>
 							{% endfor %}
 							</td>
 						{% elif key == "idChemicals" %}

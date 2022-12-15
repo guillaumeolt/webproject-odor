@@ -152,9 +152,11 @@ def OdorWebSite_Predict(request):
     # LOAD Database Infos : Chemicals info, Smells infos, Olfactory Receptors Infos
     db_dict = my_custom_sql_with_human_homologue() #my_custom_sql_chem_predict() #my_custom_sql_with_human_homologue
     receptors_iduniprot = OlfactoryReceptors.objects.values('GeneName', 'idOlfactoryReceptors')
+    odors_id = Smell_Percepts.objects.values('Odor', 'idSmell_Percepts')
     # Transform data
     db_dict = tranform_db_dict(db_dict)
     receptors_iduniprot_dict = tranform_db_dict_iduniprot(receptors_iduniprot)
+    odors_id = tranform_db_dict_idodor(odors_id)
 
     # Add SVG
     db_dict = get_path_svg_db(db_dict)
@@ -228,18 +230,12 @@ def OdorWebSite_Predict(request):
 
             #div_radar_plot = None
         #res_mol_predict = random.choice(list)
-
-
-        print(receptors_idOR_dict)
-        print(receptors_idOR_dict_bis)
-        print(db_dict_all)
-        print(list_pred)
-        print(df)
         return render(request, "OdorWebSite_Predict.html", context={"image": mol_svg,
                                                                    'db': db_dict,
                                                                    'dict_or_id': receptors_iduniprot_dict,
                                                                    'dic_desc_mol':dic_desc_mol,
                                                                    'prediction':dict_pred,
+                                                                   'odors_id': odors_id,
                                                                    'error_message':None,
                                                                     'script': script, 'div': div,
                                                                     'div_radar_plot':div_radar_plot})

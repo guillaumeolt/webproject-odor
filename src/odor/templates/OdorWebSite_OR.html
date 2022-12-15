@@ -51,12 +51,12 @@
             <div class="navbar-collapse">
                 <ul class="navbar-items">
                     <li><a href="{% url 'OdorWebSite_Home' %}">Home</a></li> <!-- <li class="active"><a href="#"> -->
-                    <li><a href="{% url 'OdorWebSite_About' %}">About</a></li> <!-- <li><a href="{% url 'OdorWebSite_About' %}"> -->
+                    <li><a href="{% url 'OdorWebSite_About' %}">Help</a></li> <!-- <li><a href="{% url 'OdorWebSite_About' %}"> -->
                     <li><a href="{% url 'search_chem_or_odor' %}">Search</a></li>
                     <li class="deroulant"><a href="#">Tools</a>
                         <ul class="sous">
                             <li><a href="{% url 'OdorWebSite_Search' %}">Structure Search</a></li>
-                            <li><a href="{% url 'OdorWebSite_Predict' %}">Predict</a></li>
+                            <li><a href="{% url 'OdorWebSite_Predict' %}">Prediction</a></li>
                             <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>
                         </ul>
                     </li>
@@ -141,7 +141,7 @@
         </div>
         <div class="trail_grey"></div>
     </div>
-    <div class="part_help" id="part_help_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    <div class="part_help" id="part_help_1">The 3D structure of the molecule computed and retrieved from AlphaFold (dec 2022 v4).</div>
     <div id="container_visualisation_OR">
         <div id="viewport2" style="width:100%; height:100%;"></div>
     </div>
@@ -160,7 +160,7 @@
         </div>
         <div class="trail_grey"></div>
     </div>
-    <div class="part_help" id="part_help_2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    <div class="part_help" id="part_help_2">List of chemicals known to interact with the olfactory receptor</div>
     <div class="container_tab_odor">
         <table id="myTable2" class="table_db_odor"> <!-- class="table_db_odor" -->
             <thead>
@@ -226,7 +226,7 @@
         </div>
         <div class="trail_grey"></div>
     </div>
-    <div class="part_help" id="part_help_3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    <div class="part_help" id="part_help_3">Radar plot of the overrepresented/underrepresented functional groups among the chemicals interacting with the olfactory receptor. The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized trough an umap representation in a 2d map projection. The molecules were carachetrised using the morgan fingerprint. when a point is hovered more information on the molecule and its odors and its olfactory receptos are displayed and the user can click on the dot to be redirected to the corresponding compound.</div>
     {% block content %}
         {% autoescape off %}
         {{ div_radar_plot }}
@@ -245,7 +245,7 @@
         </div>
         <div class="trail_grey"></div>
     </div>
-    <div class="part_help" id="part_help_4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    <div class="part_help" id="part_help_4">The chemical space with the molecules interacting with the olfactory receptor colored.  The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized trough an umap representation in a 2d map projection. The molecules were carachetrised using the morgan fingerprint. when a point is hovered more information on the molecule and its odors and its olfactory receptos are displayed and the user can click on the dot to be redirected to the corresponding compound.</div>
     <div class="container_umap">
         {{div| safe}}
        <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
@@ -270,25 +270,29 @@
             <h3>Phylogenic tree</h3>
         </div>
         <div class="part_infos_img">
-            <a href="{% static 'media/phylogenic_tree_OR/' %}{{ GeneName.GeneName }}.svg" download="phylogenic_tree_{{ GeneName.GeneName }}.svg">
+            <a href="{% static 'media/phylogenic_tree_OR/' %}{{ GeneName.idOlfactoryReceptors }}.svg" download="phylogenic_tree_{{ GeneName.idOlfactoryReceptors }}.svg">
                 <img id="part_infos_down_5" class="part_infos_down" src="{% static 'media/img/Download.svg' %}">
             </a>
             <img id="part_infos_img_5" src="{% static 'media/img/Information.png' %}">
         </div>
         <div class="trail_grey"></div>
     </div>
-    <div class="part_help" id="part_help_5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-    <div class="part_help" id="part_help_4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    <div class="part_help" id="part_help_5">The pylogenic tree with the olfactory receptor highlighted. The Mouse and human phylogenic tree were computed using the sequence of mouse olfactory receptors from HORDE website. The phylogenic tree was computed on the "phyloegen.fr" website using the PhyML algorithm. Olfactory receptors were colored according their familly described by Glusman et al. The olfactory receptor of interest in the server are displayed bigger.</div>
     <div>
-        <img src="{% static 'media/phylogenic_tree_OR/' %}{{ GeneName.GeneName }}.svg" onerror="imgError(this);" style="display:block;" width="100%" height="100%">
-        </div>
-        <script type="text/javascript">
-            function imgError(image) {
-                image.onerror = "";
-                image.src = "{% static 'media/img/no_data_img.png' %}";
-                return true;
-            }
-        </script>
+    <div class="container_btn_phytree">
+        <button id="myBtn_phytree1" class="myBtn_phytree" onclick="myFunction_phytree_human()">Human phylogenic tree</button> 
+        <button id="myBtn_phytree2" class="myBtn_phytree active" onclick="myFunction_phytree_mouse()">Mouse phylogenic tree</button>        
+    </div>
+    <img id="phy_tree_mouse" src="{% static 'media/phylogenic_tree_OR/' %}{{ GeneName.idOlfactoryReceptors }}.svg" onerror="imgError(this);" style="display:block;" width="100%" height="100%">
+    <img id="phy_tree_human" src="{% static 'media/phylogenic_tree_human_OR/' %}{{ GeneName.idOlfactoryReceptors }}.svg" onerror="imgError(this);" style="display:none;" width="100%" height="100%">
+    </div>
+    <script type="text/javascript">
+        function imgError(image) {
+            image.onerror = "";
+            image.src = "{% static 'media/img/no_data_img.png' %}";
+            return true;
+        }
+    </script>
     <!--
     <h2>Select compound for docking:</h2>
     -->

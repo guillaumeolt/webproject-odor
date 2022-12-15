@@ -45,12 +45,12 @@
             <div class="navbar-collapse">
                 <ul class="navbar-items">
                     <li><a href="{% url 'OdorWebSite_Home' %}">Home</a></li> <!-- <li class="active"><a href="#"> -->
-                    <li class="active"><a href="#">About</a></li> <!-- <li><a href="{% url 'OdorWebSite_About' %}"> -->
+                    <li class="active"><a href="#">Help</a></li> <!-- <li><a href="{% url 'OdorWebSite_About' %}"> -->
                     <li><a href="{% url 'search_chem_or_odor' %}">Search</a></li>
                     <li class="deroulant"><a href="#">Tools</a>
                         <ul class="sous">
                             <li><a href="{% url 'OdorWebSite_Search' %}">Structure Search</a></li>
-                            <li><a href="{% url 'OdorWebSite_Predict' %}">Predict</a></li>
+                            <li><a href="{% url 'OdorWebSite_Predict' %}">Prediction</a></li>
                             <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>
                         </ul>
                     </li>
@@ -114,10 +114,10 @@
                     <h4><a href="#Overview">Overview</a></h4>
                 </li>
                 <li>
-                    <h4><a href="#annotations">Compound-odor and compound-receptor annotations</a></h4>
+                    <h4><a href="#Search">Search</a></h4>
                 </li>
                 <li>
-                    <h4><a href="#Search">Search</a></h4>
+                    <h4><a href="#annotations">Compound-odor and compound-receptor annotations</a></h4>
                 </li>
                 <li>
                     <h4><a href="#Tools">Tools:</a></h4>
@@ -194,20 +194,32 @@
          <ul>
           <li><strong>Overrepresented/underrepresented functional groups</strong> : Radar plot of functional group occurrence. The occurrence of functional groups is calculated on the data set of 5907 molecules and compared to a subset of molecules having an interesting odor or interacting with a specific olfactory receptor. By hovering over the screen, additional information about the occurrence of the functional group in the subset of molecules is displayed.</li>
         </ul>
-        <img src="{% static 'media/img/help_radar_plot.png' %}">
-         <ul>
+        <div class="container_help_prediction_images">
+            <div class="pred_img_all">
+                <img src="{% static 'media/img/help_radar_plot.png' %}">
+            </div>
+        </div>
+        <ul>
           <li><strong>Chemical Space</strong> :  The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized trough an umap representation in a 2d map projection. The molecules were carachetrised using the morgan fingerprint. 
           when a point is hovered more information on the molecule and its odors and its olfactory receptos are displayed and the user can click on the dot to be redirected to the corresponding compound</li>
         </ul>
-        <img src="{% static 'media/img/help_umap.png' %}">
+        <div class="container_help_prediction_images">
+            <div class="pred_img_all">
+                <img src="{% static 'media/img/help_umap.png' %}">
+            </div>
+        </div>
         <ul>
           <li><strong>Phylogenetic tree</strong> : Mouse phylogenic tree was computed using the sequence of mouse olfactory receptors from HORDE website. The phylogenic tree was computed on the "phyloegen.fr" website using the PhyML algorithm. Olfactory receptors were colored according their familly described by <a href="https://doi.org/DOI: 10.1007/s003350010196">Glusman et al.</a> The olfactory receptor of interest in the server are displayed bigger.
             </li>
         </ul>
-        <img src="{% static 'media/img/help_phytree.png' %}">
+        <div class="container_help_prediction_images">
+            <div class="pred_img_all">
+                <img src="{% static 'media/img/help_phytree.png' %}">
+            </div>
+        </div>
 
         <div class="container_part">
-            <div class="part_number" id="annotations">
+            <div class="part_number" id="Search">
                 <h3>3.</h3>
             </div>
             <div class="part_title">
@@ -217,34 +229,51 @@
             </div>
             <div class="trail_grey"></div>
         </div>
+        <div class="container_help_search">
+            <div class="cont_text">
+                <p>
+                    The user can search chemicals, olfactory receptors and odors annotation directly on the home page or on the Search page.
+                    <br>
+                    <br>
+                    The search pannel display several options:
+                </p>
 
-        <p>
-            The user can search chemicals, olfactory receptors and odors annotation directly on the home page or on the Search page.
-            <br>
-            <br>
-            The search pannel display several options:
-        </p>
-
-         <ol>
-          <li>Search chemical annotations of the website</li>
-          <li>Search olfactory receptors annotations of the website</li>
-          <li>Search odors annotations of the website</li>
-          <li>Examples to try the search protocol</li>
-          <li>Launch the search protocol</li>
-        </ol>
-        <img src="{% static 'media/img/help_search_home_bis.png' %}">
-
-        <p>
-            The search protocol returns a table of chemicals, olfactory receptors or odors according to the selected query. The table highlights the query pattern in bold. for chemical search, the query pattern is compared to name, case number,  pubchem cid, smile, inchi and inchi key. For olfactory receptor search, the query pattern is compared to the gene symbol, the uniprot id, synonyms and species. For the odor search, the query pattern is compared to odor notes.
-            <br>
-            When searching for a chemical, an olfactory receptor or an odor in the home page, suggestions are available and clickablen this will redirect the user to the descriptive page of the chemical, olfactory recptor or odor clicked.
-        </p>
-        <img src="{% static 'media/img/help_search_chem.png.svg' %}">
-        <img src="{% static 'media/img/help_search_or.png.svg' %}">
-        <img src="{% static 'media/img/help_search_odor.png.svg' %}">
+                 <ol>
+                  <li>Search chemical annotations of the website</li>
+                  <li>Search olfactory receptors annotations of the website</li>
+                  <li>Search odors annotations of the website</li>
+                  <li>Examples to try the search protocol</li>
+                  <li>Launch the search protocol</li>
+                </ol>
+            </div>
+            <div class="cont_img">
+                <img src="{% static 'media/img/help_search_home_bis.png' %}">
+            </div>
+            <div class="cont_text">
+                <p>
+                    The search protocol returns a table of chemicals, olfactory receptors or odors according to the selected query. The table highlights the query pattern in bold.
+                    <br>
+                    <br>
+                    For chemical search, the query pattern is compared to name, case number,  pubchem cid, smile, inchi and inchi key.
+                    <br>
+                    <br>
+                    For olfactory receptor search, the query pattern is compared to the gene symbol, the uniprot id, synonyms and species.
+                    <br>
+                    <br>
+                    For the odor search, the query pattern is compared to odor notes.
+                    <br>
+                    When searching for a chemical, an olfactory receptor or an odor in the home page, suggestions are available and clickablen this will redirect the user to the descriptive page of the chemical, olfactory recptor or odor clicked.
+                </p>
+            </div>
+            <div class="cont_img">
+                <img src="{% static 'media/img/help_search_chem.png.svg' %}">
+                <img src="{% static 'media/img/help_search_or.png.svg' %}">
+                <img src="{% static 'media/img/help_search_odor.png.svg' %}">
+            </div>
+        </div>
 
         <div class="container_part">
-            <div class="part_number" id="Search">
+            <div class="part_number" id="annotations">
                 <h3>4.</h3>
             </div>
             <div class="part_title">
@@ -275,7 +304,7 @@
                     <li>General informations on the olfactory receptor with its symbol (following Glusman et al. nomenclature ), Uniprot ID, synonyms, species</li>
                     <li>The 3D structure of the molecule computed and retrieved from AlphaFold (dec 2022 v4)</li>
                     <li>List of chemicals known to interact with the olfactory receptor</li>
-                    <li>Radar plot of the overrepresented/underrepresented functional groups among the chemicals interacting with the olfactory receptor</li>
+                    <li>Radar plot of the overrepresented/ underrepresented functional groups among the chemicals interacting with the olfactory receptor</li>
                     <li>The chemical space with the molecules interacting with the olfactory receptor colored</li>
                     <li>The pylogenic tree with the olfactory receptor highlighted</li>
                 </ul>
@@ -286,7 +315,7 @@
                 <p>The <strong>Odor</strong> descriptive page is composed of different informations:</p>
                 <ul>
                     <li>List of chemicals known to to have this odor note</li>
-                    <li>Radar plot of the overrepresented/underrepresented functional groups among the chemicals having this odor</li>
+                    <li>Radar plot of the overrepresented/ underrepresented functional groups among the chemicals having this odor</li>
                     <li>The chemical space with the molecules having this odor highlighted</li>
                 </ul>
             </div>
@@ -332,17 +361,29 @@
             <li>The user can search for a molecule via its name which will be identified via a request sent to the puchem server</li>
             <li>Sketcher : The user can draw his molecule of interest using the dedicated sketcher</li>
         </ol>
-        <img src="{% static 'media/img/help_input_structure_search.png' %}">
+        <div class="container_help_prediction_images">
+            <div class="pred_img_all">
+                <img src="{% static 'media/img/help_input_structure_search.png' %}">
+            </div>
+        </div>
         <p>CHOOSE PROTOCOL</p>
         <p>
             Choose the similarity protocol or the substructure protocol by clicking on the launch button of your choice:
         </p>
-        <img src="{% static 'media/img/help_structure_search_btn.png' %}">
+        <div class="container_help_prediction_images">
+            <div class="pred_img_all">
+                <img src="{% static 'media/img/help_structure_search_btn.png' %}">
+            </div>
+        </div>
         <p>OUTPUT</p>
         <p>
             The output results consist of a summary of the query compound if retrieved on pubchem server or the query pattern if not and a table of the molecules.
         </p>
-        <img src="{% static 'media/img/help_structure_search_output_query.png' %}">
+        <div class="container_help_prediction_images">
+            <div class="pred_img_all">
+                <img src="{% static 'media/img/help_structure_search_output_query.png' %}">
+            </div>
+        </div>
         <p>
             The results table shows the information on the molecules as well as their known odor and their interactive olfactory receptor if the information is available. In relation to the search protocol, two columns are possible:
         </p>
@@ -350,7 +391,11 @@
             <li>The tanimoto score for all the molecules of the database</li>
             <li>The molecules containing the substructure with the substructure highlighted in red</li>
         </ol>
-        <img src="{% static 'media/img/help_structure_search_output.png' %}">
+        <div class="container_help_prediction_images">
+            <div class="pred_img_all">
+                <img src="{% static 'media/img/help_structure_search_output.png' %}">
+            </div>
+        </div>
 
 
         <div class="container_part">
@@ -378,9 +423,17 @@
             <li>The user can search for a molecule via its name which will be identified via a request sent to the puchem server</li>
             <li>Sketcher : The user can draw his molecule of interest using the dedicated sketcher</li>
         </ol>
-        <img src="{% static 'media/img/help_input_structure_search.png' %}">
+        <div class="container_help_prediction_images">
+            <div class="pred_img_all">
+                <img src="{% static 'media/img/help_input_structure_search.png' %}">
+            </div>
+        </div>
         <p>CHOOSE MODEL</p>
-        <img src="{% static 'media/img/help_predict_model.png' %}">
+        <div class="container_help_prediction_images">
+            <div class="pred_img_all">
+                <img src="{% static 'media/img/help_predict_model.png' %}">
+            </div>
+        </div>
 
         <p>Select the model to predict the odor or the potential interacting olfactory receptors then launch the predicion by clicking on the blue button.</p>
         <p>OUTPUT</p>
@@ -469,7 +522,11 @@
             <li>The user can retrieve a chemical from the database by its name, cas, synonnyms</li>
             <li>The user can retrieve an olfactory receptor by it’s name or uniprot id</li>
         </ol>
-        <img src="{% static 'media/img/help_input_docking.png' %}">
+        <div class="container_help_prediction_images">
+            <div class="pred_img_all">
+                <img src="{% static 'media/img/help_input_docking.png' %}">
+            </div>
+        </div>
         <p>OUTPUT</p>
         <p>The user is redirect on the SeamDock server with parameters of the docking preregistered</p>
         <div class="container_part">

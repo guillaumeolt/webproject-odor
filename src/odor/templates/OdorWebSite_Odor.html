@@ -50,12 +50,12 @@
             <div class="navbar-collapse">
                 <ul class="navbar-items">
                     <li><a href="{% url 'OdorWebSite_Home' %}">Home</a></li> <!-- <li class="active"><a href="#"> -->
-                    <li><a href="{% url 'OdorWebSite_About' %}">About</a></li> <!-- <li><a href="{% url 'OdorWebSite_About' %}"> -->
+                    <li><a href="{% url 'OdorWebSite_About' %}">Help</a></li> <!-- <li><a href="{% url 'OdorWebSite_About' %}"> -->
                     <li><a href="{% url 'search_chem_or_odor' %}">Search</a></li>
                     <li class="deroulant"><a href="#">Tools</a>
                         <ul class="sous">
                             <li><a href="{% url 'OdorWebSite_Search' %}">Structure Search</a></li>
-                            <li><a href="{% url 'OdorWebSite_Predict' %}">Predict</a></li>
+                            <li><a href="{% url 'OdorWebSite_Predict' %}">Prediction</a></li>
                             <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>
                         </ul>
                     </li>
@@ -95,7 +95,7 @@
             </div>
             <div class="trail_grey"></div>
         </div>
-        <div class="part_help" id="part_help_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+        <div class="part_help" id="part_help_1">List of chemicals known to to have this odor note.</div>
         <div class="container_tab_odor">
             <table id="myTable" class="table_db_odor"> <!-- class="table_db_odor" -->
                 <thead>
@@ -161,7 +161,7 @@
             </div>
             <div class="trail_grey"></div>
         </div>
-        <div class="part_help" id="part_help_2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+        <div class="part_help" id="part_help_2">Radar plot of the overrepresented/underrepresented functional groups among the chemicals having this odor. The occurrence of functional groups is calculated on the data set of 5907 molecules and compared to a subset of molecules having an interesting odor or interacting with a specific olfactory receptor. By hovering over the screen, additional information about the occurrence of the functional group in the subset of molecules is displayed. </div>
         <!--
         <p>This radar plot is intended to quickly illustrate the difference in occurrence of functional
             groups among a subset of molecules against the whole database of molecule for which an odor of <strong>{{ odor.Odor }}</strong> has been recognised</p>
@@ -185,7 +185,7 @@
             </div>
             <div class="trail_grey"></div>
         </div>
-        <div class="part_help" id="part_help_3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+        <div class="part_help" id="part_help_3">The chemical space with the molecules having this odor highlighted.  The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized trough an umap representation in a 2d map projection. The molecules were carachetrised using the morgan fingerprint. when a point is hovered more information on the molecule and its odors and its olfactory receptos are displayed and you can click on the dot to be redirected to the corresponding compound</div>
         <!--
         <p>This UMAP representation of compounds distribution in a 2D map projection allow to observe structural similarity between molecules
             for which an odor of <strong>{{ odor.Odor }}</strong> has been recognised</p>

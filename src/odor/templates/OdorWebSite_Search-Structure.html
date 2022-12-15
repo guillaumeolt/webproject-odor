@@ -43,12 +43,12 @@
             <div class="navbar-collapse">
                 <ul class="navbar-items">
                     <li><a href="{% url 'OdorWebSite_Home' %}">Home</a></li> <!-- <li class="active"><a href="#"> -->
-                    <li><a href="{% url 'OdorWebSite_About' %}">About</a></li> <!-- <li><a href="{% url 'OdorWebSite_About' %}"> -->
+                    <li><a href="{% url 'OdorWebSite_About' %}">Help</a></li> <!-- <li><a href="{% url 'OdorWebSite_About' %}"> -->
                     <li><a href="{% url 'search_chem_or_odor' %}">Search</a></li>
                     <li class="deroulant"><a href="#">Tools</a>
                         <ul class="sous">
                             <li class="active"><a href="#">Structure Search</a></li>
-                            <li><a href="{% url 'OdorWebSite_Predict' %}">Predict</a></li>
+                            <li><a href="{% url 'OdorWebSite_Predict' %}">Prediction</a></li>
                             <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>
                         </ul>
                     </li>
@@ -164,7 +164,7 @@
 	        </div>
 	        <div class="trail_grey"></div>
 	    </div>
-    	<div class="part_help" id="part_help_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    	<div class="part_help" id="part_help_1">summary of the query compound if retrieved on pubchem server or the query pattern if not and a table of the molecules.</div>
 		<div class="query_compound">
 			<!--<p>Query Compound :</p>-->
 			<div class="container_query_compound">
@@ -223,7 +223,7 @@
 	        </div>
 	        <div class="trail_grey"></div>
 	    </div>
-    	<div class="part_help" id="part_help_2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    	<div class="part_help" id="part_help_2">Table shows the information on the molecules as well as their known odor and their interactive olfactory receptor if the information is available. In relation to the search protocol, two columns are possible: The tanimoto score for all the molecules of the database or the molecules containing the substructure with the substructure highlighted in red. The similarity is calculated according to a tanimoto score based on the MACCS fingerprints. MACCS fingerprint is a bit vector of 120 bit counting the presence (1) or absence (0) of a specific functional group in the structure of the molecule. The tanimoto score varies between 0 and 1 the higher the score the higher the similarity between the molecules. Molecules are then sorted from most similar to the lowest.</div>
 		<div class="container">
 	  <!--
       <div class="header_wrap">

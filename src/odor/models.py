@@ -21,10 +21,10 @@ class ChemicalsOdors(models.Model):
     Mixture = models.SmallIntegerField()
     Synonyms = models.CharField(max_length=800)
     CAS = models.CharField(max_length=45)
-    Molecular_Weight = models.CharField(max_length=45, default='None')
-    Molecular_Formula = models.CharField(max_length=45, default='None')
-    InChi = models.CharField(max_length=400, default='None')
-    InChi_Key = models.CharField(max_length=45, default='None')
+    Molecular_Weight = models.CharField(max_length=45)
+    Molecular_Formula = models.CharField(max_length=45)
+    InChi = models.CharField(max_length=400)
+    InChi_Key = models.CharField(max_length=45)
     class Meta:
         db_table = "Chemicals"
 

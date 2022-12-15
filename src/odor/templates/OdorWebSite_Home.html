@@ -27,12 +27,12 @@
 			<div class="navbar-collapse">
 				<ul class="navbar-items">
 					<li class="active"><a href="#">Home</a></li>
-					<li><a href="{% url 'OdorWebSite_About' %}">About</a></li>
+					<li><a href="{% url 'OdorWebSite_About' %}">Help</a></li>
                     <li><a href="{% url 'search_chem_or_odor' %}">Search</a></li>
                     <li class="deroulant"><a href="#">Tools</a>
                         <ul class="sous">
                             <li><a href="{% url 'OdorWebSite_Search' %}">Structure Search</a></li>
-                            <li><a href="{% url 'OdorWebSite_Predict' %}">Predict</a></li>
+                            <li><a href="{% url 'OdorWebSite_Predict' %}">Prediction</a></li>
                             <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>
                         </ul>
                     </li>
@@ -235,7 +235,7 @@
             </div>
             <div class="container_tool pred">
                 <h2>Prediction</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>Predict the potential odors of a molecule or its potential interacting olfactory receptors. Use two prediction models based on a graphical Graphical Neural Network (GNN) developped by Achebouche et al.</p>
                 <div class="container_btn">
                     <button type="button" class="btn_sim">
                         <a href="{% url 'OdorWebSite_Predict' %}">Launch prediction</a><i class="arrow right"></i>
@@ -244,7 +244,7 @@
             </div>
             <div class="container_tool pred">
                 <h2>Docking</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+                <p>Use our chemical and olfactory receptors database to launch a docking protocol on the SeamDock webserver.</p>
                 <div class="container_btn">
                     <button type="button" class="btn_sim">
                         <a href="{% url 'docking_chem_or' %}">Launch docking</a><i class="arrow right"></i>
