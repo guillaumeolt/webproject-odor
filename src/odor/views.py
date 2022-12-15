@@ -309,13 +309,13 @@ def OdorWebSite_OlfactoryReceptor_template(request, idOlfactoryReceptors=None):
 
 
     # plotly
-    path_odor_plotly = os.path.join(STATIC_ROOT,'media/plotly_or/' + GeneName_or.GeneName + ".html")
+    path_odor_plotly = os.path.join(STATIC_ROOT,'media/plotly_or/' + str(GeneName_or.idOlfactoryReceptors) + ".html")
     with open(path_odor_plotly, 'r') as file:
     	div_radar_plot = file.read()
 
     # bokeh
-    path_odor_bokeh_div = os.path.join(STATIC_ROOT,'media/bokeh_or/' +GeneName_or.GeneName + ".div")
-    path_odor_bokeh_script = os.path.join(STATIC_ROOT,'media/bokeh_or/' + GeneName_or.GeneName + ".script")
+    path_odor_bokeh_div = os.path.join(STATIC_ROOT,'media/bokeh_or/' + str(GeneName_or.idOlfactoryReceptors) + ".div")
+    path_odor_bokeh_script = os.path.join(STATIC_ROOT,'media/bokeh_or/' + str(GeneName_or.idOlfactoryReceptors) + ".script")
     with open(path_odor_bokeh_div, 'r') as file:
     	div = file.read()
     with open(path_odor_bokeh_script, 'r') as file:
