@@ -113,6 +113,14 @@
                         <td class="tg-0pky"><strong>Species</strong></td>
                         <td class="tg-0pky tg-0pky-infos">{{ GeneName.Species }}</td>
                       </tr>
+                      {% if or_homologue != None %}
+                      <tr>
+                        <td class="tg-0pky"><strong>Human Ortholog</strong></td>
+                        <td class="tg-0pky tg-0pky-infos">
+                            <a href="{% url 'OdorWebSite_OR' idOlfactoryReceptors=or_homologue.id_OR_human %}">{{ or_homologue.GeneName }}</a>
+                        </td>
+                      </tr>
+                      {% endif %}
                       <!--
                       <tr>
                         <td class="tg-0pky"><strong>Sequence</strong></td>

@@ -290,7 +290,7 @@ def my_custom_sql_chem_get_or_dic(chem_id):
                         "left join mydb.OlfactoryReceptors_has_Chemicals on mydb.Chemicals.idChemicals = mydb.OlfactoryReceptors_has_Chemicals.Chemicals_idChemicals "\
                         "left join mydb.OlfactoryReceptors on mydb.OlfactoryReceptors.idOlfactoryReceptors = mydb.OlfactoryReceptors_has_Chemicals.OlfactoryReceptors_idOlfactoryReceptors "\
                 "WHERE GeneName IS NOT NULL and idUniprot IS NOT NULL and idChemicals = %s "
-    print(sql_query)
+
     cursor.execute(sql_query, [str(chem_id)])
     dic_db = dictfetchall(cursor)
 
@@ -299,6 +299,25 @@ def my_custom_sql_chem_get_or_dic(chem_id):
         dic_db_k[k["GeneName"]] = k
     return(dic_db_k)
 
+def my_custom_sql_chem_get_mouse_homologous():
+    cursor = connection.cursor()
+    sql_query = "SELECT t1.idOlfactoryReceptors, t0.GeneName, t0.idOlfactoryReceptors as 'id_OR_human' "\
+                "FROM mydb.OlfactoryReceptors t0 "\
+                        "left outer join "\
+                            "( "\
+                                "SELECT * FROM mydb.OlfactoryReceptors "\
+                                "left join mydb.RecepteurHomologueHumain on mydb.OlfactoryReceptors.idOlfactoryReceptors = mydb.RecepteurHomologueHumain.OlfactoryReceptors_idOlfactoryReceptors "\
+                            ") t1 "\
+                            "ON t1.OlfactoryReceptors_idOlfactoryReceptors1 = t0.idOlfactoryReceptors "\
+                "WHERE t1.OlfactoryReceptors_idOlfactoryReceptors1 is not null"
+
+    cursor.execute(sql_query)
+    dic_db = dictfetchall(cursor)
+
+    dic_db_k = dict()
+    for k in dic_db:
+        dic_db_k[k["idOlfactoryReceptors"]] = k
+    return(dic_db_k)
 """
 
 select  mydb.Chemicals.idChemicals,

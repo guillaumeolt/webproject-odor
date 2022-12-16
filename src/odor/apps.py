@@ -136,7 +136,9 @@ class OdorConfig(AppConfig):
         receptors_idOR_dict = tranform_db_dict_iduniprot_bis(receptors_idOR)
 
         olfactory_receptors = OlfactoryReceptors.objects.all()
+        mapper = load_umap_chem_odor("odor/static/media/umap/mapper.pkl")
         for or_i in olfactory_receptors:
+
             print(or_i.GeneName)
             # plotly
             df = get_data_desc_plotly_list_or(db_dict_all, ["All", str(or_i.idOlfactoryReceptors)], receptors_idOR_dict)#odor.Odor])
@@ -165,6 +167,7 @@ class OdorConfig(AppConfig):
             text_file.write(script)
             #close file
             text_file.close()
+        quit()
 
 
         ## COMPUTE PHYLOGENIQUE TREE mouse

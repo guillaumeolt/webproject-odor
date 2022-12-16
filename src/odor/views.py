@@ -34,7 +34,8 @@ from .models import ChemicalsOdors,\
                           my_custom_sql_odor_get_chem,\
                           my_custom_sql_with_human_homologue,\
                           my_custom_sql_chem_get_odor_dic,\
-                          my_custom_sql_chem_get_or_dic
+                          my_custom_sql_chem_get_or_dic,\
+                          my_custom_sql_chem_get_mouse_homologous
 
 
 def OdorWebSite(request):
@@ -301,6 +302,15 @@ def OdorWebSite_OlfactoryReceptor_template(request, idOlfactoryReceptors=None):
     db_dict_all = my_custom_sql()
     db_dict_all = tranform_db_dict(db_dict_all)
 
+    or_homologue = None
+    if GeneName_or.Species == "Mus musculus (Mouse) [10090]":
+        dic_homologue = my_custom_sql_chem_get_mouse_homologous()
+        try:
+            or_homologue = dic_homologue[GeneName_or.idOlfactoryReceptors]
+            print(or_homologue)
+        except:
+            or_homologue = None
+
     # get chem with known or
     print(GeneName_or.idOlfactoryReceptors , "-------------")
     dic_or_chem = my_custom_sql_odor_get_chem(GeneName_or.idOlfactoryReceptors)[0]
@@ -324,7 +334,8 @@ def OdorWebSite_OlfactoryReceptor_template(request, idOlfactoryReceptors=None):
                                                            'script': script, 'div': div,
                                                            'div_radar_plot': div_radar_plot,
                                                            'chemicals_odors':chemicals_odors,
-                                                           'dic_or_chem': dic_or_chem})
+                                                           'dic_or_chem': dic_or_chem,
+                                                           'or_homologue': or_homologue})
 def OdorWebSite_Chemical_template(request, chem_id=None):
     #print(chem_id, "-------------------")
     olfactory_receptors = OlfactoryReceptors.objects.all()
