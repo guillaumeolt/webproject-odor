@@ -34,7 +34,7 @@
     <div class="navbar" >
         <div class="navbar-container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'OdorWebSite_Home' %}"><img src="assets/images/logo.png" alt="OdorWebSiteLogo"></a>
+                <a class="navbar-brand" href="{% url 'OdorWebSite_Home' %}"><img src="{% static 'media/logos/rect819.png' %}" alt="Pred-O3 logo"></a>
             </div>
             <!-- Button for smallest screens -->
             <a href="#" class="navbar-toggle">
@@ -108,7 +108,7 @@
         <div class="container_summary">
             <ol>
                 <li>
-                    <h4><a href="#What_is_OdorWebsite">What is OdorWebsite?</a></h4>
+                    <h4><a href="#What_is_OdorWebsite">What is Pred-O3?</a></h4>
                 </li>
                 <li>
                     <h4><a href="#Overview">Overview</a></h4>
@@ -146,7 +146,7 @@
                 <h3>1.</h3>
             </div>
             <div class="part_title">
-                <h3>What is OdorWebsite?</h3>
+                <h3>What is Pred-O3?</h3>
             </div>
             <div class="part_infos_img">
             </div>
@@ -154,7 +154,7 @@
         </div>
 
         <p>
-            Odorwebsite is a web server that allows to explore the physico-chemical interactions between molecules-odors and molecules-olfactory receptors. The server integrates a large database of odorant molecules and human, mouse and rat olfactory receptors as well as molecule-odor and molecule-olfactory receptor interactions. 
+            Pred-O3 is a web server that allows to explore interactions between molecules-odors and molecules-olfactory receptors. The server integrates a large database of odorant molecules tested on human, mouse and rat olfactory receptors. Furthermore, it allows to predict molecule-odor and molecule-olfactory receptor interactions.
             <br>
             <br>
             Several tools have been developed and integrated into the server in order to deepen the knowledge on the mechanisms that link these interactions, including the possibility to search for compounds according to their structure, to predict the odorant potential of a molecule or olfactory receptors in interaction or to apply a docking protocol.
@@ -173,26 +173,26 @@
         </div>
 
         <p>
-            On odorwebsite you can access the anotations of the database with descriptive pages :
+            On Pred-O3 you can access the annotations of the database with descriptive pages :
         </p>
         <ul>
-          <li><strong>Chemical</strong> descriptive page : Access to annotations for a given chemical. The user can find common chemical information, odor and olfactory receptor annotations as well as several figures to better understand the physico-chemical relationships</li>
-          <li><strong>Olfactory receptor</strong> descriptive page: Access annotations for a given olfactory receptor. The user can find common information on the protein, annotations on chemicals interacting with the olfactory receptor as well as several figures to better understand these physico-chemical interactions</li>
-          <li><strong>Odor</strong> descriptive page: Access the annotations for a given odor note. The user can find the chemicals known to have the given odor as well as several figures to better understand the physicochemical of the odor</li>
+          <li><strong>Chemical</strong> descriptive page : Access to annotations for a given chemical. The user can find common chemical information, odor and olfactory receptor annotations as well as the phylogenic tree highlighting the interacting olfactory receptors, the chemical space.</li>
+          <li><strong>Olfactory receptor</strong> descriptive page: Access annotations for a given olfactory receptor. The user can find common information on the protein, annotations on chemicals interacting with the olfactory receptor as well as the phylogenic tree highlighting olfactory receptors, a radar plot highlighting the under/overrepresented functional groups of the interacting chemicals.</li>
+          <li><strong>Odor</strong> descriptive page: Access the annotations for a given odor note. The user can find the chemicals known to have the given odor as well as the over/undererepresented functional groups of this list of chemicals and the chemical space.</li>
         </ul> 
         <p>
             The webserver includes 3 tools:
         </p>
          <ul>
-          <li><strong>Structure search</strong> : A tool for searching checmialc of the database according to a chemcial structure. The search is done according to 2 protocols. A protocol by similarity according to tanimoto score and a protocol according to the search of sub structures.</li>
-          <li><strong>Prediction</strong> : A tool to predict the potential odor of a molecule or to predict its potential olfactory receptors in interaction</li>
-          <li><strong>Docking</strong> : A tool to link our database of olfactory receptors and odorant molecules to the SeamDock server in order to launch a docking protocol on the seamdock server</li>
+          <li><strong>Structure search</strong> : A tool for searching chemical of the database according to a chemical structure. The search is done according to 2 protocols. A protocol by similarity according to tanimoto score and a protocol according to the search of sub structures.</li>
+          <li><strong>Prediction</strong> : A tool to predict the potential odors or olfactory receptors for a molecule.</li>
+          <li><strong>Docking</strong> : A tool to link our database of olfactory receptors and odorant molecules to the SeamDock server in order to launch a docking protocol that predict the binding mode of a molecule in a selected olfactory receptor.</li>
         </ul>
         <p>
-            These descriptive cards and tools are supported by graphic tools to support and deepen knowledge of odors and the physico chemical interactions between odor-molecules and moles-olfactory receptors:
+            With these tools, graphical interfaces are implemented to support and deepen knowledge of odorant, olfactory receptors and odors:
         </p>
          <ul>
-          <li><strong>Overrepresented/underrepresented functional groups</strong> : Radar plot of functional group occurrence. The occurrence of functional groups is calculated on the data set of 5907 molecules and compared to a subset of molecules having an interesting odor or interacting with a specific olfactory receptor. By hovering over the screen, additional information about the occurrence of the functional group in the subset of molecules is displayed.</li>
+          <li><strong>Overrepresented/underrepresented functional groups</strong> : Radar plot of functional group occurrence. The occurrence of functional groups is calculated on the data set of 5908 molecules (odorant molecules and molecules with know interactiong olfactory receptors without known odors) and compared to a subset of molecules having an interesting odor or interacting with a specific olfactory receptor. The line of occurrence calculated over all molecules in the database is used as a reference and marked "All". Any line above the reference "All" represents over-represented functional groups and any line below the reference "All" represents an under-represented functional group. By hovering over the screen, additional information about the occurrence of the functional group in the subset of molecules is displayed.</li>
         </ul>
         <div class="container_help_prediction_images">
             <div class="pred_img_all">
@@ -200,8 +200,8 @@
             </div>
         </div>
         <ul>
-          <li><strong>Chemical Space</strong> :  The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized trough an umap representation in a 2d map projection. The molecules were carachetrised using the morgan fingerprint. 
-          when a point is hovered more information on the molecule and its odors and its olfactory receptos are displayed and the user can click on the dot to be redirected to the corresponding compound</li>
+          <li><strong>Chemical Space</strong> : The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized through an UMAP representation in a 2d map projection. The molecules were carachetrised using the morgan fingerprint. 
+          When a point is hovered more information on the molecule and its odors and its olfactory receptos are displayed and the user can click on the dot to be redirected to the corresponding compound</li>
         </ul>
         <div class="container_help_prediction_images">
             <div class="pred_img_all">
@@ -209,7 +209,7 @@
             </div>
         </div>
         <ul>
-          <li><strong>Phylogenetic tree</strong> : Mouse phylogenic tree was computed using the sequence of mouse olfactory receptors from HORDE website. The phylogenic tree was computed on the "phyloegen.fr" website using the PhyML algorithm. Olfactory receptors were colored according their familly described by <a href="https://doi.org/DOI: 10.1007/s003350010196">Glusman et al.</a> The olfactory receptor of interest in the server are displayed bigger.
+          <li><strong>Phylogenetic tree</strong> : Mouse phylogenic tree was computed using the sequence of mouse olfactory receptors from <a href="https://genome.weizmann.ac.il/horde/">HORDE</a> website. Human phylogenic tree was computed using the sequence of human olfactory receptors from <a href="https://www.uniprot.org/">UniProt<a>. The phylogenic tree was computed on the <a href="https://ngphylogeny.fr/workflows/oneclick/">ngphylogeny website</a> using the PhyML/OneClick workflow. Olfactory receptors were colored according their familly described by <a href="https://doi.org/DOI: 10.1007/s003350010196">Glusman et al.</a> The olfactory receptors in relation to a chemical are displayed bigger.
             </li>
         </ul>
         <div class="container_help_prediction_images">
@@ -235,13 +235,13 @@
                     The user can search chemicals, olfactory receptors and odors annotation directly on the home page or on the Search page.
                     <br>
                     <br>
-                    The search pannel display several options:
+                    The search panel displays several options:
                 </p>
 
                  <ol>
-                  <li>Search chemical annotations of the website</li>
-                  <li>Search olfactory receptors annotations of the website</li>
-                  <li>Search odors annotations of the website</li>
+                  <li>Search chemical annotations on the website</li>
+                  <li>Search olfactory receptors annotations on the website</li>
+                  <li>Search odors annotations on the website</li>
                   <li>Examples to try the search protocol</li>
                   <li>Launch the search protocol</li>
                 </ol>
@@ -262,7 +262,7 @@
                     <br>
                     For the odor search, the query pattern is compared to odor notes.
                     <br>
-                    When searching for a chemical, an olfactory receptor or an odor in the home page, suggestions are available and clickablen this will redirect the user to the descriptive page of the chemical, olfactory recptor or odor clicked.
+                    When searching for a chemical, an olfactory receptor or an odor in the home page, suggestions are available and clickable this will redirect the user to the descriptive page of interest.
                 </p>
             </div>
             <div class="cont_img">
@@ -286,7 +286,7 @@
         <div class="container_help_part_4">
             <div class="contenue_help_part_4">
                 <h4>Molecule</h4>
-                <p>The <strong>Chemical</strong> descriptive page consist of different informations:</p>
+                <p>The <strong>Chemical</strong> descriptive page consists of different informations:</p>
                 <ul>
                     <li>The 2D image structure of the chemical computed with RDKIT</li>
                     <li>General informations of the chemical retrieved from pubchem: Name, synonyms, IUPAC name, CAS N°, molecular formula, molecular weight, smiles, inchi and inchi key</li>
@@ -302,7 +302,7 @@
                 <p>The <strong>Olfactory receptor</strong> descriptive page consist of different informations:</p>
                 <ul>
                     <li>General informations on the olfactory receptor with its symbol (following Glusman et al. nomenclature ), Uniprot ID, synonyms, species</li>
-                    <li>The 3D structure of the molecule computed and retrieved from AlphaFold (dec 2022 v4)</li>
+                    <li>The 3D structure of the molecule computed and retrieved from <a href="https://doi.org/10.1093/nar/gkab1061">AlphaFold</a> (dec 2022 v4)</li>
                     <li>List of chemicals known to interact with the olfactory receptor</li>
                     <li>Radar plot of the overrepresented/ underrepresented functional groups among the chemicals interacting with the olfactory receptor</li>
                     <li>The chemical space with the molecules interacting with the olfactory receptor colored</li>
@@ -346,7 +346,7 @@
             The server allows to search the database for molecular structures of interest in the form of a molecular similarity search and a sub structure search.
             <br>
             <br>
-            The <strong>similarity search</strong> allows to calculate and identify the structural similarity between the molecules of the database and a molecul of interest. The similarity is calculated according to a tanimoto score based on the MACCS fingerprints. MACCS fingerprint is a bit vector of 120 bit counting the presence (1) or absence (0) of a specific functional group in the structure of the molecule. The tanimoto score varies between 0 and 1 the higher the score the higher the similarity between the molecules. Molecules are then sorted from most similar to the lowest.
+            The <strong>similarity search</strong> allows to calculate and identify the structural similarity between the molecules of the database and a molecule of interest. The similarity is calculated according to a Tanimoto score based on the MACC fingerprints. MACCS fingerprint is a bit vector of 120 bit counting the presence (1) or absence (0) of a specific functional group in the structure of the molecule. The tanimoto score varies between 0 and 1 the higher the score the higher the similarity between the molecules. Molecules are then sorted from most similar to the lowest.
             <br>
             <br>
             The <strong>substructure search</strong> allow to search for a substructure pattern matching by searching via a smart pattern or any molecule identifier available in the searching method. It returns all the molecules of the database with the query substructure in its structure.
@@ -409,7 +409,7 @@
             </div>
         </div>
         <p>
-            Two deep learning prediction models based on a graphical Graphical Neural Network (GNN) developped by <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Achebouche et al</a> were added to the website to predict the potential odor and/or potential interacting human olfactory receptors of a query compound. The odor predictor can predict one or more odor classes among a set of 23 odor notes with a prc auc of 0,497 and the human olfactory receptor predictor can predict the potential interaction of a molecule with one or multiple human olfactory receptors among a set of 74 human OR with a prc-auc of 0,91.<br>
+            Two deep learning prediction models based on a graphical Graphical Neural Network (GNN) developped by <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Achebouche et al</a> were added to the website to predict the potential odor and/or potential interacting human olfactory receptors of a query compound. The odor predictor can predict one or more odor classes among a set of 23 odor notes with a prc auc of 0.67 and the human olfactory receptor predictor can predict the potential interaction of a molecule with one or multiple human olfactory receptors among a set of 74 human OR with a prc-auc of 0.91.<br>
             <br>
             The similarity of the query compound is also computed on all odorant of the database and the 10 most similar odorant are displayed with their odor notes and potential olfactory receptors interaction informations to strengthen the confidence of the given prediction.
         </p>
@@ -418,8 +418,8 @@
             To perform a prediction the user must provide the structure of a molecule. Several possibilities are proposed to him to provide this molecule:
         </p>
         <ol>
-            <li>The user can provide it’s structure as an .sdf file</li>
-            <li>The user can provide the chemicla structure under the fomr of a smile, inchi or inchi key</li>
+            <li>The user can provide it’s structure as a .sdf file</li>
+            <li>The user can provide the chemicla structure under the form of a smile, inchi or inchi key</li>
             <li>The user can search for a molecule via its name which will be identified via a request sent to the puchem server</li>
             <li>Sketcher : The user can draw his molecule of interest using the dedicated sketcher</li>
         </ol>
@@ -437,14 +437,14 @@
 
         <p>Select the model to predict the odor or the potential interacting olfactory receptors then launch the predicion by clicking on the blue button.</p>
         <p>OUTPUT</p>
-        <p>The ouput conisst of several tables and figures:</p>
+        <p>The ouput consist of several tables and figures:</p>
         <ol>
-            <li>Physico chemical informations on the query moleucle with it's molecular weight, the number h-bonds acceptors and h-bond donors atoms, the number of heavy atoms (non hydrogens),  the number of rotatable bonds, the Topological Surface Area and the LogP.</li>
+            <li>Physico chemical informations on the query molecule with it's molecular weight, the number h-bonds acceptors and h-bond donors atoms, the number of heavy atoms (non hydrogens),  the number of rotatable bonds, the Topological Surface Area and the LogP.</li>
             <li>
                 The predicted probabilities
                 <ul>
                     <li>For the predicted odors</li>
-                    <li>For the predicted human olfacvtory receptors</li>
+                    <li>For the predicted human olfactory receptors</li>
                 </ul>
             </li>
             <li>
@@ -455,7 +455,7 @@
                 </ul>
             </li>
             <li>
-                Umap of the chemical space with chemicals colored by:
+                UMAP of the chemical space with chemicals colored by:
                 <ul>
                     <li>The set of molecules known to have the predicted odor</li>
                     <li>The set of molecules known to interact with the predicted olfactory receptors</li>
@@ -510,7 +510,7 @@
             To perform docking we retrieved 3D structure of olfactory receptors computed with Alpha Fold for the proteins of the rat, mouse and human.
             <br>
             <br>
-            In order to standardize docking parameters for all docking of the ORs that are g-protein we aligned all the structures against Or10a4 (uniprot id Q7TRM9) on the Z axis with a reference center set at 0.0.0 with pymol using TM-align. The grid box size has been set to X: 43 Å, Y: 24 Å, Z: 38 Å and centered in 0;0;0 in order to be sufficiently large and restricted to target the core of all the olfactory receptors.
+            In order to standardize docking parameters for all docking of the ORs that are GPCR protein, we aligned all the structures against Or10a4 (uniprot id Q7TRM9) on the Z axis with a reference center set at 0.0.0 with pymol using TM-align. The grid box size has been set to X: 43 Å, Y: 24 Å, Z: 38 Å and centered in 0;0;0 in order to be sufficiently large and restricted to target the core of all the olfactory receptors.
             seamdock is an online service that integrates multiple docking tools in a common framework allowing to easily perform ligand protein docking without advanced computer and docking knowledge.
         </p>
         <p>INPUT</p>
@@ -602,15 +602,14 @@
                 <div class="footer-content Contact">
                     <h3 class="footer-title">Contact</h3>
                     <div class="widget-body">
-                        <p>+33XXXXXXX<br>
-                        <a href="mailto:#">some.email@somewhere.com</a>
-                        <br>
-                            Université Paris Cité
-                        <br>
-                            Bâtiment Lamarck A
-                        <br>
-                            35 rue Hélène Brion, 75205, Paris Cedex 13
-                        </p>
+                        <p>
+                        For technical questions:<br>
+                        <a href="mailto:olivier.taboureau@u-paris.fr">olivier.taboureau@u-paris.fr</a><br>
+                        For research questions:<br>
+                        <a href="mailto:olivier.taboureau@u-paris.fr">olivier.taboureau@u-paris.fr</a><br>
+                        Université Paris Cité<br>
+                        Bâtiment Lamarck A<br>
+                        35 rue Hélène Brion, 75205, Paris Cedex 13</p>
                     </div>
                 </div>
 
@@ -645,7 +644,7 @@
                 </div>
             </div>
             <div class="copyright">
-                Copyright © 2022
+                Copyright © 2022 - This website is free and open to all users and there is no login requirement
             </div>
         </div>
     </footer>

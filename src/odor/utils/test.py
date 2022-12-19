@@ -21,9 +21,13 @@ def str_split_odor(str_odor):
         return str_odor
 @register.filter
 def str_split_or(str_or):
-    l = list(set(str_or.split("|")))
-    new_list = [x for x in l if x != '']
-    return new_list
+    try:
+        l = list(set(str_or.split("|")))
+        new_list = [x for x in l if x != '']
+        return new_list
+    except:
+        pass
+    return [""]
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)

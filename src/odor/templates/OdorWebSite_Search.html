@@ -31,7 +31,7 @@
     <div class="navbar" >
         <div class="navbar-container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'OdorWebSite_Home' %}"><img src="assets/images/logo.png" alt="OdorWebSiteLogo"></a>
+                <a class="navbar-brand" href="{% url 'OdorWebSite_Home' %}"><img src="{% static 'media/logos/rect819.png' %}" alt="Pred-O3 logo"></a>
             </div>
             <!-- Button for smallest screens -->
             <a href="#" class="navbar-toggle">
@@ -73,7 +73,7 @@
     <!-- Search content -->
         <div class="container_head search">
             <h3 class="p_overview">Search</h3>
-            <p>The search tool allows to quickly find the molecules, olfactory receptors and odors listed in the database. The database contains information on 5907 chemicals and 933 odor notes and 495 olfactory receptors belonging to the human mouse and rat species. The molecules can be retrieved using their name, cas, name, or pubchem id. Olfactory receptors can be searched by name, species, or uniprot id. Odors can be searched by their odor note.</p>
+            <p>The search tool allows to quickly find the molecules, olfactory receptors and odors listed in the database. The database contains information on 5802 odorant chemicals and 933 odor notes and 2280 olfactory receptors belonging to the human mouse and rat species. The molecules can be retrieved using their name, cas, name, or pubchem CID. Olfactory receptors can be searched by name, species, or uniprot id. Odors can be searched by their odor note.</p>
             <div class="container_head_img">
                 <img src="{% static 'media/img/search_img.png' %}" alt="search png">
             </div>
@@ -198,15 +198,14 @@
                 <div class="footer-content Contact">
                     <h3 class="footer-title">Contact</h3>
                     <div class="widget-body">
-                        <p>+33XXXXXXX<br>
-                        <a href="mailto:#">some.email@somewhere.com</a>
-                        <br>
-                            Université Paris Cité
-                        <br>
-                            Bâtiment Lamarck A
-                        <br>
-                            35 rue Hélène Brion, 75205, Paris Cedex 13
-                        </p>
+                        <p>
+                        For technical questions:<br>
+                        <a href="mailto:olivier.taboureau@u-paris.fr">olivier.taboureau@u-paris.fr</a><br>
+                        For research questions:<br>
+                        <a href="mailto:olivier.taboureau@u-paris.fr">olivier.taboureau@u-paris.fr</a><br>
+                        Université Paris Cité<br>
+                        Bâtiment Lamarck A<br>
+                        35 rue Hélène Brion, 75205, Paris Cedex 13</p>
                     </div>
                 </div>
 
@@ -241,7 +240,7 @@
                 </div>
             </div>
             <div class="copyright">
-                Copyright © 2022
+                Copyright © 2022 - This website is free and open to all users and there is no login requirement
             </div>
         </div>
     </footer>

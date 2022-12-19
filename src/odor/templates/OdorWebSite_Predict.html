@@ -37,7 +37,7 @@
     <div class="navbar" >
         <div class="navbar-container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'OdorWebSite_Home' %}"><img src="assets/images/logo.png" alt="OdorWebSiteLogo"></a>
+				<a class="navbar-brand" href="{% url 'OdorWebSite_Home' %}"><img src="{% static 'media/logos/rect819.png' %}" alt="Pred-O3 logo"></a>
             </div>
             <!-- Button for smallest screens -->
             <a href="#" class="navbar-toggle">
@@ -79,7 +79,7 @@
 	<main>
 		<div class="container_head search">
             <h3 class="p_overview">Prediction</h3>
-            <p>Two deep learning prediction models based on a graphical Graphical Neural Network (GNN) have been added to the website to predict the potential odor and/or the potential interacting human ORs of a query compound. These models have been extracted from the article [ref]. The odor predictor can predict one or multiples odors cklass among a set of 23 odor classes with a prc auc of 0,497 and the human ORs predictor can predict the potential interaction of a molecule with one or multiple human among a set of 74 human OR with a prc-auc of 0,91.<br>
+            <p>Two deep learning prediction models based on a graphical Graphical Neural Network (GNN) have been added to the website to predict the potential odor and/or the potential interacting human ORs of a query compound. These models have been extracted from the article of <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Achebouche et al</a>. The odor predictor can predict one or multiples odors class among a set of 23 odor classes with a prc auc of 0,497 and the human ORs predictor can predict the potential interaction of a molecule with one or multiple human among a set of 74 human OR with a prc-auc of 0,91.<br>
 			Additional physicochemical informations on the query molecule are computed and shown to the user as the molecular weight, logP, name if found in pubchem.
 			The similarity of the query compound is also computed on all odorant of the database and the 10 most similar odorant are displayed with their odor class and potential ORs interaction informations to strengthen the confidence of the given prediction.
 
@@ -432,15 +432,14 @@
                 <div class="footer-content Contact">
                     <h3 class="footer-title">Contact</h3>
                     <div class="widget-body">
-                        <p>+33XXXXXXX<br>
-                        <a href="mailto:#">some.email@somewhere.com</a>
-                        <br>
-                            Université Paris Cité
-                        <br>
-                            Bâtiment Lamarck A
-                        <br>
-                            35 rue Hélène Brion, 75205, Paris Cedex 13
-                        </p>
+                        <p>
+                        For technical questions:<br>
+                        <a href="mailto:olivier.taboureau@u-paris.fr">olivier.taboureau@u-paris.fr</a><br>
+                        For research questions:<br>
+                        <a href="mailto:olivier.taboureau@u-paris.fr">olivier.taboureau@u-paris.fr</a><br>
+                        Université Paris Cité<br>
+                        Bâtiment Lamarck A<br>
+                        35 rue Hélène Brion, 75205, Paris Cedex 13</p>
                     </div>
                 </div>
 
@@ -475,7 +474,7 @@
                 </div>
             </div>
             <div class="copyright">
-                Copyright © 2022
+                Copyright © 2022 - This website is free and open to all users and there is no login requirement
             </div>
         </div>
     </footer>

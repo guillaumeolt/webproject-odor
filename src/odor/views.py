@@ -35,7 +35,8 @@ from .models import ChemicalsOdors,\
                           my_custom_sql_with_human_homologue,\
                           my_custom_sql_chem_get_odor_dic,\
                           my_custom_sql_chem_get_or_dic,\
-                          my_custom_sql_chem_get_mouse_homologous
+                          my_custom_sql_chem_get_mouse_homologous,\
+                          my_custom_sql_or_get_chem
 
 
 def OdorWebSite(request):
@@ -313,7 +314,7 @@ def OdorWebSite_OlfactoryReceptor_template(request, idOlfactoryReceptors=None):
 
     # get chem with known or
     print(GeneName_or.idOlfactoryReceptors , "-------------")
-    dic_or_chem = my_custom_sql_odor_get_chem(GeneName_or.idOlfactoryReceptors)[0]
+    dic_or_chem = my_custom_sql_or_get_chem(GeneName_or.idOlfactoryReceptors)[0]
     #docking list chemicals
     chemicals_odors = ChemicalsOdors.objects.all()
 

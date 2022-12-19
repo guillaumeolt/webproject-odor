@@ -16,7 +16,7 @@
 	<div class="navbar" >
 		<div class="navbar-container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="{% url 'OdorWebSite_Home' %}"><img src="assets/images/logo.png" alt="OdorWebSiteLogo"></a>
+				<a class="navbar-brand" href="{% url 'OdorWebSite_Home' %}"><img src="{% static 'media/logos/rect819.png' %}" alt="Pred-O3 logo"></a>
 			</div>
             <!-- Button for smallest screens -->
             <a href="#" class="navbar-toggle">
@@ -81,9 +81,9 @@
         </div>-->
         <!--<div class="Search_filter" style="background-image: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.2)), url('{% static 'media/img/home_background.png' %}');">-->
 
-        <div class="Search_filter">
-        <h1> OdorWebSiteTitle </h1>
-        <h4> Explore odorant chemicals, olfactory receptors, odors </h4>
+        <div class="Search_filter" style="background-image: url('static/media/img/home_main.png');">
+        <h1> Pred-O3 </h1>
+        <h4> Explore Odorant, Olfactory receptors, Odors </h4>
         <div class="container_search">
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -176,7 +176,7 @@
             </div>
             <div class="home_infos">
                 <div class="home_infos_img"><img src="{% static 'media/img/protein.png' %}" alt="image molecule"></div>
-                <p>2282 olfactory receptors</p>
+                <p>2280 olfactory receptors</p>
             </div>
             <div class="home_infos">
                 <div class="home_infos_img"><img src="{% static 'media/img/odors-removebg-preview.png' %}" alt="image molecule"></div>
@@ -192,12 +192,11 @@
         <div class="container text-center">
             <div class="overview_text">
                 <p class="center-intro">
-                    odorwebsite is a web server that compiles information about odorous molecules, their odours and their olfactory receptors. The server integrates several tools to analyse the interactions between odour molecules, olfactory receptors and their physico-chemical links.
+                    Pred-O3 is a web server that compiles information about odorant molecules, their odors and their olfactory receptors (OR). The server integrates several tools to analyse the interactions between odorant, olfactory receptors and their physico-chemical links.
 
-                    We freely give access to a compile database of 5988 chemicals with 5802 chemicals with known odors among which 284 are odorless. The database contains 367 olfactory receptors for which at least one chemical-or interaction is known. There are 36016 known odorant-odors links and 2425 known odorant-or interactions.
+                    We freely give access to a compile database of 5802 chemicals with known odors. The database contains 385 olfactory receptors (from human, mouse and rat species) for which at least one chemical-or interaction is known. There are 36016 known odorant-odors links and 2425 known odorant-or interactions.
                     
-                    The site provides several tools like the possibility to search for information on a compound according to its structure
-                    predict the odorant power of a molecule or its potential to interact with olfactory recptors. we facilitate the possibility to apply a docking protocol to the molecules and proteins of the database by redireting to the Seamdock server.
+                    The website proposes to search for olfactory receptors and/or odor annotated for a chemical (using its name or chemical structure). Also, through several tools, it gives the opportunity to predict olfactory receptors and odors associated for any small molecules using graphical neural network (GNN). Finally, the webserver predicts the ligand-olfactory receptor binding mode for a set of 1529 human OR model.
                     <!--Odor web site allow the user to have easily acces to informations on :
                     - 5980 molecules with 5907 odorant molécules
                     - 296 Olfactory receptors
@@ -225,8 +224,8 @@
             <div class="container_tool sim">
                 <h2>Structural similarity</h2>
                 <p>Similar compounds from the database can be searched by 2 methods :
-                    The  similarity search based on a tanimoto score 
-                    The substructure search where we can search for a substructure pattern</p>
+                    The  similarity search based on a Tanimoto score 
+                    The substructure search where a substructure pattern of an odorant molecule can be searched.</p>
                 <div class="container_btn">
                     <button type="button" class="btn_sim">
                         <a href="{% url 'OdorWebSite_Search' %}">Launch structure search</a><i class="arrow right"></i>
@@ -235,7 +234,7 @@
             </div>
             <div class="container_tool pred">
                 <h2>Prediction</h2>
-                <p>Predict the potential odors of a molecule or its potential interacting olfactory receptors. Use two prediction models based on a graphical Graphical Neural Network (GNN) developped by Achebouche et al.</p>
+                <p>Predict the potential odors of a molecule or its potential interacting olfactory receptors. Use two prediction models based on a graphical Graphical Neural Network (GNN) developped by <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Achebouche et al</a>.</p>
                 <div class="container_btn">
                     <button type="button" class="btn_sim">
                         <a href="{% url 'OdorWebSite_Predict' %}">Launch prediction</a><i class="arrow right"></i>
@@ -244,7 +243,7 @@
             </div>
             <div class="container_tool pred">
                 <h2>Docking</h2>
-                <p>Use our chemical and olfactory receptors database to launch a docking protocol on the SeamDock webserver.</p>
+                <p>Select a chemical and an olfactory receptor and launch the <a href="https://bioserv.rpbs.univ-paris-diderot.fr/services/SeamDock/">SeamDock webserver</a> [<a href="https://doi.org/10.3389/fmolb.2021.716466">Murail et al</a>] to predict ligand-OR binding mode.</p>
                 <div class="container_btn">
                     <button type="button" class="btn_sim">
                         <a href="{% url 'docking_chem_or' %}">Launch docking</a><i class="arrow right"></i>
@@ -258,8 +257,17 @@
         <div class="container text-center-ref">
             <h3 class="thin">References</h3>
             <p class="center-intro">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <strong>Achebouche R, Tromelin A, Audouze K & Taboureau O. </strong><br>
+                <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Application of artificial intelligence to decode the relationships between smell, olfactory receptors and small molecules. Sci Rep 12, 18817 (2022).</a><br>
+                https://doi.org/10.1038/s41598-022-23176-y
             </p>
+            <p><strong>Murail S, de Vries S, Rey J, Moroy G & Tufféry P. </strong><br>
+                <a href="https://doi.org/10.3389/fmolb.2021.716466">SeamDock: An Interactive and Collaborative Online Docking Resource to Assist Small Compound Molecular Docking. Frontiers in Molecular Biosciences (2021).</a><br>
+                https://doi.org/10.3389/fmolb.2021.716466</p>
+            <p><strong>Tufféry P & Murail S.</strong><br>
+                <a href="https://zenodo.org/record/4506970#.Y6AuDafMKCg">Docking_py, a python library for ligand protein docking. Zenodo (2020).</a><br>
+                http://doi.org/10.5281/zenodo.4506970.</p>
+            <p><i>Reference of our website to be released once the server has a DOI.</i></p>
         </div>
         <!-- /.References/partenaires-->
     </main>
@@ -271,15 +279,14 @@
                 <div class="footer-content Contact">
                     <h3 class="footer-title">Contact</h3>
                     <div class="widget-body">
-                        <p>+33XXXXXXX<br>
-                        <a href="mailto:#">some.email@somewhere.com</a>
-                        <br>
-                            Université Paris Cité
-                        <br>
-                            Bâtiment Lamarck A
-                        <br>
-                            35 rue Hélène Brion, 75205, Paris Cedex 13
-                        </p>
+                        <p>
+                        For technical questions:<br>
+                        <a href="mailto:olivier.taboureau@u-paris.fr">olivier.taboureau@u-paris.fr</a><br>
+                        For research questions:<br>
+                        <a href="mailto:olivier.taboureau@u-paris.fr">olivier.taboureau@u-paris.fr</a><br>
+                        Université Paris Cité<br>
+                        Bâtiment Lamarck A<br>
+                        35 rue Hélène Brion, 75205, Paris Cedex 13</p>
                     </div>
                 </div>
 
@@ -314,7 +321,7 @@
                 </div>
             </div>
             <div class="copyright">
-                Copyright © 2022
+                Copyright © 2022 - This website is free and open to all users and there is no login requirement
             </div>
         </div>
     </footer>
