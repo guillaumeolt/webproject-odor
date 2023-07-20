@@ -354,7 +354,6 @@ def OdorWebSite_OlfactoryReceptor_template(request, idOlfactoryReceptors=None):
         dic_homologue = my_custom_sql_chem_get_mouse_homologous()
         try:
             or_homologue = dic_homologue[GeneName_or.idOlfactoryReceptors]
-            print(or_homologue)
         except:
             or_homologue = None
 
@@ -374,11 +373,9 @@ def OdorWebSite_OlfactoryReceptor_template(request, idOlfactoryReceptors=None):
     receptors_idOR = OlfactoryReceptors.objects.values('GeneName', 'idOlfactoryReceptors')  # 'idUniprot')
     # Transform data
     receptors_idOR_dict = tranform_db_dict_iduniprot_bis(receptors_idOR)
-    print(receptors_idOR_dict)
     mapper = load_umap_chem_odor("odor/static/media/umap/mapper.pkl")
     script, div = get_bokeh_plot_odor_from_list_or_bis(mapper, db_dict_all, [idOlfactoryReceptors], receptors_idOR_dict,\
                                                        path_svg_add="../static/media/db_mols_svg/") #mapper, db_dict, list_or, receptors_idOR_dict_bis, path_svg_add
-
 
     """
     path_odor_bokeh_div = os.path.join(STATIC_ROOT,'media/bokeh_or/' + str(GeneName_or.idOlfactoryReceptors) + ".div")
