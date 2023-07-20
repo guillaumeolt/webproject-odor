@@ -9,11 +9,10 @@
 
     <meta name="theme-color" content="#000000"/>
     <meta name="description" content="Ketcher is a web-based chemical structure editor"/>
-    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png"/>
-    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png"/>
-    <link rel="manifest" href="./manifest.json"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'media/logos/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'media/logos/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'media/logos/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'media/logos/site.webmanifest' %}">
     <title>Ketcher v2.3.3-297-ga6f91d0d</title>
     <link href="{% static 'css/2.1a1d4f17.chunk.css' %}'" rel="stylesheet">
     <link href="{% static 'css/main.4b33aa94.chunk.css' %}" rel="stylesheet">
@@ -346,7 +345,7 @@
             The server allows to search the database for molecular structures of interest in the form of a molecular similarity search and a sub structure search.
             <br>
             <br>
-            The <strong>similarity search</strong> allows to calculate and identify the structural similarity between the molecules of the database and a molecule of interest. The similarity is calculated according to a Tanimoto score based on the MACC fingerprints. MACCS fingerprint is a bit vector of 120 bit counting the presence (1) or absence (0) of a specific functional group in the structure of the molecule. The tanimoto score varies between 0 and 1 the higher the score the higher the similarity between the molecules. Molecules are then sorted from most similar to the lowest.
+            The <strong>similarity search</strong> allows to calculate and identify the structural similarity between the molecules of the database and a molecule of interest. The similarity is calculated according to a Tanimoto score based on the MACC fingerprints. MACC fingerprint is a bit vector of 120 bit counting the presence (1) or absence (0) of a specific functional group in the structure of the molecule. The tanimoto score varies between 0 and 1 the higher the score the higher the similarity between the molecules. Molecules are then sorted from most similar to the lowest.
             <br>
             <br>
             The <strong>substructure search</strong> allow to search for a substructure pattern matching by searching via a smart pattern or any molecule identifier available in the searching method. It returns all the molecules of the database with the query substructure in its structure.

@@ -6,7 +6,12 @@
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="theme-color" content="#000000"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'css/style_website.css' %}"/>
     <title>OdorFinder/OdorPred (to change)</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'media/logos/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'media/logos/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'media/logos/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'media/logos/site.webmanifest' %}">
 	<link rel="stylesheet" href="{% static 'css/style_website.css' %}">
     <link rel="stylesheet" href="{% static 'css/style_website_home.css' %}">
     <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -101,46 +106,16 @@
         {% csrf_token %}
             <div class="tab-content">
               <div class="tab-pane active" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
-                  <input type="text" id="search_chemical" name="search_chemical" placeholder="Search Chemicals by name, cas, smile, PubChem CID"></input>
+                  <input type="text" id="search_chemical" name="search_chemical" onfocus="loadObject_chem(this)" placeholder="Search Chemicals by name, cas, smile, PubChem CID"></input>
                   <button type="submit" id="btn_search_chem" name="btn_search_chemical">Search</button>
-                  <script>
-                      var availableTags = [
-                                           {% for chem in chemicals_odors %}
-                                               "{{chem.CAS | safe}}", "{{chem.Name | addslashes}}",
-                                           {% endfor %}
-                                           ];
-
-                      var availableTags_dict_chem = {
-                          {% for chem in chemicals_odors %}
-                          "{{ chem.idChemicals }}": {CAS: "{{chem.CAS | safe}}",
-                                                     Name:"{{chem.Name | addslashes}}"},
-                          {% endfor %}
-                      };
-                  </script>
               </div>
               <div class="tab-pane" id="or-tab-pane" role="tabpanel" aria-labelledby="or-tab">
-                  <input type="text" id="search_or" name="search_or" placeholder="Search OR by name, Uniprot ID, Species"></input>
+                  <input type="text" id="search_or" name="search_or" onfocus="loadObject_or(this)" placeholder="Search OR by name, Uniprot ID, Species"></input>
                   <button type="submit" id="btn_search_or" name="btn_search_OR">Search</button>
-                  <script>
-                      var availableTags_dict_or = {
-                          {% for or in olfactory_receptors %}
-                          "{{ or.idOlfactoryReceptors }}": {GeneName: "{{or.GeneName}}",
-                                                            idUniprot: "{{or.idUniprot}}",
-                                                            Species:"{{or.Species}}"},
-                          {% endfor %}
-                      };
-                  </script>
               </div>
               <div class="tab-pane" id="odor-tab-pane" role="tabpanel" aria-labelledby="odor-tab">
-                  <input type="text" id="search_odor" name="search_odor" placeholder="Search Odors"></input>
+                  <input type="text" id="search_odor" name="search_odor" onfocus="loadObject_odor(this)" placeholder="Search Odors"></input>
                   <button type="submit" id="btn_search_odor" name="btn_search_odor">Search</button>
-                  <script>
-                      var availableTags_dict_odor = {
-                          {% for odor in smell_percepts %}
-                          "{{ odor.idSmell_Percepts }}": {Odor: "{{odor.Odor}}"},
-                          {% endfor %}
-                      };
-                  </script>
               </div>
             </div>
         </form>

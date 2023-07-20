@@ -26,13 +26,13 @@ def get_molecules(path_dir):
     mol_n=1
     for mol in allMol:
         mol_name = mol.GetProp("_Name")
-        print("{:*^50}".format("PROCESSING MOLECULE {} ({}/{})".format(mol_name,mol_n,len(allMol))))
+        #print("{:*^50}".format("PROCESSING MOLECULE {} ({}/{})".format(mol_name,mol_n,len(allMol))))
         mol_n += 1
         #Standardize
         try:
             res_list.append(standardize(mol))
         except:
-            print("ERROR MOL: Standardize molecule " + mol_name)
+            #print("ERROR MOL: Standardize molecule " + mol_name)
             continue
     return res_list
 
@@ -71,21 +71,21 @@ def get_decriptors_rdkit_fr(mol_list, list_fr = "All", compute_vec_desc = False)
     for mol in mol_list:
         # mol precessed
         n_mol += 1
-        print("MOL PROCESSED : {}/{}".format(n_mol,len(mol_list)))
+        #print("MOL PROCESSED : {}/{}".format(n_mol,len(mol_list)))
         descriptors_mol = []
         # 2D Descriptors
         try:
             descriptors_2D = calculator.CalcDescriptors(mol)
         except:
-            print("ERROR MOL: 2D descripteurs RDKit. " + mol.GetProp("_Name"))
+            #print("ERROR MOL: 2D descripteurs RDKit. " + mol.GetProp("_Name"))
             continue
         if len(descriptors_2D) != len(des_list_2D):
-            print("ERROR MOL: 2D descriptors generated not same lengths as number available descriptors. "+ mol.GetProp("_Name"))
+            #print("ERROR MOL: 2D descriptors generated not same lengths as number available descriptors. "+ mol.GetProp("_Name"))
             continue
         descriptors_mol = list(descriptors_2D)
         list_descriptors_mol.append(descriptors_mol)
         list_names.append(mol.GetProp("_Name"))
-    print("FIRST DESCRIPTORS COMPUTED")
+    #print("FIRST DESCRIPTORS COMPUTED")
     df = pd.DataFrame(list_descriptors_mol, columns=des_list_all, index = list_names)
 
     return df
@@ -123,16 +123,16 @@ def get_decriptors_rdkit(mol_list, compute_vec_desc = False):
     for mol in mol_list:
         # mol precessed
         n_mol += 1
-        print("MOL PROCESSED : {}/{}".format(n_mol,len(mol_list)))
+        #print("MOL PROCESSED : {}/{}".format(n_mol,len(mol_list)))
         descriptors_mol = []
         # 2D Descriptors
         try:
             descriptors_2D = calculator.CalcDescriptors(mol)
         except:
-            print("ERROR MOL: 2D descripteurs RDKit. " + mol.GetProp("_Name"))
+            #print("ERROR MOL: 2D descripteurs RDKit. " + mol.GetProp("_Name"))
             continue
         if len(descriptors_2D) != len(des_list_2D):
-            print("ERROR MOL: 2D descriptors generated not same lengths as number available descriptors. "+ mol.GetProp("_Name"))
+            #print("ERROR MOL: 2D descriptors generated not same lengths as number available descriptors. "+ mol.GetProp("_Name"))
             continue
         # 3D Descriptors
         descriptors_3D = []
@@ -140,71 +140,72 @@ def get_decriptors_rdkit(mol_list, compute_vec_desc = False):
             Asphericity = Descriptors3D.Asphericity(mol)
         except:
             Asphericity = "NA"
-            print("WARNING DESC: 3D descriptor Asphericity coulnd be computed. mol " + mol.GetProp("_Name"))
+            #print("WARNING DESC: 3D descriptor Asphericity coulnd be computed. mol " + mol.GetProp("_Name"))
         descriptors_3D.append(Asphericity)
         try:
             Eccentricity = Descriptors3D.Eccentricity(mol)
         except:
             Eccentricity = "NA"
-            print("WARNING DESC: 3D descriptor Eccentricity coulnd be computed. mol " + mol.GetProp("_Name"))
+            #print("WARNING DESC: 3D descriptor Eccentricity coulnd be computed. mol " + mol.GetProp("_Name"))
         descriptors_3D.append(Eccentricity)
         try:
             InertialShapeFactor = Descriptors3D.InertialShapeFactor(mol)
         except:
             InertialShapeFactor = "NA"
-            print("WARNING DESC: 3D descriptor InertialShapeFactor coulnd be computed. mol " + mol.GetProp("_Name"))
+            #print("WARNING DESC: 3D descriptor InertialShapeFactor coulnd be computed. mol " + mol.GetProp("_Name"))
         descriptors_3D.append(InertialShapeFactor)
         try:
             NPR1 = Descriptors3D.NPR1(mol)
         except:
             NPR1 = "NA"
-            print("WARNING DESC: 3D descriptor NPR1 coulnd be computed. mol " + mol.GetProp("_Name"))
+            #print("WARNING DESC: 3D descriptor NPR1 coulnd be computed. mol " + mol.GetProp("_Name"))
         descriptors_3D.append(NPR1)
         try:
             NPR2 = Descriptors3D.NPR2(mol)
         except:
             NPR2 = "NA"
-            print("WARNING DESC: 3D descriptor NPR2 coulnd be computed. mol " + mol.GetProp("_Name"))
+            #print("WARNING DESC: 3D descriptor NPR2 coulnd be computed. mol " + mol.GetProp("_Name"))
         descriptors_3D.append(NPR2)
         try:
             PMI1 = Descriptors3D.PMI1(mol)
         except:
             PMI1 = "NA"
-            print("WARNING DESC: 3D descriptor PMI1 coulnd be computed. mol " + mol.GetProp("_Name"))
+            #print("WARNING DESC: 3D descriptor PMI1 coulnd be computed. mol " + mol.GetProp("_Name"))
         descriptors_3D.append(PMI1)
         try:
             PMI2 = Descriptors3D.PMI2(mol)
         except:
             PMI2 = "NA"
-            print("WARNING DESC: 3D descriptor PMI2 coulnd be computed. mol " + mol.GetProp("_Name"))
+            #print("WARNING DESC: 3D descriptor PMI2 coulnd be computed. mol " + mol.GetProp("_Name"))
         descriptors_3D.append(PMI2)
         try:
             PMI3 = Descriptors3D.PMI3(mol)
         except:
             PMI3 = "NA"
-            print("WARNING DESC: 3D descriptor PMI3 coulnd be computed. mol " + mol.GetProp("_Name"))
+            #print("WARNING DESC: 3D descriptor PMI3 coulnd be computed. mol " + mol.GetProp("_Name"))
         descriptors_3D.append(PMI3)
         try:
             RadiusOfGyration = Descriptors3D.RadiusOfGyration(mol)
         except:
             RadiusOfGyration = "NA"
-            print("WARNING DESC: 3D descriptor RadiusOfGyration coulnd be computed. mol " + mol.GetProp("_Name"))
+            #print("WARNING DESC: 3D descriptor RadiusOfGyration coulnd be computed. mol " + mol.GetProp("_Name"))
         descriptors_3D.append(RadiusOfGyration)
         try:
             SpherocityIndex = Descriptors3D.SpherocityIndex(mol)
         except:
             SpherocityIndex = "NA"
-            print("WARNING DESC: 3D descriptor SpherocityIndex coulnd be computed. mol " + mol.GetProp("_Name"))
+            #print("WARNING DESC: 3D descriptor SpherocityIndex coulnd be computed. mol " + mol.GetProp("_Name"))
         descriptors_3D.append(SpherocityIndex)
         #
         descriptors_mol = list(descriptors_2D) + descriptors_3D
         if len(descriptors_mol) != 218:
-            print("ERROR MOL: 2D 3D descriptors generated not length available descriptors. "+ mol.GetProp("_Name"))
+            pass
+            #print("ERROR MOL: 2D 3D descriptors generated not length available descriptors. "+ mol.GetProp("_Name"))
         else:
             list_descriptors_mol.append(descriptors_mol)
             list_names.append(mol.GetProp("_Name"))
     
-    print("FIRST DESCRIPTORS COMPUTED")
+    #print("FIRST DESCRIPTORS COMPUTED")
     df = pd.DataFrame(list_descriptors_mol, columns=des_list_all, index = list_names)
 
     if compute_vec_desc:
@@ -212,7 +213,7 @@ def get_decriptors_rdkit(mol_list, compute_vec_desc = False):
         for mol in mol_list:
             # mol precessed
             n_mol += 1
-            print("MOL PROCESSED : {}/{}".format(n_mol,len(mol_list)))
+            #print("MOL PROCESSED : {}/{}".format(n_mol,len(mol_list)))
             ## VECTORS 2D
             for name_d, v_d in vector_descr_2d.items():
                 for n, num in enumerate(getattr(Chem.rdMolDescriptors, v_d)(mol)):
@@ -239,7 +240,7 @@ def get_descriptors_mordred(mol_list):
     return df
 def save_descriptors(mat_descriptors, path_output):
     mat_descriptors.to_csv(path_output)
-    print(1)
+
 #### MAIN ####
 if __name__ == "__main__":
     ##Parser to deal with arguments

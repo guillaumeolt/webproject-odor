@@ -7,14 +7,11 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="theme-color" content="#000000"/>
     <meta name="description" content="Ketcher is a web-based chemical structure editor"/>
-    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png"/>
-    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png"/>
-    <link rel="manifest" href="./manifest.json"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'media/logos/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'media/logos/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'media/logos/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'media/logos/site.webmanifest' %}">
     <title>Ketcher v2.3.3-297-ga6f91d0d</title>
-    <link href="{% static 'css/2.1a1d4f17.chunk.css' %}'" rel="stylesheet">
-    <link href="{% static 'css/main.4b33aa94.chunk.css' %}" rel="stylesheet">
 
 	<link rel="stylesheet" href="{% static 'css/sortable.min.css' %}" />
 	<script src="{% static 'js/sortable.min.js' %}"></script>
@@ -381,8 +378,18 @@
             <button id="myBtn_phytree1" class="myBtn_phytree" onclick="myFunction_phytree_human()">Human phylogenic tree</button> 
             <button id="myBtn_phytree2" class="myBtn_phytree active" onclick="myFunction_phytree_mouse()">Mouse phylogenic tree</button>        
         </div>
+
+        {% if dic_chem_or_dic == None %}
+            <div class="error_no_data"><p>No data available</p></div>
+            <style type="text/css">
+                #myTable3 {
+                    display: none;
+                }
+            </style>
+        {% else %}
         <img id="phy_tree_mouse" src="{% static 'media/phylogenic_tree_chem/' %}{{ chem.idChemicals }}.svg" onerror="imgError(this);" style="display:block;" width="100%" height="100%">
         <img id="phy_tree_human" src="{% static 'media/phylogenic_tree_human_chem/' %}{{ chem.idChemicals }}.svg" onerror="imgError(this);" style="display:none;" width="100%" height="100%">
+        {% endif %}
         </div>
         <script type="text/javascript">
             function imgError(image) {

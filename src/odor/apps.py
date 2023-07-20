@@ -26,7 +26,9 @@ class OdorConfig(AppConfig):
         from .utils.tools_plotly import get_data_desc_plotly_list_odor, get_radar_plot_from_list_odor,\
                                         get_data_desc_plotly_list_or, get_radar_plot_from_list_or
         from .utils.tools_bokeh import get_bokeh_plot_odor_from_list_odors, get_bokeh_plot_odor_from_list_odors,\
-                                       get_bokeh_plot_odor_from_list_or, get_bokeh_plot_odor_from_list_chem
+                                       get_bokeh_plot_odor_from_list_or, get_bokeh_plot_odor_from_list_chem, \
+                                       get_bokeh_plot_odor_from_list_odors_bis,get_bokeh_plot_odor_from_list_or_bis,\
+                                       get_bokeh_plot_odor_from_list_chem_bis
 
         from .utils.tools_umap import get_umap_chem_odor, write_umap_chem_odor, load_umap_chem_odor
         from .utils.test import utils_get_phy_tree, tranform_db_dict_iduniprot_bis
@@ -81,7 +83,7 @@ class OdorConfig(AppConfig):
 
         mapper = get_umap_chem_odor(list_smi)
         write_umap_chem_odor(mapper,"odor/static/media/umap/mapper.pkl")
-        
+
         mapper = load_umap_chem_odor("odor/static/media/umap/mapper.pkl")
         ## COMPUTE ODORS FIGURES
         db_dict_all = my_custom_sql()
@@ -108,7 +110,7 @@ class OdorConfig(AppConfig):
             path_svg_add = '../static/media/db_mols_svg/' #os.path.join(STATIC_URL,'media/db_mols_svg/') 
             #path_svg_add = os.path.join("static", "media/db_mols_svg/")
             print(path_svg_add, "-----------")
-            script, div = get_bokeh_plot_odor_from_list_odors(mapper, db_dict_all, [odor.Odor], path_svg_add =path_svg_add)
+            script, div = get_bokeh_plot_odor_from_list_odors_bis(mapper, db_dict_all, [odor.Odor], path_svg_add =path_svg_add)
             print(script, div)
             #open text file
             text_file = open("odor/static/media/bokeh_odors/"+odor.Odor+".div", "w")
@@ -152,7 +154,7 @@ class OdorConfig(AppConfig):
             text_file.close()
 
             path_svg_add = '../static/media/db_mols_svg/'#os.path.join(STATIC_ROOT,'media/db_mols_svg/')
-            script, div = get_bokeh_plot_odor_from_list_or(mapper, db_dict_all, [str(or_i.idOlfactoryReceptors)], receptors_idOR_dict, path_svg_add =path_svg_add)
+            script, div = get_bokeh_plot_odor_from_list_or_bis(mapper, db_dict_all, [str(or_i.idOlfactoryReceptors)], receptors_idOR_dict, path_svg_add =path_svg_add)
             print(script, div)
             #open text file
             text_file = open("odor/static/media/bokeh_or/"+str(or_i.idOlfactoryReceptors)+".div", "w")
@@ -167,8 +169,6 @@ class OdorConfig(AppConfig):
             text_file.write(script)
             #close file
             text_file.close()
-        quit()
-
 
         ## COMPUTE PHYLOGENIQUE TREE mouse
         # OR mouse
@@ -217,7 +217,6 @@ class OdorConfig(AppConfig):
                                              path_homology="odor/static/media/dt_homology_mouse_human.csv",
                                              species="human")
                 print(k["idChemicals"], ";".join(k["OlfRecept"]))
-
         ## COMPUTE CHEM UMAP FIGURES
         db_dict_all = my_custom_sql()
         db_dict_all = tranform_db_dict(db_dict_all)
@@ -226,9 +225,13 @@ class OdorConfig(AppConfig):
         db_dict_all = get_path_svg_db(db_dict_all)
         mapper = load_umap_chem_odor("odor/static/media/umap/mapper.pkl")
         chemicals_odors = ChemicalsOdors.objects.all()
+        list_error = []
         for chem_i in chemicals_odors:
             path_svg_add = '../static/media/db_mols_svg/'#os.path.join(STATIC_ROOT,'media/db_mols_svg/')
-            script, div = get_bokeh_plot_odor_from_list_chem(mapper, db_dict_all, [str(chem_i.idChemicals)], path_svg_add =path_svg_add)
+            try:
+                script, div = get_bokeh_plot_odor_from_list_chem_bis(mapper, db_dict_all, [str(chem_i.idChemicals)], path_svg_add =path_svg_add)
+            except:
+                list_error.append(chem_i.idChemicals)
             #print(script, div)
             #open text file
             text_file = open("odor/static/media/bokeh_chem/"+str(chem_i.idChemicals)+".div", "w")
@@ -243,5 +246,7 @@ class OdorConfig(AppConfig):
             text_file.write(script)
             #close file
             text_file.close()
+        print(list_error)
         quit()
         """
+

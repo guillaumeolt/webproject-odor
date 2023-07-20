@@ -7,10 +7,13 @@ from django.forms import JSONField
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from datetime import datetime
+from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage
+from django.core.serializers import serialize
 from django.templatetags.static import static
 from django.contrib.staticfiles.storage import staticfiles_storage
 from odorwebsite.settings import BASE_DIR, STATIC_ROOT
+
 from .utils.docking import get_url_dockign_seamdock
 from .utils.get_descriptors import get_decriptors_rdkit
 from .utils.test import *
@@ -49,13 +52,37 @@ def OdorWebSite_design(request):
     db_dict = my_custom_sql()
     return render(request, "OdorWebSite_webesign.html", context={'db': db_dict})
 
+def load_object_chem(request):
+    #chemicals_odors = ChemicalsOdors.objects..filter(title__startswith=object_id)
+    chemicals_odors = ChemicalsOdors.objects.all()
+    availableTags_dict_chem = dict()
+    for i in chemicals_odors:
+        availableTags_dict_chem[i.idChemicals] = {"CAS": i.CAS, "Name":i.Name}
+    return JsonResponse(availableTags_dict_chem, safe=False)
+
+def load_object_or(request):
+    olfactory_receptors = OlfactoryReceptors.objects.all()
+    availableTags_dict_or = dict()
+    for i in olfactory_receptors:
+        availableTags_dict_or[i.idOlfactoryReceptors] = {"GeneName": i.GeneName,
+                                                         "idUniprot": i.idUniprot,
+                                                         "Species":i.Species}
+    return JsonResponse(availableTags_dict_or)
+
+def load_object_odor(request):
+    smell_percepts = Smell_Percepts.objects.all()
+    availableTags_dict_odor = dict()
+    for i in smell_percepts:
+        availableTags_dict_odor[i.idSmell_Percepts] = {"Odor": i.Odor}
+    return JsonResponse(availableTags_dict_odor)
+
 def OdorWebSite_Home(request):
     # LOAD Database Infos : Chemicals info, Smells infos, Olfactory Receptors Infos
-    db_dict = my_custom_sql()
+    #db_dict = my_custom_sql()
     chemicals_odors = ChemicalsOdors.objects.all()
     olfactory_receptors = OlfactoryReceptors.objects.all()
     smell_percepts = Smell_Percepts.objects.all()
-    return render(request, "OdorWebSite_Home.html", context={'db': db_dict,
+    return render(request, "OdorWebSite_Home.html", context={#'db': db_dict,
                                                              "chemicals_odors": chemicals_odors,
                                                              "olfactory_receptors": olfactory_receptors,
                                                              "smell_percepts": smell_percepts})
@@ -76,7 +103,6 @@ def OdorWebSite_Search(request):
     odors_id = tranform_db_dict_idodor(odors_id)
 
     db_dict = get_path_svg_db(db_dict)
-    print(db_dict)
     if request.method == 'POST':
         # 1 Check Input
         is_valid, mol, pubchem_compound = check_valid_input(request)
@@ -98,7 +124,7 @@ def OdorWebSite_Search(request):
             mol_svg = mol2svg(mol)
             #save_2d_image_PNG_list([mol], "media", name="_Name")
         except Exception as e:
-            print("No image maybe smart input")
+            #print("No image maybe smart input")
             pass
         if request.POST.get("btn_match") != None:
             #db_dict = run_2d_image_SVG_list_substructures(db_dict,mol,"media/result_substructure_match_png")
@@ -202,7 +228,7 @@ def OdorWebSite_Predict(request):
         if request.POST.get("predict_model_field") == "Odor" or request.POST.get("predict_model_field") != "Olfactory Receptor (Human)":
             dict_pred = utils_get_prediction_odor(BASE_DIR, query_smile = Chem.MolToSmiles(mol), predict = "odor")
             list_pred = list(dict_pred.keys())
-            script, div = get_bokeh_plot_odor_from_list_odors(mapper, db_dict_all, list_pred, path_svg_add="static/media/db_mols_svg/")
+            script, div = get_bokeh_plot_odor_from_list_odors_bis(mapper, db_dict_all, list_pred, path_svg_add="static/media/db_mols_svg/")
 
             # RADDAR PLOT PLOTLY
             tmp = list(dict_pred)
@@ -210,7 +236,17 @@ def OdorWebSite_Predict(request):
             #print(dict_pred,"------------------------",type(dict_pred))
             df = get_data_desc_plotly_list_odor(db_dict_all, tmp)
             div_radar_plot = get_radar_plot_from_list_odor(df)
-
+            print(list_pred, "---------------------")
+            if not list_pred:
+                return render(request, "OdorWebSite_Predict.html", context={"image": mol_svg,
+                                                                            'db': db_dict,
+                                                                            'dict_or_id': receptors_iduniprot_dict,
+                                                                            'dic_desc_mol': dic_desc_mol,
+                                                                            'prediction': "ERROR",
+                                                                            'odors_id': odors_id,
+                                                                            'error_message': None,
+                                                                            'script': "ERROR", 'div': "ERROR",
+                                                                            'div_radar_plot': "ERROR"})
         if request.POST.get("predict_model_field") == "Olfactory Receptor (Human)":
             receptors_idOR = OlfactoryReceptors.objects.filter(Species__exact='Homo sapiens (Human) [9606]').values('GeneName', 'idOlfactoryReceptors')#'idUniprot')
             # Transform data
@@ -220,7 +256,7 @@ def OdorWebSite_Predict(request):
             list_pred = []
             for or_name in dict_pred.keys():
                 list_pred.append(str(receptors_idOR_dict[or_name]))
-            script, div = get_bokeh_plot_odor_from_list_or(mapper, db_dict_all, list_pred, receptors_idOR_dict_bis, path_svg_add="static/media/db_mols_svg/")
+            script, div = get_bokeh_plot_odor_from_list_or_bis(mapper, db_dict_all, list_pred, receptors_idOR_dict_bis, path_svg_add="static/media/db_mols_svg/")
 
 
             # RADDAR PLOT PLOTLY
@@ -230,6 +266,16 @@ def OdorWebSite_Predict(request):
             df = get_data_desc_plotly_list_or(db_dict_all, tmp, receptors_idOR_dict_bis)
             div_radar_plot = get_radar_plot_from_list_or(df)
 
+            if not list_pred:
+                return render(request, "OdorWebSite_Predict.html", context={"image": mol_svg,
+                                                                            'db': db_dict,
+                                                                            'dict_or_id': receptors_iduniprot_dict,
+                                                                            'dic_desc_mol': dic_desc_mol,
+                                                                            'prediction': "ERROR",
+                                                                            'odors_id': odors_id,
+                                                                            'error_message': None,
+                                                                            'script': None, 'div': None,
+                                                                            'div_radar_plot': None})
             #div_radar_plot = None
         #res_mol_predict = random.choice(list)
         return render(request, "OdorWebSite_Predict.html", context={"image": mol_svg,
@@ -313,7 +359,7 @@ def OdorWebSite_OlfactoryReceptor_template(request, idOlfactoryReceptors=None):
             or_homologue = None
 
     # get chem with known or
-    print(GeneName_or.idOlfactoryReceptors , "-------------")
+    #print(GeneName_or.idOlfactoryReceptors , "-------------")
     dic_or_chem = my_custom_sql_or_get_chem(GeneName_or.idOlfactoryReceptors)[0]
     #docking list chemicals
     chemicals_odors = ChemicalsOdors.objects.all()
@@ -325,12 +371,24 @@ def OdorWebSite_OlfactoryReceptor_template(request, idOlfactoryReceptors=None):
     	div_radar_plot = file.read()
 
     # bokeh
+    receptors_idOR = OlfactoryReceptors.objects.values('GeneName', 'idOlfactoryReceptors')  # 'idUniprot')
+    # Transform data
+    receptors_idOR_dict = tranform_db_dict_iduniprot_bis(receptors_idOR)
+    print(receptors_idOR_dict)
+    mapper = load_umap_chem_odor("odor/static/media/umap/mapper.pkl")
+    script, div = get_bokeh_plot_odor_from_list_or_bis(mapper, db_dict_all, [idOlfactoryReceptors], receptors_idOR_dict,\
+                                                       path_svg_add="../static/media/db_mols_svg/") #mapper, db_dict, list_or, receptors_idOR_dict_bis, path_svg_add
+
+
+    """
     path_odor_bokeh_div = os.path.join(STATIC_ROOT,'media/bokeh_or/' + str(GeneName_or.idOlfactoryReceptors) + ".div")
     path_odor_bokeh_script = os.path.join(STATIC_ROOT,'media/bokeh_or/' + str(GeneName_or.idOlfactoryReceptors) + ".script")
     with open(path_odor_bokeh_div, 'r') as file:
     	div = file.read()
     with open(path_odor_bokeh_script, 'r') as file:
     	script = file.read()
+    """
+
     return render(request, "OdorWebSite_OR.html", context={"GeneName":GeneName_or,
                                                            'script': script, 'div': div,
                                                            'div_radar_plot': div_radar_plot,
@@ -345,15 +403,14 @@ def OdorWebSite_Chemical_template(request, chem_id=None):
     dic_chem_odor = my_custom_sql_chem_get_odor(chem_id)[0]
     #table odors
     dic_chem_odor_dic = my_custom_sql_chem_get_odor_dic(chem_id)
-    print(dic_chem_odor)
-    print(dic_chem_odor_dic)
+
     #table or
     dic_chem_or_dic = my_custom_sql_chem_get_or_dic(chem_id)
-    print(dic_chem_or_dic)
+
 
     db_dict = {str(key): str(value) for key, value in db_dict.items()}
     # bokeh
-    
+    """
     path_odor_bokeh_div = os.path.join(STATIC_ROOT,'media/bokeh_chem/' +str(chem.idChemicals) + ".div")
     path_odor_bokeh_script = os.path.join(STATIC_ROOT,'media/bokeh_chem/' + str(chem.idChemicals) + ".script")
     with open(path_odor_bokeh_div, 'r') as file:
@@ -368,8 +425,8 @@ def OdorWebSite_Chemical_template(request, chem_id=None):
     db_dict_all = get_path_svg_db(db_dict_all)
     mapper = load_umap_chem_odor("odor/static/media/umap/mapper.pkl")
     path_svg_add = '../static/media/db_mols_svg/'#os.path.join(STATIC_ROOT,'media/db_mols_svg/')
-    script, div = get_bokeh_plot_odor_from_list_chem(mapper, db_dict_all, [chem_id], path_svg_add =path_svg_add)
-    """
+    script, div = get_bokeh_plot_odor_from_list_chem_bis(mapper, db_dict_all, [chem_id], path_svg_add =path_svg_add)
+
     if len(dic_chem_or_dic) == 0:
         dic_chem_or_dic = None
     return render(request, "OdorWebSite_Chemical.html", context={"chem":chem,
@@ -417,12 +474,23 @@ def OdorWebSite_Odor_template(request, odor_id=None, db_dict_all=None):
     	div_radar_plot = file.read()
 
     # bokeh
+    db_dict_all = my_custom_sql()
+    db_dict_all = tranform_db_dict(db_dict_all)
+
+    # Add SVG
+    db_dict_all = get_path_svg_db(db_dict_all)
+    mapper = load_umap_chem_odor("odor/static/media/umap/mapper.pkl")
+    path_svg_add = '../static/media/db_mols_svg/'#os.path.join(STATIC_ROOT,'media/db_mols_svg/')
+    script, div = get_bokeh_plot_odor_from_list_odors_bis(mapper, db_dict_all, [odor.Odor], path_svg_add =path_svg_add)
+    """
     path_odor_bokeh_div = os.path.join(STATIC_ROOT,'media/bokeh_odors/' + odor.Odor + ".div")
     path_odor_bokeh_script = os.path.join(STATIC_ROOT,'media/bokeh_odors/' + odor.Odor + ".script")
     with open(path_odor_bokeh_div, 'r') as file:
     	div = file.read()
     with open(path_odor_bokeh_script, 'r') as file:
-    	script = file.read()
+    	script = file.read()    
+    """
+
 
     return render(request, "OdorWebSite_Odor.html", context={"odor":odor,
                                                              "db":db_dict,

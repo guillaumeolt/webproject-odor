@@ -64,7 +64,6 @@ def get_or_sources(sources):
     text = sources.split("|")[0]
     url = sources.split("|")[1]
     pattern = '<a href="{}">{}</a>'.format(url, text)
-    print(pattern)
     return(pattern)
 
 def get_path_svg_db(db_dict):
@@ -430,10 +429,8 @@ def utils_get_prediction_odor(BASE_DIR, query_smile = "CC=O", predict = "odor"):
     python_bin = "conda run -n $web_pred" #str(BASE_DIR) + "/../.env-prediction/bin/python3.7"
     # Path to the script that must run under the virtualenv
     script_file = str(BASE_DIR) + "/odor/utils/prediction_subprocess.py"
-    print(python_bin)
-    print(script_file)
     if predict == "odor":
-        print(query_smile, python_bin, python_bin)
+        #print(query_smile, python_bin, python_bin)
         p = subprocess.Popen(["conda", "run","-n","web_pred", "python3.7",
                               script_file,
                               "-smile", query_smile,
@@ -448,8 +445,8 @@ def utils_get_prediction_odor(BASE_DIR, query_smile = "CC=O", predict = "odor"):
                               "-PATH_GCC", str(BASE_DIR) + "/odor/utils/Trained_models/GNN_RCDB_HO_ckpt",
                               "-predict", "or"], stdout=subprocess.PIPE , stderr=subprocess.PIPE)
     out, err = p.communicate()
-    print([out.decode("utf-8") ],"----------------")
-    print(err)
+    #print([out.decode("utf-8") ],"----------------")
+    #print(err)
     #out = out.split("\n")
     """
     out = str(out)
@@ -459,10 +456,10 @@ def utils_get_prediction_odor(BASE_DIR, query_smile = "CC=O", predict = "odor"):
     """
     out = out.decode("utf-8")
     out = out.rstrip()
-    print(out, type(out))
+    #print(out, type(out))
     out = out.replace("\\n", "")
     out = out.replace("\'", "\"")
-    print([out],"---------- - -")
+    #print([out],"---------- - -")
     out = json.loads(out)
     #print(out)
     out = dict(sorted(out.items(), key=lambda x: x[1], reverse=True))

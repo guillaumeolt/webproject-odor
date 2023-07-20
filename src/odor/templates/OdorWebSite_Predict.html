@@ -7,11 +7,10 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="theme-color" content="#000000"/>
     <meta name="description" content="Ketcher is a web-based chemical structure editor"/>
-    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png"/>
-    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png"/>
-    <link rel="manifest" href="./manifest.json"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'media/logos/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'media/logos/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'media/logos/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'media/logos/site.webmanifest' %}">
     <title>Ketcher v2.3.3-297-ga6f91d0d</title>
     <link href="{% static 'css/2.1a1d4f17.chunk.css' %}'" type="text/css">
     <link href="{% static 'css/main.4b33aa94.chunk.css' %}" rel="stylesheet">
@@ -236,12 +235,15 @@
 	        <div class="trail_grey"></div>
 	    </div>
     	<div class="part_help" id="part_help_2">The predicted probabilities by the deep learning model.</div>
+		{% if prediction == "ERROR" %}
+			<div class="error_input"><p>Error : The model was unable to process this molecule.</p></div>
+		{% else %}
 		<!-- tableau resultats -->
 		<div class="container">
 			<table id="myTable2" class="table_db_odor"> <!-- class="table_db_odor" -->
 				<thead>
 				  <tr class="header">
-					  <th>OR/ODEUR</th>
+					  <th>OR/ODOR</th>
 					  <th>Probability</th>
 				  </tr>
 				</thead>
@@ -276,6 +278,7 @@
       });
 		</script>
 		</div>
+		{% endif %}
 	    <div class="container_part">
 	        <div class="part_number">
 	            <h3>3.</h3>
@@ -289,11 +292,15 @@
 	        <div class="trail_grey"></div>
 	    </div>
     	<div class="part_help" id="part_help_3">Radar plot of the functional groups over/under represented among the set of molecules known to have the predicted odor or the set of molecules known to interact with the predicted olfactory receptors. The occurrence of functional groups is calculated on the data set of 5907 molecules and compared to a subset of molecules having an interesting odor or interacting with a specific olfactory receptor. By hovering over the screen, additional information about the occurrence of the functional group in the subset of molecules is displayed.</div>
+		{% if div_radar_plot == "ERROR" %}
+			<div class="error_input"><p>Error : The model was unable to process this molecule.</p></div>
+		{% else %}
 		{% block content %}
 			{% autoescape off %}
 			{{ div_radar_plot }}
 			{% endautoescape %}
 		{% endblock content%}
+		{% endif %}
 	    <div class="container_part">
 	        <div class="part_number">
 	            <h3>4.</h3>
@@ -307,18 +314,22 @@
 	        <div class="trail_grey"></div>
 	    </div>
     	<div class="part_help" id="part_help_4">Umap of the chemical space with chemicals colored by the set of molecules known to have the predicted odor or the set of molecules known to interact with the predicted olfactory receptors.  The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized trough an umap representation in a 2d map projection. The molecules were carachetrised using the morgan fingerprint. when a point is hovered more information on the molecule and its odors and its olfactory receptos are displayed and the user can click on the dot to be redirected to the corresponding compound.</div>
-		  {{div| safe}}
+		{% if script == "ERROR" %}
+			<div class="error_input"><p>Error : The model was unable to process this molecule.</p></div>
+		{% else %}
+		{{div| safe}}
 	   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
 	   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
 	   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script>
 	   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.4.2.min.js"></script>
-	   {{script| safe}}
+		{{script| safe}}
        <style>
         .bk-root {  align-content: center;
                     display: flex;
                     align-items: center;
                     justify-content: center;}
-        </style>  
+        </style>
+		{% endif %}
 	    <div class="container_part">
 	        <div class="part_number">
 	            <h3>5.</h3>
@@ -333,7 +344,7 @@
 	        <div class="trail_grey"></div>
 	    </div>
     	<div class="part_help" id="part_help_5">Table of the 10 most similar chemicals of the database with their known odors and their interacting olfactory receptors if any known. The similarity is calculated according to a tanimoto score based on the MACCS fingerprints. MACCS fingerprint is a bit vector of 120 bit counting the presence (1) or absence (0) of a specific functional group in the structure of the molecule. The tanimoto score varies between 0 and 1 the higher the score the higher the similarity between the molecules. Molecules are then sorted from most similar to the lowest.</div>
-	<div class="container">
+		<div class="container">
 			<table id="myTable5" class="table_db_odor"> <!-- class="table_db_odor" -->
 				<thead>
 				  <tr class="header">
@@ -358,8 +369,9 @@
 							<script type="text/javascript">
 							   var i_column = "{{ forloop.counter0 }}";
 							</script>
-							<input type="hidden" id="{{ forloop.counter0 }}" value="{{ forloop.counter0 }}">
+							<!--<input type="hidden" id="{{ forloop.counter0 }}" value="{{ forloop.counter0 }}">
 							<input type="text" name="myInput_i_name" id="myInput_i_{{ forloop.counter0 }}" onkeyup="myFunction_i(document.getElementById('{{ forloop.counter0 }}').value)" placeholder="Search..">
+							-->
 						</th>
 						{% endif %}
 					  {% endfor %}
@@ -374,7 +386,7 @@
 						{% elif key == "OlfRecept" %}
 							<td class = "col2">
 							{% for or in value %}
-								<a href="https://www.uniprot.org/uniprot/{{ dict_or_id|get_item:or }}" target="_blank">{{or}}</a>
+								<a href="{% url 'OdorWebSite_OR' idOlfactoryReceptors=dict_or_id|get_item:or %}" target="_blank">{{or}}</a>
 							{% endfor %}
 							</td>
 						{% elif key == "smell" %}

@@ -23,7 +23,8 @@ from django.urls import path, include
 
 from odor.views import index, ketcher, OdorWebSite, OdorWebSite_Home, OdorWebSite_About, OdorWebSite_Search, \
     OdorWebSite_Predict, OdorWebSite_Contact, OdorWebSite_OlfactoryReceptor_template, OdorWebSite_Chemical_template, \
-    OdorWebSite_search_chem_or_odor, OdorWebSite_Odor_template, OdorWebSite_design, test, OdorWebSite_docking_chem_or
+    OdorWebSite_search_chem_or_odor, OdorWebSite_Odor_template, OdorWebSite_design, test, OdorWebSite_docking_chem_or, \
+    load_object_chem, load_object_or, load_object_odor
 #router = routers.DefaultRouter()
 #router.register(r'todos', views.TodoView, 'todo')
 
@@ -40,6 +41,9 @@ urlpatterns = [
     path('or/<idOlfactoryReceptors>', OdorWebSite_OlfactoryReceptor_template, name="OdorWebSite_OR"),
     path('chemical/<chem_id>', OdorWebSite_Chemical_template, name="OdorWebSite_Chemical"),
     path('odor/<odor_id>', OdorWebSite_Odor_template, name="OdorWebSite_Odor"),
+    path('load_object_chem/', load_object_chem, name='load_object_chem'),
+    path('load_object_or/', load_object_or, name='load_object_or'),
+    path('load_object_odor/', load_object_odor, name='load_object_odor'),
     path('search', OdorWebSite_search_chem_or_odor, name="search_chem_or_odor"),
     path('docking', OdorWebSite_docking_chem_or, name="docking_chem_or"),
     path('ketcher', ketcher, name="ketcher"),

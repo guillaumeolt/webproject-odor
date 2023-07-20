@@ -33,7 +33,6 @@ def get_dict_sim(mol, db_mol, similarity ="maccs"):
     if similarity == "maccs":
         mol_maccs = get_dico_maccs(mol) # into list when one molecule
         db_maccs = get_dico_maccs(db_mol)
-        print(mol_maccs)
         #print(db_maccs)
         for sim in get_sorted_tanimoto_maccs(mol_maccs, db_maccs):
             dict_sim_mol_db[str(sim[0])] = sim[1]
