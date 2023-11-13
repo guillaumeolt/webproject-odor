@@ -236,7 +236,7 @@ def OdorWebSite_Predict(request):
             #print(dict_pred,"------------------------",type(dict_pred))
             df = get_data_desc_plotly_list_odor(db_dict_all, tmp)
             div_radar_plot = get_radar_plot_from_list_odor(df)
-            print(list_pred, "---------------------")
+            #print(list_pred, "---------------------")
             if not list_pred:
                 return render(request, "OdorWebSite_Predict.html", context={"image": mol_svg,
                                                                             'db': db_dict,
