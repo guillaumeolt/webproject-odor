@@ -554,12 +554,13 @@ def OdorWebSite_docking_chem_or(request):
             save_2d_image_PNG_list([mol], "media/docking", name="_Name")
             docking_input_chemical = str(BASE_DIR) + '/media/docking/lig.pdb'
         else:
-            print(request.POST.get("search_chemical", "None"), "---------------------<>")
+            #print(request.POST.get("search_chemical", "None"), "---------------------<>")
             docking_input_chemical = request.POST.get("search_chemical", "None")
             try:
                 docking_input_chemical = request.POST.get("search_chemical", "None")
-                print("odor/static/media/db_mols_3d/"+docking_input_chemical+".pdb", str(BASE_DIR) + '/media/docking/lig.pdb')
-                shutil.copyfile("odor/static/media/db_mols_3d/"+docking_input_chemical+".pdb", str(BASE_DIR) + '/media/docking/lig.pdb')
+                #print(str(STATIC_ROOT) + "/media/db_mols_3d/"+docking_input_chemical+".pdb", str(BASE_DIR) + '/media/docking/lig.pdb')
+                #print("odor/static/media/db_mols_3d/"+ docking_input_chemical + ".pdb",str(BASE_DIR) + '/media/docking/lig.pdb')
+                shutil.copyfile(str(STATIC_ROOT) + "/media/db_mols_3d/"+docking_input_chemical+".pdb", str(BASE_DIR) + '/media/docking/lig.pdb')
             except:
                 path_prot = None
                 return render(request, "OdorWebSite_Docking.html", context={"olfactory_receptors": olfactory_receptors,
@@ -567,13 +568,13 @@ def OdorWebSite_docking_chem_or(request):
                                                                             'error_message': "Error inputs"})
 
         # Search Input protein structure
-        print(request.POST.get("search_or", "None"))
-        print(request.POST.get("search_or", "None")," sdferf")
+        #print(request.POST.get("search_or", "None"))
+        #print(request.POST.get("search_or", "None")," sdferf")
         if request.POST.get("search_or", "None") == "":
-            print(request.POST.get('pdb_name', "None"), "---------------------<>")
+            #print(request.POST.get('pdb_name', "None"), "---------------------<>")
             try:
                 pdb_name = request.POST.get('pdb_name', "None")
-                print(pdb_name, "---------------------<>")
+                #print(pdb_name, "---------------------<>")
                 urllib.request.urlretrieve('http://files.rcsb.org/download/' + pdb_name + '.pdb', str(BASE_DIR) + '/media/docking/prot.pdb')
 
                 docking_input_OR = str(BASE_DIR) + "/media/docking/prot.pdb"
@@ -586,8 +587,9 @@ def OdorWebSite_docking_chem_or(request):
         else:
             try:
                 docking_input_OR = request.POST.get("search_or", "None")
-                print("odor/static/media/db_prots/"+docking_input_OR, str(BASE_DIR) + '/media/docking/prot.pdb')
-                shutil.copyfile("odor/static/media/db_prots/"+docking_input_OR, str(BASE_DIR) + '/media/docking/prot.pdb')
+                #print(str(BASE_DIR) + "/media/db_prots/"+docking_input_OR, str(BASE_DIR) + '/media/docking/prot.pdb')
+                #print(str(BASE_DIR) + "/media/db_prots/" + docking_input_OR, str(BASE_DIR) + '/media/docking/prot.pdb')
+                shutil.copyfile(str(STATIC_ROOT) + "/media/db_prots/"+docking_input_OR, str(BASE_DIR) + '/media/docking/prot.pdb')
             except:
                 path_prot = None
                 return render(request, "OdorWebSite_Docking.html", context={"olfactory_receptors": olfactory_receptors,
