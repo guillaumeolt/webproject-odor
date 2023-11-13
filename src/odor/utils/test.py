@@ -79,7 +79,6 @@ def tranform_db_dict(db_dict):
     for i in range(len(db_dict)):
         if db_dict[i]["OlfRecept"] != None:
             db_dict[i]["OlfRecept"] = db_dict[i]["OlfRecept"].split(";")
-            db_dict[i]["OlfRecept"] = db_dict[i]["OlfRecept"].split(";")
         try:
             if db_dict[i]["idOlfactoryReceptors"] != None:
                 db_dict[i]["idOlfactoryReceptors"] = db_dict[i]["idOlfactoryReceptors"].split(";")
