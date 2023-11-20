@@ -184,10 +184,10 @@ def load_all_mol_from(path_all_mol):
                     print("ERROR LOAD : on Loading %s" % name_mol)
         else:
             print("Format not recognized " + file)
-    print("Loaded %d molecules, %d sdf %d mol2, %d smi" % (len(res), \
-                                                           n_sdf, \
-                                                           n_mol2, \
-                                                           n_smi))
+    #print("Loaded %d molecules, %d sdf %d mol2, %d smi" % (len(res), \
+     #                                                      n_sdf, \
+     #                                                      n_mol2, \
+     #                                                      n_smi))
     return res
 
 def save_2d_image_PNG_list(mol_list, path_output, name = "_Name"):
@@ -205,7 +205,7 @@ def save_2d_image_PNG_list(mol_list, path_output, name = "_Name"):
         except:
             mol_error.append(path_out)
             pass
-    print(mol_error)
+    #print(mol_error)
 
 def save_2d_image_SVG_list(mol_list, path_output, name = "_Name"):
     """
@@ -222,7 +222,7 @@ def save_2d_image_SVG_list(mol_list, path_output, name = "_Name"):
         except:
             mol_error.append(path_out)
             pass
-    print(mol_error)
+    #print(mol_error)
 
 def write_2d_pdb_list(mol_list, path_output, name="_Name"):
     """
