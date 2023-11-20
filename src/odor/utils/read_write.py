@@ -242,7 +242,6 @@ def write_3d_pdb_list(mol_list, path_output, name = "_Name"):
     """
     i=0
     for mol in mol_list:
-        print(mol,i)
         i+=1
         mol, param = generate_conformers(mol,numberConf = 1)
         pdb_file = path.join(path_output, mol.GetProp("_Name") + ".pdb")

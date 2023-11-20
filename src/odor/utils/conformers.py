@@ -26,7 +26,7 @@ def generate_conformers(molecule, numberConf, pruneThresh=1,\
     geometry embedding. A fix number of conformer is set to 50 but it can be
     a long process if the molecule is big (~1h for DB13928).
     """
-    print("Conformer Generation {}".format(molecule.GetProp("_Name")))
+    #print("Conformer Generation {}".format(molecule.GetProp("_Name")))
     if useRandomCoords == False:
         molecule = Chem.AddHs(molecule)
         param = AllChem.ETKDGv3()
@@ -41,8 +41,8 @@ def generate_conformers(molecule, numberConf, pruneThresh=1,\
         while len(ids) > n_conf_thresh:
             offset = 0.1 * (len(ids)//n_conf_thresh)
             param.pruneRmsThresh += offset
-            print("{} Number of conformers > {} :{:^4}| Updating pruneRmsThresh to {}"\
-            .format(molecule.GetProp("_Name"), n_conf_thresh, len(ids), param.pruneRmsThresh))
+            #print("{} Number of conformers > {} :{:^4}| Updating pruneRmsThresh to {}"\
+            #.format(molecule.GetProp("_Name"), n_conf_thresh, len(ids), param.pruneRmsThresh))
             ids = AllChem.EmbedMultipleConfs(molecule,\
                                              numConfs=numberConf,\
                                              params=param)
@@ -52,7 +52,7 @@ def generate_conformers(molecule, numberConf, pruneThresh=1,\
                                                  params=param)
                 return molecule
     else:
-        print("WARNING :Molecule may be too big using random coords as as a starting point instead of using a distance geometry embedding. Molecule " + molecule.GetProp("_Name"))
+        #print("WARNING :Molecule may be too big using random coords as as a starting point instead of using a distance geometry embedding. Molecule " + molecule.GetProp("_Name"))
         molecule = Chem.AddHs(molecule)
         param = AllChem.ETKDGv3()
         param.useSmallRingTorsions = True
@@ -111,8 +111,8 @@ def generate_conformer_list(mol_list, n_conf, pruneRmsThresh, n_conf_thresh):
                                                             pruneRmsThresh, \
                                                             n_conf_thresh)
         if mol.GetNumConformers() == 0:
-            print("ERROR CONF : No conformers generated for molecule " + mol.GetProp('_Name') + \
-                  "trying with random coords as starting point")
+            #print("ERROR CONF : No conformers generated for molecule " + mol.GetProp('_Name') + \
+            #      "trying with random coords as starting point")
             mol, lastPruneRMSD = conformers.generate_conformers(mol, \
                                                                 n_conf, \
                                                                 pruneRmsThresh, \
@@ -126,7 +126,7 @@ def generate_conformer_list(mol_list, n_conf, pruneRmsThresh, n_conf_thresh):
             print("ERROR CONF_NRG : Getting conformers energies molecule for " + mol.GetProp('_Name'))
         res.append(mol)
         listPruneRMS.append(lastPruneRMSD)
-        print("Conformer Generated for %s , %d conf generated" % \
-              (mol.GetProp("_Name"), mol.GetNumConformers()))
+        #print("Conformer Generated for %s , %d conf generated" % \
+        #      (mol.GetProp("_Name"), mol.GetNumConformers()))
     return res, listPruneRMS
 
