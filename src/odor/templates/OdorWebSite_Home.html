@@ -77,7 +77,7 @@
                 <input type="text" id="search_chemical" name="search_chemical" placeholder="Search chemical by name, cas, smile, PubChem CID"></input>
                 <button type="submit" id="btn_search_chem" name="btn_search_chemical">Launch chemical search</button>
 
-                <input type="text" id="search_or" name="search_or" placeholder="Search OR by name, Uniprot ID, Species"></input>
+                <input type="text" id="search_or" name="search_or" placeholder="Search OR by name, UniProt ID, Species"></input>
                 <button type="submit" id="btn_search_or" name="btn_search_OR">Launch OR search</button>
 
                 <input type="text" id="search_odor" name="search_odor" placeholder="Search odor"></input>
@@ -110,7 +110,7 @@
                   <button type="submit" id="btn_search_chem" name="btn_search_chemical">Search</button>
               </div>
               <div class="tab-pane" id="or-tab-pane" role="tabpanel" aria-labelledby="or-tab">
-                  <input type="text" id="search_or" name="search_or" onfocus="loadObject_or(this)" placeholder="Search OR by name, Uniprot ID, Species"></input>
+                  <input type="text" id="search_or" name="search_or" onfocus="loadObject_or(this)" placeholder="Search OR by name, UniProt ID, Species"></input>
                   <button type="submit" id="btn_search_or" name="btn_search_OR">Search</button>
               </div>
               <div class="tab-pane" id="odor-tab-pane" role="tabpanel" aria-labelledby="odor-tab">
@@ -167,7 +167,7 @@
         <div class="container text-center">
             <div class="overview_text">
                 <p class="center-intro">
-                    Pred-O3 is a web server that compiles information about odorant molecules, their odors and their olfactory receptors (OR). The server integrates several tools to analyse the interactions between odorant, olfactory receptors and their physico-chemical links.
+                    Pred-O3 is a web server that compiles information about odorant molecules, their odors and their olfactory receptors (OR). The server integrates several tools to analyze the interactions between odorant, olfactory receptors and their physico-chemical links.
 
                     We freely give access to a compile database of 5802 chemicals with known odors. The database contains 385 olfactory receptors (from human, mouse and rat species) for which at least one chemical-or interaction is known. There are 36016 known odorant-odors links and 2425 known odorant-or interactions.
                     
@@ -199,7 +199,7 @@
             <div class="container_tool sim">
                 <h2>Structural similarity</h2>
                 <p>Similar compounds from the database can be searched by 2 methods :
-                    The  similarity search based on a Tanimoto score 
+                    The  similarity search based on a tanimoto score 
                     The substructure search where a substructure pattern of an odorant molecule can be searched.</p>
                 <div class="container_btn">
                     <button type="button" class="btn_sim">
@@ -209,7 +209,7 @@
             </div>
             <div class="container_tool pred">
                 <h2>Prediction</h2>
-                <p>Predict the potential odors of a molecule or its potential interacting olfactory receptors. Use two prediction models based on a graphical Graphical Neural Network (GNN) developped by <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Achebouche et al</a>.</p>
+                <p>Predict the potential odors of a molecule or its potential interacting olfactory receptors. Use two prediction models based on a graphical Graphical Neural Network (GNN) developed by <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Achebouche et al</a>.</p>
                 <div class="container_btn">
                     <button type="button" class="btn_sim">
                         <a href="{% url 'OdorWebSite_Predict' %}">Launch prediction</a><i class="arrow right"></i>

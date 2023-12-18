@@ -154,7 +154,7 @@
             </div>
             <div class="trail_grey"></div>
         </div>
-        <div class="part_help" id="part_help_1">The 3D structure of the molecule computed using RDKIt with the ETDKG (v3) forcefield</div>
+        <div class="part_help" id="part_help_1">The 3D structure of the molecule computed using RDKIt with the ETDKG (v3) force field</div>
         {% if chem.Mixture != 1 %}
         <div id="container_visualisation_mol">
             <div id="viewport" style="width:100%; height:100%;"></div>
@@ -333,8 +333,9 @@
             </div>
             <div class="trail_grey"></div>
         </div>
-        <div class="part_help" id="part_help_4">The chemical space with the molecule colored. The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor is visualized trough an umap representation in a 2d map projection. The molecules were carachetrised using the morgan fingerprint. when a point is hovered more information on the molecule and its odors and its olfactory receptos are displayed and you can click on the dot to be redirected to the corresponding compound</div>
-        <div class="container_umap">
+        <div class="part_help" id="part_help_4">The chemical space with the molecule colored. The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor is visualized trough an umap representation in a 2d map projection.
+             The molecules were characterized using the morgan fingerprint. When a point is hovered more information on the molecule and its odors and its olfactory receptors are displayed and you can click on the dot to be redirected to the corresponding compound.
+             More information on how to interact with the graphic can be found on the <a href="https://docs.bokeh.org/en/latest/docs/user_guide/interaction/tools.html">bokeh website</a>.</div>        <div class="container_umap">
             {{div| safe}}
            <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
            <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
@@ -364,8 +365,8 @@
             </div>
             <div class="trail_grey"></div>
         </div>
-        <div class="part_help" id="part_help_5">The pylogenic tree of the interacting olfactory receptors highlighted if any. Mouse phylogenic tree was computed using the sequence of mouse olfactory receptors from HORDE website. The phylogenic tree was computed on the "phyloegen.fr" website using the PhyML algorithm. Olfactory receptors were colored according their familly described by Glusman et al. The olfactory receptor of interest in the server are displayed bigger. We serched fro homologue olfactory receptors between human and mouse species for the human phylogenic tree of the mouse phylogenic tree if an interaction is known for a species and note the other we still plot the olfactory receptor homologous</div>
-        <!--<div><h1>Chemical-olfactory receptors and chemical-odor interactions visualisation</h1></div>-->
+        <div class="part_help" id="part_help_5">The pylogenetic tree of the interacting olfactory receptors highlighted if any. Mouse phylogenic tree was computed using the sequence of mouse olfactory receptors from HORDE website. The phylogenic tree was computed on the "phyloegen.fr" website using the PhyML algorithm. Olfactory receptors were colored according their familly described by Glusman et al. The olfactory receptor of interest in the server are displayed bigger. We searched fro homologue olfactory receptors between human and mouse species for the human phylogenic tree of the mouse phylogenic tree if an interaction is known for a species and note the other we still plot the olfactory receptor homologous</div>
+        <!--<div><h1>Chemical-olfactory receptors and chemical-odor interactions visualization</h1></div>-->
         <div id="cy" style="display: none;"></div>
         <script>
             var db  = {{ db|safe }};

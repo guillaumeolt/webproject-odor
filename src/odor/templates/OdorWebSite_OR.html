@@ -234,7 +234,7 @@
         </div>
         <div class="trail_grey"></div>
     </div>
-    <div class="part_help" id="part_help_3">Radar plot of the overrepresented/underrepresented functional groups among the chemicals interacting with the olfactory receptor. The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized trough an umap representation in a 2d map projection. The molecules were carachetrised using the morgan fingerprint. when a point is hovered more information on the molecule and its odors and its olfactory receptos are displayed and the user can click on the dot to be redirected to the corresponding compound.</div>
+    <div class="part_help" id="part_help_3">Radar plot of the overrepresented/underrepresented functional groups among the chemicals interacting with the olfactory receptor. The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized trough an umap representation in a 2d map projection. The molecules were characterized using the morgan fingerprint. when a point is hovered more information on the molecule and its odors and its olfactory receptors are displayed and the user can click on the dot to be redirected to the corresponding compound.</div>
     {% block content %}
         {% autoescape off %}
         {{ div_radar_plot }}
@@ -253,7 +253,10 @@
         </div>
         <div class="trail_grey"></div>
     </div>
-    <div class="part_help" id="part_help_4">The chemical space with the molecules interacting with the olfactory receptor colored.  The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized trough an umap representation in a 2d map projection. The molecules were carachetrised using the morgan fingerprint. when a point is hovered more information on the molecule and its odors and its olfactory receptos are displayed and the user can click on the dot to be redirected to the corresponding compound.</div>
+    <div class="part_help" id="part_help_4">The chemical space with the molecules interacting with the olfactory receptor colored.  
+        The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized trough an umap representation in a 2d map projection. 
+        The molecules were characterized using the morgan fingerprint. when a point is hovered more information on the molecule and its odors and its olfactory receptors are displayed and the user can click on the dot to be redirected to the corresponding compound.
+        More information on how to interact with the graphic can be found on the <a href="https://docs.bokeh.org/en/latest/docs/user_guide/interaction/tools.html">bokeh website</a>.</div>
     <div class="container_umap">
         {{div| safe}}
        <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
@@ -285,7 +288,7 @@
         </div>
         <div class="trail_grey"></div>
     </div>
-    <div class="part_help" id="part_help_5">The pylogenic tree with the olfactory receptor highlighted. The Mouse and human phylogenic tree were computed using the sequence of mouse olfactory receptors from HORDE website. The phylogenic tree was computed on the "phyloegen.fr" website using the PhyML algorithm. Olfactory receptors were colored according their familly described by Glusman et al. The olfactory receptor of interest in the server are displayed bigger.</div>
+    <div class="part_help" id="part_help_5">The pylogenetic tree with the olfactory receptor highlighted. The Mouse and human phylogenic tree were computed using the sequence of mouse olfactory receptors from HORDE website. The phylogenic tree was computed on the "phyloegen.fr" website using the PhyML algorithm. Olfactory receptors were colored according their family described by Glusman et al. The olfactory receptor of interest in the server are displayed bigger.</div>
     <div>
     <div class="container_btn_phytree">
         <button id="myBtn_phytree1" class="myBtn_phytree" onclick="myFunction_phytree_human()">Human phylogenic tree</button> 

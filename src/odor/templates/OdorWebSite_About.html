@@ -200,7 +200,7 @@
         </div>
         <ul>
           <li><strong>Chemical Space</strong> : The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized through an UMAP representation in a 2d map projection. The molecules were carachetrised using the morgan fingerprint. 
-          When a point is hovered more information on the molecule and its odors and its olfactory receptos are displayed and the user can click on the dot to be redirected to the corresponding compound</li>
+          When a point is hovered more information on the molecule and its odors and its olfactory receptors are displayed and the user can click on the dot to be redirected to the corresponding compound</li>
         </ul>
         <div class="container_help_prediction_images">
             <div class="pred_img_all">
@@ -253,10 +253,10 @@
                     The search protocol returns a table of chemicals, olfactory receptors or odors according to the selected query. The table highlights the query pattern in bold.
                     <br>
                     <br>
-                    For chemical search, the query pattern is compared to name, case number,  pubchem cid, smile, inchi and inchi key.
+                    For chemical search, the query pattern is compared to name, case number,  PubChem cid, smile, InChi and InChi key.
                     <br>
                     <br>
-                    For olfactory receptor search, the query pattern is compared to the gene symbol, the uniprot id, synonyms and species.
+                    For olfactory receptor search, the query pattern is compared to the gene symbol, the UniProt id, synonyms and species.
                     <br>
                     <br>
                     For the odor search, the query pattern is compared to odor notes.
@@ -285,33 +285,33 @@
         <div class="container_help_part_4">
             <div class="contenue_help_part_4">
                 <h4>Molecule</h4>
-                <p>The <strong>Chemical</strong> descriptive page consists of different informations:</p>
+                <p>The <strong>Chemical</strong> descriptive page consists of different information:</p>
                 <ul>
-                    <li>The 2D image structure of the chemical computed with RDKIT</li>
-                    <li>General informations of the chemical retrieved from pubchem: Name, synonyms, IUPAC name, CAS N°, molecular formula, molecular weight, smiles, inchi and inchi key</li>
-                    <li>The 3D structure of the molecule computed using RDKIt with the ETDKG (v3) forcefield</li>
+                    <li>The 2D image structure of the chemical computed with RDKit</li>
+                    <li>General information of the chemical retrieved from PubChem: Name, synonyms, IUPAC name, CAS N°, molecular formula, molecular weight, smiles, InChi and InChi key</li>
+                    <li>The 3D structure of the molecule computed using RDKIt with the ETDKG (v3) force field</li>
                     <li>List of odor notes of the molecule if any</li>
                     <li>List of interacting olfactory receptors if any</li>
                     <li>The chemical space with the molecule colored</li>
-                    <li>The pylogenic tree of the interacting olfactory receptors highlighted if any </li>
+                    <li>The pylogenetic tree of the interacting olfactory receptors highlighted if any </li>
                 </ul>
             </div>
             <div class="contenue_help_part_4">
                 <h4>Olfactory receptor</h4>
-                <p>The <strong>Olfactory receptor</strong> descriptive page consist of different informations:</p>
+                <p>The <strong>Olfactory receptor</strong> descriptive page consist of different information:</p>
                 <ul>
-                    <li>General informations on the olfactory receptor with its symbol (following Glusman et al. nomenclature ), Uniprot ID, synonyms, species</li>
+                    <li>General information on the olfactory receptor with its symbol (following Glusman et al. nomenclature ), UniProt ID, synonyms, species</li>
                     <li>The 3D structure of the molecule computed and retrieved from <a href="https://doi.org/10.1093/nar/gkab1061">AlphaFold</a> (dec 2022 v4)</li>
                     <li>List of chemicals known to interact with the olfactory receptor</li>
                     <li>Radar plot of the overrepresented/ underrepresented functional groups among the chemicals interacting with the olfactory receptor</li>
                     <li>The chemical space with the molecules interacting with the olfactory receptor colored</li>
-                    <li>The pylogenic tree with the olfactory receptor highlighted</li>
+                    <li>The pylogenetic tree with the olfactory receptor highlighted</li>
                 </ul>
             </div>
 
             <div class="contenue_help_part_4">
                 <h4>Odor</h4>
-                <p>The <strong>Odor</strong> descriptive page is composed of different informations:</p>
+                <p>The <strong>Odor</strong> descriptive page is composed of different information:</p>
                 <ul>
                     <li>List of chemicals known to to have this odor note</li>
                     <li>Radar plot of the overrepresented/ underrepresented functional groups among the chemicals having this odor</li>
@@ -356,8 +356,8 @@
         </p>
         <ol>
             <li>The user can provide his structure as an .sdf file</li>
-            <li>The user can provide the chemical structure under the form of a smile, inchi or inchi key</li>
-            <li>The user can search for a molecule via its name which will be identified via a request sent to the puchem server</li>
+            <li>The user can provide the chemical structure under the form of a smile, InChi or InChi key</li>
+            <li>The user can search for a molecule via its name which will be identified via a request sent to the PubChem server</li>
             <li>Sketcher : The user can draw his molecule of interest using the dedicated sketcher</li>
         </ol>
         <div class="container_help_prediction_images">
@@ -376,7 +376,7 @@
         </div>
         <p>OUTPUT</p>
         <p>
-            The output results consist of a summary of the query compound if retrieved on pubchem server or the query pattern if not and a table of the molecules.
+            The output results consist of a summary of the query compound if retrieved on PubChem server or the query pattern if not and a table of the molecules.
         </p>
         <div class="container_help_prediction_images">
             <div class="pred_img_all">
@@ -408,7 +408,7 @@
             </div>
         </div>
         <p>
-            Two deep learning prediction models based on a graphical Graphical Neural Network (GNN) developped by <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Achebouche et al</a> were added to the website to predict the potential odor and/or potential interacting human olfactory receptors of a query compound. The odor predictor can predict one or more odor classes among a set of 23 odor notes with a prc auc of 0.67 and the human olfactory receptor predictor can predict the potential interaction of a molecule with one or multiple human olfactory receptors among a set of 74 human OR with a prc-auc of 0.91.<br>
+            Two deep learning prediction models based on a graphical Graphical Neural Network (GNN) developed by <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Achebouche et al</a> were added to the website to predict the potential odor and/or potential interacting human olfactory receptors of a query compound. The odor predictor can predict one or more odor classes among a set of 23 odor notes with a prc auc of 0.67 and the human olfactory receptor predictor can predict the potential interaction of a molecule with one or multiple human olfactory receptors among a set of 74 human OR with a prc-auc of 0.91.<br>
             <br>
             The similarity of the query compound is also computed on all odorant of the database and the 10 most similar odorant are displayed with their odor notes and potential olfactory receptors interaction informations to strengthen the confidence of the given prediction.
         </p>
@@ -418,8 +418,8 @@
         </p>
         <ol>
             <li>The user can provide it’s structure as a .sdf file</li>
-            <li>The user can provide the chemicla structure under the form of a smile, inchi or inchi key</li>
-            <li>The user can search for a molecule via its name which will be identified via a request sent to the puchem server</li>
+            <li>The user can provide the chemical structure under the form of a smile, InChi or InChi key</li>
+            <li>The user can search for a molecule via its name which will be identified via a request sent to the PubChem server</li>
             <li>Sketcher : The user can draw his molecule of interest using the dedicated sketcher</li>
         </ol>
         <div class="container_help_prediction_images">
@@ -434,11 +434,11 @@
             </div>
         </div>
 
-        <p>Select the model to predict the odor or the potential interacting olfactory receptors then launch the predicion by clicking on the blue button.</p>
+        <p>Select the model to predict the odor or the potential interacting olfactory receptors then launch the prediction by clicking on the blue button.</p>
         <p>OUTPUT</p>
-        <p>The ouput consist of several tables and figures:</p>
+        <p>The output consist of several tables and figures:</p>
         <ol>
-            <li>Physico chemical informations on the query molecule with it's molecular weight, the number h-bonds acceptors and h-bond donors atoms, the number of heavy atoms (non hydrogens),  the number of rotatable bonds, the Topological Surface Area and the LogP.</li>
+            <li>Physico-chemical information on the query molecule with it's molecular weight, the number h-bonds acceptors and h-bond donors atoms, the number of heavy atoms (non hydrogens),  the number of rotatable bonds, the Topological Surface Area and the LogP.</li>
             <li>
                 The predicted probabilities
                 <ul>
@@ -509,23 +509,23 @@
             To perform docking we retrieved 3D structure of olfactory receptors computed with Alpha Fold for the proteins of the rat, mouse and human.
             <br>
             <br>
-            In order to standardize docking parameters for all docking of the ORs that are GPCR protein, we aligned all the structures against Or10a4 (uniprot id Q7TRM9) on the Z axis with a reference center set at 0.0.0 with pymol using TM-align. The grid box size has been set to X: 43 Å, Y: 24 Å, Z: 38 Å and centered in 0;0;0 in order to be sufficiently large and restricted to target the core of all the olfactory receptors.
+            In order to standardize docking parameters for all docking of the ORs that are GPCR protein, we aligned all the structures against Or10a4 (UniProt id Q7TRM9) on the Z axis with a reference center set at 0.0.0 with pymol using TM-align. The grid box size has been set to X: 43 Å, Y: 24 Å, Z: 38 Å and centered in 0;0;0 in order to be sufficiently large and restricted to target the core of all the olfactory receptors.
             seamdock is an online service that integrates multiple docking tools in a common framework allowing to easily perform ligand protein docking without advanced computer and docking knowledge.
         </p>
         <p>INPUT</p>
         <p>To perform the docking the user must choose the chemical structure to dock and the olfactory receptor to be docked on. Several possibilities are proposed to provide these structures:</p>
         <ol>
             <li>The user can provide it’s chemical structure as an .sdf file</li>
-            <li>The user can provide the chemical structure under the form of a smile, inchi or inchi key</li>
-            <li>The user can search for a molecule via its name which will be identified via a request sent to the puchem server</li>
-            <li>The user can retrieve a chemical from the database by its name, cas, synonnyms</li>
-            <li>The user can retrieve an olfactory receptor by it’s name or uniprot id</li>
+            <li>The user can provide the chemical structure under the form of a smile, InChi or InChi key</li>
+            <li>The user can search for a molecule via its name which will be identified via a request sent to the PubChem server</li>
+            <li>The user can retrieve a chemical from the database by its name, cas, synonyms</li>
+            <li>The user can retrieve an olfactory receptor by it’s name or UniProt id</li>
         </ol>
         <div class="container_help_prediction_images">
             <div class="pred_img_all">
                 <img src="{% static 'media/img/help_input_docking.png' %}">
             </div>
-        </div>
+        </div
         <p>OUTPUT</p>
         <p>The user is redirect on the SeamDock server with parameters of the docking preregistered</p>
         <div class="container_part">
@@ -543,7 +543,7 @@
             <strong>Q1.</strong> Can we trust the docking results ?
         </p>
         <p>
-            <strong>A1.</strong> Chemicals and proteins structures were retrieved computationaly, to date there is no 3D structure of olfctory receptors on the pdb so the results of docking method should be taken with caution.
+            <strong>A1.</strong> Chemicals and proteins structures were retrieved computationally, to date there is no 3D structure of olfactory receptors on the pdb so the results of docking method should be taken with caution.
         </p>
         <div class="container_part">
             <div class="part_number" id="Browser_compatibility">

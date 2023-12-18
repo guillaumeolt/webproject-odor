@@ -73,9 +73,9 @@
     <!-- Search content -->
         <div class="container_head search">
             <h3 class="p_overview">Structure search</h3>
-            <p>Structural similarity search can be performed by either searching for overall similar structure though a Tanimoto score or by searching for sub-structures.<br>
+            <p>Structural similarity search can be performed by either searching for overall similar structure though a tanimoto score or by searching for sub-structures.<br>
             	<br> 
-				The <b>similarity search</b> based on a Tanimoto score for a query molecule returns a score between 0 and 1 (similar) for all the molecules in the database. The molecule encodes maccs fingerprint which is a bit vector of 120 bit counting the presence (1) or absence (0) of a specific functional group in the structure of the molecule. The Tanimoto score varies between 0 and 1 the higher the score the higher the similarity between the molecules. Molecules are then sorted from most similar to the lowest.<br> 
+				The <b>similarity search</b> based on a tanimoto score for a query molecule returns a score between 0 and 1 (similar) for all the molecules in the database. The molecule encodes MACCS fingerprint which is a bit vector of 120 bit counting the presence (1) or absence (0) of a specific functional group in the structure of the molecule. The tanimoto score varies between 0 and 1 the higher the score the higher the similarity between the molecules. Molecules are then sorted from most similar to the lowest.<br> 
 				<br> 
 				The <b>substructure search</b> where a substructure pattern of an odorant molecule can be searched via a smart pattern or any molecule identifier available in the searching method. It returns all the molecules of the database with the query substructure in its structure.
 			</p>
@@ -87,7 +87,7 @@
 
 	<div id="form_search">
 		<div class="container_input">
-			<p>Draw structure/substrucure:</p>
+			<p>Draw structure/substructure:</p>
 		</div>
 		<div class="container_input">
 			<p>Input structure/substructure:</p>
@@ -110,7 +110,7 @@
 
 				<input id="file-input" class="file-load" type="file" name="document"></input>
 				<p>1D structure: </p>
-				<input type="text" id="smile" name="smilefield" placeholder="Smile, Smart, Inchi, InchiKey"></input>
+				<input type="text" id="smile" name="smilefield" placeholder="Smile, Smart, InChi, InChiKey"></input>
 				<p> </p>
 				<div class="ex_search_chem_structure" id="ex_search_chem_structure">Ex :
 	                <a class="ex_search_chem_s1" href="#query=CC=O<">CC=O</a>
@@ -163,7 +163,7 @@
 	        </div>
 	        <div class="trail_grey"></div>
 	    </div>
-    	<div class="part_help" id="part_help_1">summary of the query compound if retrieved on pubchem server or the query pattern if not and a table of the molecules.</div>
+    	<div class="part_help" id="part_help_1">summary of the query compound if retrieved on PubChem server or the query pattern if not and a table of the molecules.</div>
 		<div class="query_compound">
 			<!--<p>Query Compound :</p>-->
 			<div class="container_query_compound">

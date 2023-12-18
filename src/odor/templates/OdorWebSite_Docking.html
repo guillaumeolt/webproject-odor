@@ -74,7 +74,7 @@
     <main>
         <div class="container_head search">
             <h3 class="p_overview">Docking</h3>
-            <p>With known chemical and or of the database information we linked the web server to the seamdock website which allows us to perform online docking. To perform docking we retrieved 3D structure of olfactory receptors computed with Alpha Fold for the proteins of the rat mouse and human. In order to standardize docking parameters ORs structures were aligned using TMalign against Olfr17 (uniprot id Q7TRM9) on the Z axis with a reference center set at 0.0.0 with pymol. The grid box size has been set to X: 43 Å, Y: 24 Å, Z: 38 Å  to be sufficiently large and restricted to target the core of all the ORs. seamdock is an online service that integrates multiple docking tools in a common framework allowing to easily perform ligand protein docking without advanced computer and docking knowledge. The user can choose to use the structure of ORs and chemicals directly from the website or to retrieve a pdb structure imported from the PDB database.
+            <p>With known chemical and or of the database information we linked the web server to the seamdock website which allows us to perform online docking. To perform docking we retrieved 3D structure of olfactory receptors computed with Alpha Fold for the proteins of the rat mouse and human. In order to standardize docking parameters ORs structures were aligned using TMalign against Olfr17 (uniprot id Q7TRM9) on the Z axis with a reference center set at 0.0.0 with pymol. The grid box size has been set to X: 43 Å, Y: 24 Å, Z: 38 Å  to be sufficiently large and restricted to target the core of all the ORs. Seamdock is an online service that integrates multiple docking tools in a common framework allowing to easily perform ligand protein docking without advanced computer and docking knowledge. The user can choose to use the structure of ORs and chemicals directly from the website or to retrieve a pdb structure imported from the PDB database.
             </p>
             <div class="container_head_img">
                 <img src="{% static 'media/img/docking_img.png' %}" alt="search png">
@@ -99,7 +99,7 @@
                     <p>Pubchem name :</p>
                     <input type="text" id="pubchem_name" name="pubchem_name" placeholder="PubChem name"></input>
                     <p>1D structure: </p>
-				    <input type="text" id="smile" name="smilefield" placeholder="Smile, Inchi, InchiKey"></input>
+				    <input type="text" id="smile" name="smilefield" placeholder="Smile, InChi, InChiKey"></input>
                     <p>Search molecule in database:</p>
                     <div class="tab-pane active" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
                         <input type="text" id="search_chemical" name="search_chemical" placeholder="Search Chemicals by name, cas, smile, PubChem CID"></input>
@@ -114,7 +114,7 @@
                     <input style="display: none;" type="text" id="pdb-input" name="pdb_name" placeholder="PDB code"></input>
                     <p> Search olfactory receptor in database:</p>
                     <div class="tab-pane active" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
-                        <input type="text" id="search_or" name="search_or" placeholder="Search OR by name, Uniprot ID, Species"></input>
+                        <input type="text" id="search_or" name="search_or" placeholder="Search OR by name, UniProt ID, Species"></input>
                     </div>
                     <div class="relative">
                         <div class="autocomplete_container" id="autocomplete_container_prot"></div>

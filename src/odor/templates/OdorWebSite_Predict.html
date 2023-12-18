@@ -79,8 +79,8 @@
 		<div class="container_head search">
             <h3 class="p_overview">Prediction</h3>
             <p>Two deep learning prediction models based on a graphical Graphical Neural Network (GNN) have been added to the website to predict the potential odor and/or the potential interacting human ORs of a query compound. These models have been extracted from the article of <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Achebouche et al</a>. The odor predictor can predict one or multiples odors class among a set of 23 odor classes with a prc auc of 0,67 and the human ORs predictor can predict the potential interaction of a molecule with one or multiple human among a set of 74 human OR with a prc-auc of 0,91.<br>
-			Additional physicochemical informations on the query molecule are computed and shown to the user as the molecular weight, logP, name if found in pubchem.
-			The similarity of the query compound is also computed on all odorant of the database and the 10 most similar odorant are displayed with their odor class and potential ORs interaction informations to strengthen the confidence of the given prediction.
+			Additional physicochemical information on the query molecule are computed and shown to the user as the molecular weight, logP, name if found in PubChem.
+			The similarity of the query compound is also computed on all odorant of the database and the 10 most similar odorant are displayed with their odor class and potential ORs interaction information to strengthen the confidence of the given prediction.
 
             <div class="container_head_img">
                 <img src="{% static 'media/img/predict_img.png' %}" alt="search png">
@@ -118,9 +118,9 @@
 	                <a class="ex_search_chem_s1" href="#query=[OH]c1ccccc1">[OH]c1ccccc1</a>
 	            </div>
 				<div class="container_input container_input_pubchem">
-					<p>Search structure via Pubchem: </p>
+					<p>Search structure via PubChem: </p>
 				</div>
-				<p>Pubchem name :</p>
+				<p>PubChem name :</p>
 				<input type="text" id="pubchem_name" name="pubchem_name" placeholder="PubChem name"></input>
 					<!--<label for="document">Select file</label>-->
 				<p> </p>
@@ -168,7 +168,7 @@
 	        </div>
 	        <div class="trail_grey"></div>
 	    </div>
-    	<div class="part_help" id="part_help_1">Physico chemical informations on the query moleucle with it's molecular weight, the number h-bonds acceptors and h-bond donors atoms, the number of heavy atoms (non hydrogens), the number of rotatable bonds, the Topological Surface Area and the LogP. These informations were computed with RDKIT.</div>
+    	<div class="part_help" id="part_help_1">Physico-chemical information on the query molecule with it's molecular weight, the number h-bonds acceptors and h-bond donors atoms, the number of heavy atoms (non hydrogens), the number of rotatable bonds, the Topological Surface Area and the LogP. These information were computed with RDKit.</div>
 		<div class="container">
 			<table id="myTable1" class="table_db_odor"> <!-- class="table_db_odor" -->
 				<thead>
@@ -238,7 +238,7 @@
 		{% if prediction == "ERROR" %}
 			<div class="error_input"><p>Error : The model was unable to process this molecule.</p></div>
 		{% else %}
-		<!-- tableau resultats -->
+		<!-- tableau results -->
 		<div class="container">
 			<table id="myTable2" class="table_db_odor"> <!-- class="table_db_odor" -->
 				<thead>
@@ -306,14 +306,15 @@
 	            <h3>4.</h3>
 	        </div>
 	        <div class="part_title">
-	            <h3>Chemcial space</h3>
+	            <h3>Chemical space</h3>
 	        </div>
 	        <div class="part_infos_img">
 	            <img id="part_infos_img_4" src="{% static 'media/img/Information.png' %}">
 	        </div>
 	        <div class="trail_grey"></div>
 	    </div>
-    	<div class="part_help" id="part_help_4">Umap of the chemical space with chemicals colored by the set of molecules known to have the predicted odor or the set of molecules known to interact with the predicted olfactory receptors.  The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized trough an umap representation in a 2d map projection. The molecules were carachetrised using the morgan fingerprint. when a point is hovered more information on the molecule and its odors and its olfactory receptos are displayed and the user can click on the dot to be redirected to the corresponding compound.</div>
+    	<div class="part_help" id="part_help_4">Umap of the chemical space with chemicals colored by the set of molecules known to have the predicted odor or the set of molecules known to interact with the predicted olfactory receptors.  The similarity between sub groups of molecules sharing the same odors or interacting with the same olfactory receptor can be visualized trough an umap representation in a 2d map projection. The molecules were characterized using the morgan fingerprint. when a point is hovered more information on the molecule and its odors and its olfactory receptors are displayed and the user can click on the dot to be redirected to the corresponding compound.
+			More information on how to interact with the graphic can be found on the <a href="https://docs.bokeh.org/en/latest/docs/user_guide/interaction/tools.html">bokeh website</a>.</div>
 		{% if script == "ERROR" %}
 			<div class="error_input"><p>Error : The model was unable to process this molecule.</p></div>
 		{% else %}
