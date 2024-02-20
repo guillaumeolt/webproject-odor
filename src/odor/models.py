@@ -340,3 +340,7 @@ from mydb.Chemicals
         left join mydb.Smell_Percepts on mydb.Smell_Percepts.idSmell_Percepts = mydb.Chemicals_has_Smell_Percepts.Smell_Percepts_idSmell_Percepts 
 WHERE Smell_Percepts.Odor !="" and idChemicals = 0;
 """
+
+class TaskProgress(models.Model):
+    task_id = models.CharField(max_length=100, unique=True)
+    progress = models.IntegerField(default=0)

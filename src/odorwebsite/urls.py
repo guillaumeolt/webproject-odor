@@ -18,13 +18,13 @@ from django.views.defaults import server_error
 from . import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 #from rest_framework import routers
 
 from odor.views import index, ketcher, OdorWebSite, OdorWebSite_Home, OdorWebSite_About, OdorWebSite_Search, \
     OdorWebSite_Predict, OdorWebSite_Contact, OdorWebSite_OlfactoryReceptor_template, OdorWebSite_Chemical_template, \
     OdorWebSite_search_chem_or_odor, OdorWebSite_Odor_template, OdorWebSite_design, test, OdorWebSite_docking_chem_or, \
-    load_object_chem, load_object_or, load_object_odor
+    load_object_chem, load_object_or, load_object_odor, my_prediction_view
 #router = routers.DefaultRouter()
 #router.register(r'todos', views.TodoView, 'todo')
 
@@ -48,7 +48,11 @@ urlpatterns = [
     path('docking', OdorWebSite_docking_chem_or, name="docking_chem_or"),
     path('ketcher', ketcher, name="ketcher"),
     path('design', OdorWebSite_design, name="design"),
-    #path("", include("Server.urls"))
+    #path('test/', progress_view, name='progress_bar'),
+    # Celery progress
+    path('celery-progress/', include('celery_progress.urls')),
+    path('my_prediction_view/<task_id>', my_prediction_view, name="my_prediction_view"),
+
 ]
 # TemplateView.as_view(template_name="scripts/ketcher-2.4.0/index.html"),
 #if settings.DEBUG:

@@ -1,18 +1,18 @@
 {% load static %}
-<html>
-   <head>
-      <link href=”http://cdn.pydata.org/bokeh/release/bokeh-2.4.2.min.css
-         " rel=”stylesheet” type=”text/css”>
-      <link href=”http://cdn.pydata.org/bokeh/release/bokeh-widgets-2.4.2.min.css"
-         rel=”stylesheet” type=”text/css”>
-   </head>
-   <body>
-      <h1>Our first Bokeh Graph</h1>
-      {{div| safe}}
-   </body>
-   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
-   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
-   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script>
-   <script src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.4.2.min.js"></script>
-   {{script| safe}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Status</title>
+</head>
+<body>
+    <h1>Task Status</h1>
+    <p>Your task is still running. Please wait...</p>
+    <!-- You can add more details about the task status if needed -->
+    <!-- Optionally, you can include a button to allow the user to refresh the page -->
+    <form action="{% url 'task_status' task_id=task_id %}" method="GET">
+        <button type="submit">Refresh</button>
+    </form>
+</body>
 </html>

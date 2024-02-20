@@ -10,6 +10,8 @@ from .similarity import *
 import pubchempy as pcp
 from django.template.defaulttags import register
 import subprocess
+
+import numpy as np
 #from .prediction import *
 # Check Files Type POST
 
@@ -464,3 +466,13 @@ def utils_get_prediction_odor(BASE_DIR, query_smile = "CC=O", predict = "odor"):
     #print(out)
     out = dict(sorted(out.items(), key=lambda x: x[1], reverse=True))
     return(out)
+
+def convert_values(value):
+    if isinstance(value, np.int64):
+        return int(value)
+    elif isinstance(value, dict):
+        return {k: convert_values(v) for k, v in value.items()}
+    elif isinstance(value, list):
+        return [convert_values(v) for v in value]
+    else:
+        return value
