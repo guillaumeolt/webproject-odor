@@ -151,6 +151,7 @@
 		</div>
 		{% if task_id != None %}
 		<div id="progress-bar-message">Waiting for progress to start...</div>
+		<div id="celery-result"></div>
 		<script src="{% static 'celery_progress/celery_progress.js' %}"></script>
 		<script>
 		// vanilla JS version
@@ -163,6 +164,11 @@
 
 		function customResult(resultElement, result) {
 			// Error
+			  $( resultElement ).append(
+				$('<p>').text('Access your results at: ').append(
+					$('<a>').attr('href', "{% url 'my_prediction_view' task_id %}").text("{{ task_id }}")
+				)
+			  );
 		    window.open('{% url "my_prediction_view" task_id %}');
 		}
 		$(function () {
