@@ -1,5 +1,5 @@
 import pymysql
-from .celery import app as celery_app
+from .celeryapp import app as celery_app
 
 __all__ = ('celery_app',)
 pymysql.version_info = (1, 4, 3, "final", 0)
