@@ -246,7 +246,7 @@ def my_task_predict(self, mol_str,mol_name, db_dict,
         result += 1
         progress_recorder.set_progress(7, 8, f"Generating chemical space ...")
         script, div = get_bokeh_plot_odor_from_list_odors_bis(mapper, db_dict_all, list_pred,
-                                                              path_svg_add="../../static/media/db_mols_svg/")
+                                                              path_svg_add="../static/media/db_mols_svg/")
 
 
         # RADDAR PLOT PLOTLY
@@ -283,7 +283,7 @@ def my_task_predict(self, mol_str,mol_name, db_dict,
         for or_name in dict_pred.keys():
             list_pred.append(str(receptors_idOR_dict[or_name]))
         script, div = get_bokeh_plot_odor_from_list_or_bis(mapper, db_dict_all, list_pred, receptors_idOR_dict_bis,
-                                                           path_svg_add="../../static/media/db_mols_svg/")
+                                                           path_svg_add="../static/media/db_mols_svg/")
         result += 1
         progress_recorder.set_progress(8, 8, f"Generating radar plot ...")
         # RADDAR PLOT PLOTLY
