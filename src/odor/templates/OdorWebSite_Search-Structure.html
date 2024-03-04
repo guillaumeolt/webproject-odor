@@ -222,7 +222,7 @@
 	        </div>
 	        <div class="trail_grey"></div>
 	    </div>
-    	<div class="part_help" id="part_help_2">Table shows the information on the molecules as well as their known odor and their interactive olfactory receptor if the information is available. In relation to the search protocol, two columns are possible: The tanimoto score for all the molecules of the database or the molecules containing the substructure with the substructure highlighted in red. The similarity is calculated according to a tanimoto score based on the MACCS fingerprints. MACCS fingerprint is a bit vector of 120 bit counting the presence (1) or absence (0) of a specific functional group in the structure of the molecule. The tanimoto score varies between 0 and 1 the higher the score the higher the similarity between the molecules. Molecules are then sorted from most similar to the lowest.</div>
+    	<div class="part_help" id="part_help_2">Table shows the information on the molecules as well as their known odor and their interactive olfactory receptor if the information is available. In relation to the search protocol, two columns are possible: The tanimoto score for all the molecules of the database or the molecules containing the substructure with the substructure highlighted in red. The similarity is calculated according to a tanimoto score based on the MACCS fingerprints. MACCS fingerprint is a bit vector of 120 bit counting the presence (1) or absence (0) of a specific functional group in the structure of the molecule. The tanimoto score varies between 0 and 1 the higher the score the higher the similarity between the molecules. Molecules are then sorted from most similar to the lowest. Only rows of the table with a tanimoto score superior to 0.7 can be dowload</div>
 		<div class="container">
 	  <!--
       <div class="header_wrap">
@@ -265,7 +265,11 @@
 			</thead>
 			<tbody>
 			{% for db_infos in db %}
-				<tr>
+				{% if db_infos.Similarity > 0.7 %}
+					<tr>
+					{% else %}
+					<tr class="noExl" name="{{ db_infos.Similarity }}">
+				{% endif %}
 				{% for key, value in db_infos.items %}
 					{% if key != "idChemicals" %}
 
@@ -340,7 +344,7 @@
             });
           }
         });
-        
+
       });
 		</script>
 		<script type="text/javascript">
