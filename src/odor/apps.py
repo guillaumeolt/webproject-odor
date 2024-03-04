@@ -4,7 +4,7 @@ class OdorConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'odor'
     def ready(self):
-        """
+
         from .models import ChemicalsOdors,\
                           OlfactoryReceptors,\
                           Smell_Percepts,\
@@ -34,7 +34,7 @@ class OdorConfig(AppConfig):
         from .utils.test import utils_get_phy_tree, tranform_db_dict_iduniprot_bis
         from odorwebsite.settings import BASE_DIR, STATIC_ROOT,STATIC_URL
         from sys import path
-
+        """
         print("launching server")
          #  COMPUTE CHEMICALS IMAGES
         #print(path)
@@ -217,6 +217,7 @@ class OdorConfig(AppConfig):
                                              path_homology="odor/static/media/dt_homology_mouse_human.csv",
                                              species="human")
                 print(k["idChemicals"], ";".join(k["OlfRecept"]))
+
         ## COMPUTE CHEM UMAP FIGURES
         db_dict_all = my_custom_sql()
         db_dict_all = tranform_db_dict(db_dict_all)
@@ -247,6 +248,5 @@ class OdorConfig(AppConfig):
             #close file
             text_file.close()
         print(list_error)
-        quit()
         """
-
+        #quit()

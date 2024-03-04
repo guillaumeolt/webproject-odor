@@ -78,7 +78,7 @@
 	<main>
 		<div class="container_head search">
             <h3 class="p_overview">Prediction</h3>
-            <p>Two deep learning prediction models based on a graphical Graphical Neural Network (GNN) have been added to the website to predict the potential odor and/or the potential interacting human ORs of a query compound. These models have been extracted from the article of <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Achebouche et al</a>. The odor predictor can predict one or multiples odors class among a set of 23 odor classes with a prc auc of 0,67 and the human ORs predictor can predict the potential interaction of a molecule with one or multiple human among a set of 74 human OR with a prc-auc of 0,91.<br>
+            <p>Two deep learning prediction models based on a  Graphical Neural Network (GNN) have been added to the website to predict the potential odor and/or the potential interacting human ORs of a query compound. These models have been extracted from the article of <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Achebouche et al</a>. The odor predictor can predict one or multiples odors class among a set of 160 odor classes and the human ORs predictor can predict the potential interaction of a molecule with one or multiple human among a set of 109 human ORs.<br>
 			Additional physicochemical information on the query molecule are computed and shown to the user as the molecular weight, logP, name if found in PubChem.
 			The similarity of the query compound is also computed on all odorant of the database and the 10 most similar odorant are displayed with their odor class and potential ORs interaction information to strengthen the confidence of the given prediction.
 
@@ -86,6 +86,7 @@
                 <img src="{% static 'media/img/predict_img.png' %}" alt="search png">
             </div>
         </div>
+	{% if  prediction == None %}
 	<div id="form_search">
 		<div class="container_input">
 			<p>Draw structure:</p>
@@ -146,6 +147,7 @@
 				</div>
 		</form>
 	</div>
+		{% endif %}
 		<div class='progress-wrapper'>
 		  <div id='progress-bar' class='progress-bar' style="background-color: #68a9ef; width: 0%;">&nbsp;</div>
 		</div>
@@ -164,12 +166,20 @@
 
 		function customResult(resultElement, result) {
 			// Error
+			  console.log("REsults {{ task_id }}");
+			  $("#celery-result").append(
+				  $('<p>').text('Access your results at: ').append(
+						$('<a>').attr('href', "{% url 'my_prediction_view' task_id %}").text("{{ task_id }}")
+					)
+			  );
+			  /*
 			  $( resultElement ).append(
 				$('<p>').text('Access your results at: ').append(
 					$('<a>').attr('href', "{% url 'my_prediction_view' task_id %}").text("{{ task_id }}")
 				)
 			  );
-		    window.open('{% url "my_prediction_view" task_id %}');
+			  */
+		    //window.open('{% url "my_prediction_view" task_id %}');
 		}
 		$(function () {
 		  CeleryProgressBar.initProgressBar(progressUrl, {
