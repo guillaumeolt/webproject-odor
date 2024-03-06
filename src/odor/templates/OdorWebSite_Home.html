@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="theme-color" content="#000000"/>
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'css/style_website.css' %}"/>
-    <title>OdorFinder/OdorPred (to change)</title>
+    <title>Pred-O3</title>
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'media/logos/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'media/logos/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'media/logos/favicon-16x16.png' %}">
@@ -106,11 +106,11 @@
         {% csrf_token %}
             <div class="tab-content">
               <div class="tab-pane active" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
-                  <input type="text" id="search_chemical" name="search_chemical" onfocus="loadObject_chem(this)" placeholder="Search Chemicals by name, cas, smile, PubChem CID"></input>
+                  <input type="text" id="search_chemical" name="search_chemical" onfocus="loadObject_chem(this)" placeholder="Search Chemicals by Name, CAS, SMILES, PubChem CID"></input>
                   <button type="submit" id="btn_search_chem" name="btn_search_chemical">Search</button>
               </div>
               <div class="tab-pane" id="or-tab-pane" role="tabpanel" aria-labelledby="or-tab">
-                  <input type="text" id="search_or" name="search_or" onfocus="loadObject_or(this)" placeholder="Search OR by name, UniProt ID, Species"></input>
+                  <input type="text" id="search_or" name="search_or" onfocus="loadObject_or(this)" placeholder="Search OR by Name, UniProt ID, Species"></input>
                   <button type="submit" id="btn_search_or" name="btn_search_OR">Search</button>
               </div>
               <div class="tab-pane" id="odor-tab-pane" role="tabpanel" aria-labelledby="odor-tab">
@@ -146,15 +146,15 @@
         <div class="trail_grey"></div>
         <div class="container_home_infos">
             <div class="home_infos">
-                <div class="home_infos_img"><img src="{% static 'media/img/chemical.png' %}" alt="image molecule"></div>
+                <div class="home_infos_img"><img src="{% static 'media/img/chemical.png' %}" alt="image logo molecule"></div>
                 <p>5802 odorant molecules</p>
             </div>
             <div class="home_infos">
-                <div class="home_infos_img"><img src="{% static 'media/img/protein.png' %}" alt="image molecule"></div>
+                <div class="home_infos_img"><img src="{% static 'media/img/protein.png' %}" alt="image logo olfactory receptors"></div>
                 <p>2280 olfactory receptors</p>
             </div>
             <div class="home_infos">
-                <div class="home_infos_img"><img src="{% static 'media/img/odors-removebg-preview.png' %}" alt="image molecule"></div>
+                <div class="home_infos_img"><img src="{% static 'media/img/odors-removebg-preview.png' %}" alt="image logo odor"></div>
                 <p>933 odor notes</p>
             </div>
             <a href="https://www.flaticon.com/free-icons/compound" title="compound icons" style="display: none;">Compound icons created by Freepik - Flaticon</a>
@@ -256,7 +256,7 @@
                     <div class="widget-body">
                         <p>
                         For technical questions:<br>
-                        <a href="mailto:guillaume.ollitrault@etu.u-paris.fr">guillaume.ollitrault@etu.u-paris.fr</a><br>
+                        <a href="mailto:guillaume.ollitrault@inserm.fr">guillaume.ollitrault@inserm.fr</a><br>
                         For research questions:<br>
                         <a href="mailto:olivier.taboureau@u-paris.fr">olivier.taboureau@u-paris.fr</a><br>
                         Université Paris Cité<br>
