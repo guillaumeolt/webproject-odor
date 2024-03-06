@@ -621,12 +621,12 @@ def OdorWebSite_docking_chem_or(request):
             if not is_valid:
                 return render(request, "OdorWebSite_Docking.html", context={"olfactory_receptors": olfactory_receptors,
                                                                             "chemicals_odors": chemicals_odors,
-                                                                            'error_message': "Error inputs"})
+                                                                            'error_message': "Error inputs: Error in input chemical"})
             # 2 Check if mixture
             if is_mixture(mol):
                 return render(request, "OdorWebSite_Docking.html", context={"olfactory_receptors": olfactory_receptors,
                                                                             "chemicals_odors": chemicals_odors,
-                                                                            'error_message': "Error inputs"})
+                                                                            'error_message': "Error inputs: molecules is a mixture"})
             # 3 Generate 2D image and 3d pdb
 
             mol.SetProp("_Name", "lig")
@@ -645,7 +645,7 @@ def OdorWebSite_docking_chem_or(request):
                 path_prot = None
                 return render(request, "OdorWebSite_Docking.html", context={"olfactory_receptors": olfactory_receptors,
                                                                             "chemicals_odors": chemicals_odors,
-                                                                            'error_message': "Error inputs"})
+                                                                            'error_message': "Error inputs chemical: start typing your query chemical and then select the molecule from the list that appears."})
 
         # Search Input protein structure
         #print(request.POST.get("search_or", "None"))
@@ -663,7 +663,7 @@ def OdorWebSite_docking_chem_or(request):
                 path_prot = None
                 return render(request, "OdorWebSite_Docking.html", context={"olfactory_receptors": olfactory_receptors,
                                                                             "chemicals_odors": chemicals_odors,
-                                                                            'error_message': "Error inputs"})
+                                                                            'error_message': "Error inputs OR: start typing your query OR and then select the OR from the list that appears."})
         else:
             try:
                 docking_input_OR = request.POST.get("search_or", "None")
@@ -674,7 +674,7 @@ def OdorWebSite_docking_chem_or(request):
                 path_prot = None
                 return render(request, "OdorWebSite_Docking.html", context={"olfactory_receptors": olfactory_receptors,
                                                                             "chemicals_odors": chemicals_odors,
-                                                                            'error_message': "Error inputs"})
+                                                                            'error_message': "Error inputs OR: start typing your query OR and then select the OR from the list that appears."})
 
 
         url = get_url_dockign_seamdock(str(BASE_DIR) + "/media/docking/lig.pdb", \

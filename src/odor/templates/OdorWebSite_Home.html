@@ -88,7 +88,7 @@
 
         <div class="Search_filter" style="background-image: url('static/media/img/home_main.png');">
         <h1> Pred-O3 </h1>
-        <h4> Explore Odorant, Olfactory receptors, Odors </h4>
+        <h4> Explore Odorants, Olfactory receptors, Odors </h4>
         <div class="container_search">
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -147,7 +147,7 @@
         <div class="container_home_infos">
             <div class="home_infos">
                 <div class="home_infos_img"><img src="{% static 'media/img/chemical.png' %}" alt="image logo molecule"></div>
-                <p>5802 odorant molecules</p>
+                <p>5802 odorants molecules</p>
             </div>
             <div class="home_infos">
                 <div class="home_infos_img"><img src="{% static 'media/img/protein.png' %}" alt="image logo olfactory receptors"></div>
@@ -167,11 +167,11 @@
         <div class="container text-center">
             <div class="overview_text">
                 <p class="center-intro">
-                    Pred-O3 is a web server that compiles information about odorant molecules, their odors and their olfactory receptors (OR). The server integrates several tools to analyze the interactions between odorant, olfactory receptors and their physico-chemical links.
+                    Pred-O3 is a web server that compiles information about odorant molecules, their odors and their olfactory receptors (OR). The server integrates several tools to analyze the interactions between odorants, olfactory receptors and their physico-chemical properties.
 
-                    We freely give access to a compile database of 5802 chemicals with known odors. The database contains 385 olfactory receptors (from human, mouse and rat species) for which at least one chemical-or interaction is known. There are 36016 known odorant-odors links and 2732 known odorant-or interactions.
+                    We freely give access to a compiled database of 5802 chemicals with known odors. The database contains 385 olfactory receptors (from human, mouse and rat species) for which at least one chemical-or interaction is known. There are 36016 known odorant-odor links and 2732 known odorant-OR interactions.
                     
-                    The website proposes to search for olfactory receptors and/or odor annotated for a chemical (using its name or chemical structure). Also, through several tools, it gives the opportunity to predict olfactory receptors and odors associated for any small molecules using graphical neural network (GNN). Finally, the webserver predicts the ligand-olfactory receptor binding mode for a set of 1572 OR model.
+                    The website proposes to search for olfactory receptors and/or odor annotated for a chemical (using its name or chemical structure). Also, through several tools, Pred-O3 gives the opportunity to predict olfactory receptors and odors associated to any small molecules using a graphical neural network methodology (GNN). Finally, the webserver predicts the ligand-olfactory receptor binding mode for a set of 1572 ORs.
                     <!--Odor web site allow the user to have easily acces to informations on :
                     - 5980 molecules with 5907 odorant molécules
                     - 296 Olfactory receptors
@@ -198,9 +198,9 @@
         <div class="container_tools">
             <div class="container_tool sim">
                 <h2>Structural similarity</h2>
-                <p>Similar compounds from the database can be searched by 2 methods :
-                    The  similarity search based on a tanimoto score 
-                    The substructure search where a substructure pattern of an odorant molecule can be searched.</p>
+                <p>Similar compounds to the proposed database can be searched using by 2 methods :
+                    1- Similarity search using MACC fingerprints and a Tanimoto metric
+                    2- Substructure search using structural pattern of an odorant molecule can be searched.</p>
                 <div class="container_btn">
                     <button type="button" class="btn_sim">
                         <a href="{% url 'OdorWebSite_Search' %}">Launch structure search</a><i class="arrow right"></i>
@@ -209,7 +209,7 @@
             </div>
             <div class="container_tool pred">
                 <h2>Prediction</h2>
-                <p>Predict the potential odors of a molecule or its potential interacting olfactory receptors. Use two prediction models based on a graphical Graphical Neural Network (GNN) developed by <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Achebouche et al</a>.</p>
+                <p>Predict the putative odors of a molecule or its potential interacting olfactory receptors, using two developed models based on a Graphical Neural Network (GNN) developed by <a href="https://doi.org/DOI: 10.1038/s41598-022-23176-y">Achebouche et al</a>.</p>
                 <div class="container_btn">
                     <button type="button" class="btn_sim">
                         <a href="{% url 'OdorWebSite_Predict' %}">Launch prediction</a><i class="arrow right"></i>
@@ -252,7 +252,7 @@
         <div class="container-footer">
             <div class="row">
                 <div class="footer-content Contact">
-                    <h3 class="footer-title">Contact</h3>
+                    <h3 class="footer-title">Contacts</h3>
                     <div class="widget-body">
                         <p>
                         For technical questions:<br>
