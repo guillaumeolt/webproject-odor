@@ -107,6 +107,8 @@ def OdorWebSite_About(request):
     db_dict = my_custom_sql()
     return render(request, "OdorWebSite_About.html", context={'db': db_dict})
 
+def OdorWebSite_Data(request):
+    return render(request, "OdorWebSite_Data.html", context=None)
 
 def OdorWebSite_Search(request):
     # LOAD Database Infos : Chemicals info, Smells infos, Olfactory Receptors Infos

@@ -57,6 +57,7 @@
                     <li><a href="{% url 'OdorWebSite_Predict' %}">Predict</a></li>
                     <li><a href="{% url 'docking_chem_or' %}">Docking</a></li>-->
                     <li><a href="{% url 'OdorWebSite_Contact' %}">Contact</a></li>
+                    <li><a href="{% url 'OdorWebSite_Data' %}">Data</a></li>
                 </ul>
             </div>
         </div>
@@ -96,11 +97,12 @@
                     <p>Structure (sdf):</p>
                     <label for="file-input"><img src="{% static 'media/logos/logo_download.png' %}"/></label>
                     <input id="file-input" class="file-load" type="file" name="document"></input>
-                    <p>Pubchem name :</p>
+                    <p>or PubChem name :</p>
                     <input type="text" id="pubchem_name" name="pubchem_name" placeholder="PubChem name"></input>
-                    <p>1D structure: </p>
+                    <p>or 1D structure: </p>
 				    <input type="text" id="smile" name="smilefield" placeholder="Smile, InChi, InChiKey"></input>
-                    <p>Search molecule in database (start tipping and select molecule from suggestions):</p>
+                    <p>or search molecule in the database</p>
+                    <p>(start tipping and select molecule from suggestions):</p>
                     <div class="tab-pane active" id="chem-tab-pane" role="tabpanel" aria-labelledby="chem-tab">
                         <input type="text" id="search_chemical" name="search_chemical" placeholder="Search Chemicals by name, cas, smile, PubChem CID"></input>
                     </div>
