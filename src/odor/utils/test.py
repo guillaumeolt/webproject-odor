@@ -10,8 +10,8 @@ from .similarity import *
 import pubchempy as pcp
 from django.template.defaulttags import register
 import subprocess
-
 import numpy as np
+import pandas as pd
 #from .prediction import *
 # Check Files Type POST
 
@@ -226,6 +226,24 @@ def check_valid_input(request):
         #print("nop")
         pass
     return(False, "Error input files", None)
+
+def check_batch_valid_input(request):
+    try:
+        upload_file = request.FILES["document"]
+        #print(request.FILES["document"],"----")
+        fs = FileSystemStorage()
+        fs.save("batch_smiles.txt", upload_file)
+        with open("media/" + "batch_smiles.txt", 'r') as file:
+            smiles_list = [line.strip() for line in file.readlines()]
+        fs.delete("batch_smiles.txt")
+        for smiles in smiles_list:
+            mol = Chem.MolFromSmiles(smiles)
+        return (True, smiles_list, None)
+    except:
+        #print("nop")
+        pass
+    return(False, "Error input files", None)
+
 # 1 Check Input:
 def get_pubchem_compound(mol):
     try:
@@ -466,6 +484,50 @@ def utils_get_prediction_odor(BASE_DIR, query_smile = "CC=O", predict = "odor"):
     #print(out)
     out = dict(sorted(out.items(), key=lambda x: x[1], reverse=True))
     return(out)
+
+def utils_get_prediction_odor_multiple(BASE_DIR, query_smile = "CC=O", predict = "odor"):
+    """
+    Run subprocess usinng specific environnement to laucnch prediction_subprocess and predict a given smile odor
+    """
+    # Path to a Python interpreter that runs any Python script
+    # under the virtualenv /path/to/virtualenv/
+    #python_bin = "/home/guillaumeolt/miniconda3/envs/cpmli-predict-odor/bin/python"
+    python_bin = "conda run -n $web_pred" #str(BASE_DIR) + "/../.env-prediction/bin/python3.7"
+    # Path to the script that must run under the virtualenv
+    script_file = str(BASE_DIR) + "/odor/utils/prediction_subprocess.py"
+    print(",".join(query_smile))
+    if predict == "odor":
+        #print(query_smile, python_bin, python_bin)
+        p = subprocess.Popen(["conda", "run","-n","web_pred", "python3.7",
+                              script_file,
+                              "-smile", ",".join(query_smile),
+                              "-label", str(BASE_DIR) + "/odor/utils/infos_models/label_odors_names.txt",
+                              "-PATH_GCC", str(BASE_DIR) + "/odor/utils/Trained_models/GNN_CODB_ckpt",
+                              "-predict", "odor_multiple"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if predict == "or":
+        p = subprocess.Popen(["conda", "run","-n","web_pred", "python3.7",
+                              script_file,
+                              "-smile", ",".join(query_smile),
+                              "-label", str(BASE_DIR) + "/odor/utils/infos_models/label_or_names.txt",
+                              "-PATH_GCC", str(BASE_DIR) + "/odor/utils/Trained_models/GNN_RCDB_HO_ckpt",
+                              "-predict", "or_multiple"], stdout=subprocess.PIPE , stderr=subprocess.PIPE)
+    out, err = p.communicate()
+    #print([out.decode("utf-8") ],"----------------")
+    #print(err)
+    #out = out.split("\n")
+    """
+    out = str(out)
+    out = out.replace("b\'","")
+    out = out.replace("\\n\'", "")
+    out = out.rstrip().split(",")
+    """
+    out = out.decode("utf-8")
+    #out = out.replace('\\n', '')
+    out = json.loads(out)
+    df = pd.DataFrame(out)
+    return(df)
+
+
 
 def convert_values(value):
     if isinstance(value, np.int64):

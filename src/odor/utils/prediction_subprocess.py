@@ -55,6 +55,83 @@ def predict_odor(smile, label_odors_names, PATH_GCC_CODB):
     #test_odors_all, t = getOdorExtSet(predicted_Ext_Testset, tasks, pourcentage=True)
     #print(predicted_Ext_Testset, t)
     return(dict_pred)
+
+def predict_odor_multiple(smile, label_odors_names, PATH_GCC_CODB):
+    """
+    For multiple given smile predict its odors using the GNN_CODB model
+    """
+    tasks = label_odors_names
+    # SMILE
+    use_chirality = True  # False pour ne pas prendre en compte
+    random_state = 2020  # None pour aléatoire
+    #print([smile],"infunction")
+    smiles = smile.split(",")
+    x = Smiles2GraphObj(smiles, use_chirality)
+    naf = len(x[0].atom_features[0])
+
+    # Restore model
+    if tf.executing_eagerly():
+        tf.compat.v1.disable_eager_execution()
+    model = GNNPerso(len(tasks), batch_size=32, graph_conv_layers=[64, 64], mode='classification', dropout=0.40,
+                     tensorboard=True,
+                     model_dir=PATH_GCC_CODB,
+                     number_atom_features=naf)
+    model.restore()
+    predicted_Ext_Testset = PredictFromSmiles(smiles, model, tasks, use_chirality=True)
+    # Convert predictions to a DataFrame
+    result = [[sublist[1] for sublist in inner_list] for inner_list in predicted_Ext_Testset]
+    # Create DataFrame with 'smiles' as the first column
+    smiles_df = pd.DataFrame({'smiles': smiles})
+
+    # Create DataFrame with prediction results
+    prediction_df = pd.DataFrame(result, columns=tasks)
+
+    # Concatenate DataFrames with 'smiles' as the first column
+    prediction_df = pd.concat([smiles_df, prediction_df], axis=1)
+    #dict_pred = get_json_predict_multiple(predicted_Ext_Testset, tasks, smiles)
+    #test_odors_all, t = getOdorExtSet(predicted_Ext_Testset, tasks, pourcentage=True)
+    #print(predicted_Ext_Testset, t)
+    return(prediction_df)
+
+def predict_or_multiple(smile, label_or_names, PATH_GCC_RCDB):
+    """
+    For multiple given smile predict its odors using the GNN_CODB model
+    """
+    tasks = label_or_names
+    # SMILE
+    use_chirality = True  # False pour ne pas prendre en compte
+    random_state = 2020  # None pour aléatoire
+    #print([smile],"infunction")
+    smiles = smile.split(",")
+    x = Smiles2GraphObj(smiles, use_chirality)
+    naf = len(x[0].atom_features[0])
+
+    # Restore model
+    if tf.executing_eagerly():
+        tf.compat.v1.disable_eager_execution()
+    model = GNNPerso(len(tasks), batch_size=32, graph_conv_layers=[64, 64], mode='classification', dropout=0.40,
+                     tensorboard=True,
+                     model_dir=PATH_GCC_RCDB,
+                     number_atom_features=naf)
+    model.restore()
+    predicted_Ext_Testset = PredictFromSmiles(smiles, model, tasks, use_chirality=True)
+    # Convert predictions to a DataFrame
+    result = [[sublist[1] for sublist in inner_list] for inner_list in predicted_Ext_Testset]
+    # Convert predictions to a DataFrame
+    result = [[sublist[1] for sublist in inner_list] for inner_list in predicted_Ext_Testset]
+    # Create DataFrame with 'smiles' as the first column
+    smiles_df = pd.DataFrame({'smiles': smiles})
+
+    # Create DataFrame with prediction results
+    prediction_df = pd.DataFrame(result, columns=tasks)
+
+    # Concatenate DataFrames with 'smiles' as the first column
+    prediction_df = pd.concat([smiles_df, prediction_df], axis=1)
+    #dict_pred = get_json_predict_multiple(predicted_Ext_Testset, tasks, smiles)
+    #test_odors_all, t = getOdorExtSet(predicted_Ext_Testset, tasks, pourcentage=True)
+    #print(predicted_Ext_Testset, t)
+    return(prediction_df)
+
 def predict_OR(smile, label_or_names, PATH_GCC_RCDB):
     """
     For a given smile predict its OR using the GNN_CODB model
@@ -126,5 +203,27 @@ if __name__ == "__main__":
             #print(f','.join(predicted_or[0]))#, ','.join(list(itertools.chain.from_iterable(predicted_odors))))
             #print(json.dumps(str(predicted_or)))
             print(predicted_or)
+            #print(str(predicted_or))
+            quit()
+
+    # multiple prediction
+    if args.predict == "odor_multiple":
+        if args.smile != None:
+            label_or_names = get_label_names(args.label)
+            predicted_odors = predict_odor_multiple(args.smile, label_or_names, args.PATH_GCC)
+            #print(predicted_odors,','.join(predicted_odors))
+            #print(f','.join(predicted_or[0]))#, ','.join(list(itertools.chain.from_iterable(predicted_odors))))
+            #print(json.dumps(str(predicted_or)))
+            print(predicted_odors.to_json())
+            #print(str(predicted_or))
+            quit()
+    if args.predict == "or_multiple":
+        if args.smile != None:
+            label_or_names = get_label_names(args.label)
+            predicted_odors = predict_or_multiple(args.smile, label_or_names, args.PATH_GCC)
+            #print(predicted_odors,','.join(predicted_odors))
+            #print(f','.join(predicted_or[0]))#, ','.join(list(itertools.chain.from_iterable(predicted_odors))))
+            #print(json.dumps(str(predicted_or)))
+            print(predicted_odors.to_json())
             #print(str(predicted_or))
             quit()

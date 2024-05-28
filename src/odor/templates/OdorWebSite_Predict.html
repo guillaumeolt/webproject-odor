@@ -146,6 +146,23 @@
 				<div id="form_launch">
 					<button type="submit" id="btn_search" name="btn_predict" onclick="get_smile_file()">Launch prediction</button>
 				</div>
+
+			<div class="button-container">
+				<div class="plus-button" onclick="toggleBatchPrediction()">+</div>
+				<p class="batch-text">Batch prediction</p>
+			</div>
+			<div id="batch-prediction-content" style="display: none;">
+				<p>List of smiles (.txt file)(max = 1000):</p>
+				<div class="form_load_img batch">
+				  <label for="file-input">
+					<img src="{% static 'media/logos/logo_download.png' %}"/>
+				  </label>
+				  <input id="file-input_batch" class="file-load" type="file" name="document"></input>
+				</div>
+				<div id="form_launch_batch">
+					<button type="submit" id="btn_batch_prediction" name="btn_predict_batch" onclick="get_smile_file()">Launch BATCH prediction</button>
+				</div>
+			</div>
 		</form>
 	</div>
 		{% endif %}
@@ -197,6 +214,36 @@
 
 		{% if error_message != None %}
 		<div class="error_input"><p>{{ error_message }}</p></div>
+		{% elif  is_batch_prediction == 'yes' %}
+		<div style="display: none;">
+		{{batch_prediction|safe}}
+		</div>
+        <div class="download-section">
+            <p>Your batch prediction results are ready for download:</p>
+            <div class="part_infos_img">
+				<img id="part_infos_down" src="{% static 'media/img/Download.svg' %}" alt="Download Results">
+            </div>
+        </div>
+		<script>
+		$(function() {
+			$("#part_infos_down").click(function(e) {
+				var table = $("#myTablePrediction");
+				if (table && table.length) {
+					$(table).table2excel({
+						exclude: ".noExl",
+						name: "batch_prediction_result",
+						filename: "prediction_result_probabilities.xls",
+						fileext: ".xls",
+						exclude_img: true,
+						exclude_links: true,
+						exclude_inputs: true,
+						preserveColors: false
+					});
+				}
+			});
+		});
+		</script>
+
 		{% elif  prediction != None %}
 
 	    <div class="container_part">

@@ -344,6 +344,33 @@ def OdorWebSite_Predict(request):
     db_dict = get_path_svg_db(db_dict)
     db_dict_all = db_dict
     if request.method == 'POST':
+
+        ## Batch prediction ##
+        if 'btn_predict_batch' in request.POST:
+            ## Unique molecule ##
+            is_valid, list_mols, pubchem_compound = check_batch_valid_input(request)
+            if not is_valid or len(list_mols) > 1000:
+                return render(request, "OdorWebSite_Predict.html", context={'db': None,
+                                                                           'dict_or_id': None,
+                                                                           'error_message': "Error batch prediction input file"})
+            predict_model_field = request.POST.get("predict_model_field")
+            if predict_model_field == "Odor" or predict_model_field != "Olfactory Receptor (Human)":
+                df_pred = utils_get_prediction_odor_multiple(BASE_DIR, query_smile=list_mols, predict="odor")
+                return render(request, "OdorWebSite_Predict.html", context={'db': None,
+                                                                           'dict_or_id': None,
+                                                                           'error_message': None,
+                                                                           'is_batch_prediction': "yes",
+                                                                           'batch_prediction': df_pred.to_html(index=True,escape=False, table_id="myTablePrediction")})
+            if predict_model_field == "Olfactory Receptor (Human)":
+                df_pred = utils_get_prediction_odor_multiple(BASE_DIR, query_smile=list_mols, predict="or")
+                return render(request, "OdorWebSite_Predict.html", context={'db': None,
+                                                                           'dict_or_id': None,
+                                                                           'error_message': None,
+                                                                           'is_batch_prediction': "yes",
+                                                                           'batch_prediction': df_pred.to_html(index=True,escape=False, table_id="myTablePrediction")})
+
+
+        ## Unique molecule ##
         is_valid, mol, pubchem_compound = check_valid_input(request)
         if not is_valid:
             return render(request, "OdorWebSite_Predict.html", context={'db': None,
