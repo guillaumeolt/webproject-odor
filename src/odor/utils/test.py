@@ -227,22 +227,33 @@ def check_valid_input(request):
         pass
     return(False, "Error input files", None)
 
+
 def check_batch_valid_input(request):
     try:
         upload_file = request.FILES["document"]
-        #print(request.FILES["document"],"----")
-        fs = FileSystemStorage()
-        fs.save("batch_smiles.txt", upload_file)
-        with open("media/" + "batch_smiles.txt", 'r') as file:
-            smiles_list = [line.strip() for line in file.readlines()]
-        fs.delete("batch_smiles.txt")
+
+        # Read the uploaded file directly from the request
+        file_content = upload_file.read()
+
+        # Attempt to decode the file content with multiple encodings
+        try:
+
+            decoded_content = file_content.decode('utf-8')
+        except UnicodeDecodeError:
+            try:
+                decoded_content = file_content.decode('utf-16')
+            except UnicodeDecodeError:
+                decoded_content = file_content.decode('iso-8859-1')
+
+        # Create a list of SMILES strings from the file content
+        smiles_list = [line.strip() for line in decoded_content.splitlines()]
         for smiles in smiles_list:
             mol = Chem.MolFromSmiles(smiles)
         return (True, smiles_list, None)
-    except:
-        #print("nop")
-        pass
-    return(False, "Error input files", None)
+    except Exception as e:
+        print(f"Error: {e}")
+
+    return (False, "Error input files", None)
 
 # 1 Check Input:
 def get_pubchem_compound(mol):
@@ -495,7 +506,6 @@ def utils_get_prediction_odor_multiple(BASE_DIR, query_smile = "CC=O", predict =
     python_bin = "conda run -n $web_pred" #str(BASE_DIR) + "/../.env-prediction/bin/python3.7"
     # Path to the script that must run under the virtualenv
     script_file = str(BASE_DIR) + "/odor/utils/prediction_subprocess.py"
-    print(",".join(query_smile))
     if predict == "odor":
         #print(query_smile, python_bin, python_bin)
         p = subprocess.Popen(["conda", "run","-n","web_pred", "python3.7",
